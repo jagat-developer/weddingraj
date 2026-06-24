@@ -11,6 +11,6 @@ const pages: ShellPage[] = [
   { content: <RsvpPage />, path: "/rsvp", label: "RSVP & Guest Info" },
 ];
 
-export default function Home() {
-  return <NewspaperShell pages={pages} initialIndex={0} />;
+export default function Day2Route() {
+  return <NewspaperShell pages={pages} initialIndex={2} />;
 }

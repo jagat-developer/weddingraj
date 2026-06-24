@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2a1438"/>
+      <stop offset="100%" stop-color="#0e0a26"/>
+    </linearGradient>
+    <radialGradient id="stage" cx="0.5" cy="0.7" r="0.6">
+      <stop offset="0%" stop-color="#c8472f"/>
+      <stop offset="100%" stop-color="#3a0e08"/>
+    </radialGradient>
+    <radialGradient id="chand" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#ffe9a8"/>
+      <stop offset="100%" stop-color="#ffb04a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bg)"/>
+  <!-- floor reflection -->
+  <ellipse cx="400" cy="450" rx="360" ry="60" fill="#a32d63" opacity="0.3"/>
+  <!-- stage -->
+  <path d="M260 380 Q 400 200 540 380 Z" fill="url(#stage)" opacity="0.95"/>
+  <!-- chandeliers -->
+  <circle cx="220" cy="120" r="60" fill="url(#chand)" opacity="0.9"/>
+  <circle cx="400" cy="80" r="80" fill="url(#chand)" opacity="0.95"/>
+  <circle cx="580" cy="120" r="60" fill="url(#chand)" opacity="0.9"/>
+  <line x1="220" y1="0" x2="220" y2="120" stroke="#ffd87a" stroke-width="1" opacity="0.5"/>
+  <line x1="400" y1="0" x2="400" y2="80" stroke="#ffd87a" stroke-width="1" opacity="0.6"/>
+  <line x1="580" y1="0" x2="580" y2="120" stroke="#ffd87a" stroke-width="1" opacity="0.5"/>
+  <!-- twinkle lights -->
+  <g fill="#ffd87a">
+    <circle cx="100" cy="60" r="2"/><circle cx="160" cy="100" r="2"/>
+    <circle cx="220" cy="180" r="2"/><circle cx="300" cy="60" r="2"/>
+    <circle cx="360" cy="150" r="2"/><circle cx="500" cy="160" r="2"/>
+    <circle cx="640" cy="60" r="2"/><circle cx="700" cy="180" r="2"/>
+    <circle cx="60" cy="180" r="2"/><circle cx="740" cy="120" r="2"/>
+  </g>
+  <!-- columns of light -->
+  <g opacity="0.45">
+    <path d="M380 380 L 360 60 L 400 60 Z" fill="#ffd87a"/>
+    <path d="M420 380 L 440 60 L 400 60 Z" fill="#ffd87a"/>
+  </g>
+  <text x="400" y="470" font-family="Georgia, serif" font-style="italic" font-size="18" fill="#ffd87a" text-anchor="middle" opacity="0.75">sangeet — pavilion</text>
+</svg>

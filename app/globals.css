@@ -1,26 +1,240 @@
 @import "tailwindcss";
 
+@theme {
+  --color-desk: #e7dec8;
+  --color-paper: #fbf6ec;
+  --color-paper-deep: #f3eadb;
+  --color-paper-warm: #efe2c8;
+  --color-ink: #102844;
+  --color-ink-soft: #28466b;
+  --color-body: #1f1d18;
+  --color-copper: #b46637;
+  --color-burgundy: #7a1c1c;
+  --color-rule: rgb(16 40 68 / 0.14);
+  --color-rule-strong: rgb(16 40 68 / 0.26);
+
+  /* Display (masthead + large headlines): Playfair Display, real serif italic.
+     Body + labels: Manrope variable sans. */
+  --font-display: var(--font-playfair), "Iowan Old Style", Georgia, serif;
+  --font-serif: var(--font-manrope), system-ui, sans-serif;
+  --font-sans: var(--font-manrope), system-ui, sans-serif;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ease-out-emil: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out-emil: cubic-bezier(0.77, 0, 0.175, 1);
+  --dur-fast: 160ms;
+  --dur-base: 220ms;
+  --dur-slow: 320ms;
+  --dur-turn: 780ms;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  /* Lock to light mode — prevent any browser/system dark backgrounds
+     showing through past the body. */
+  color-scheme: light;
+  background-color: var(--color-desk);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-serif);
+  color: var(--color-body);
+  background-color: var(--color-desk);
+  position: relative;
+  font-feature-settings: "kern", "liga", "ss01";
+  /* Manrope has no italic on Google Fonts — let browsers synthesize an
+     oblique slant so existing italic accents still emphasize. */
+  font-synthesis: style oblique;
+}
+
+/* Subtle desk grain so the paper feels placed, not floating */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='4'/><feColorMatrix values='0 0 0 0 0.15  0 0 0 0 0.10  0 0 0 0 0.05  0 0 0 0.7 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 240px 240px;
+  mix-blend-mode: multiply;
+}
+
+/* impeccable: balance on headings, pretty on prose */
+h1, h2, h3 {
+  text-wrap: balance;
+}
+p {
+  text-wrap: pretty;
+}
+
+/* Drop cap for the lead paragraph of the story column */
+.has-dropcap::first-letter {
+  float: left;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 4.5rem;
+  line-height: 0.82;
+  padding: 0.2rem 0.55rem 0 0;
+  color: var(--color-burgundy);
+}
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+
+.rule {
+  height: 1px;
+  background-color: var(--color-rule);
+  width: 100%;
+}
+.rule-strong {
+  height: 1px;
+  background-color: var(--color-rule-strong);
+  width: 100%;
+}
+
+/* Broadsheet — the printed paper sitting on the desk
+   With soft floral / cloud wash in the top-left and bottom-left corners
+   matching the reference templates. */
+.broadsheet {
+  width: 100%;
+  max-width: 1180px;
+  margin-inline: auto;
+  margin-block: clamp(1rem, 3vw, 2.5rem);
+  padding: clamp(1.25rem, 4vw, 3rem);
+  padding-bottom: clamp(2rem, 6vw, 4rem);
+  position: relative;
+  z-index: 1;
+  background-color: var(--color-paper);
+  background-image:
+    radial-gradient(60% 40% at 0% 0%, rgba(180, 102, 55, 0.07), transparent 70%),
+    radial-gradient(60% 40% at 0% 100%, rgba(180, 102, 55, 0.06), transparent 70%);
+  box-shadow:
+    0 1px 0 rgba(0,0,0,0.04),
+    0 10px 30px -16px rgba(46, 28, 8, 0.22),
+    0 28px 60px -28px rgba(46, 28, 8, 0.28);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+/* Decorative drape SVG in corners — matches the reference's cloud-like texture */
+.broadsheet::before,
+.broadsheet::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  width: 320px;
+  height: 320px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><defs><radialGradient id='g' cx='25%25' cy='25%25' r='60%25'><stop offset='0%25' stop-color='%23ffffff' stop-opacity='0.85'/><stop offset='100%25' stop-color='%23ffffff' stop-opacity='0'/></radialGradient></defs><path fill='url(%23g)' d='M 0 0 Q 70 20 100 70 Q 110 130 70 160 Q 35 185 0 200 Z'/><path fill='%23ffffff' fill-opacity='0.22' d='M 0 20 Q 55 45 75 95 Q 85 140 45 170 Q 20 185 0 195 Z'/><path fill='%23ffffff' fill-opacity='0.12' d='M 0 60 Q 35 75 50 110 Q 60 145 25 170 Q 10 180 0 185 Z'/></svg>");
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0.55;
+  mix-blend-mode: screen;
+}
+.broadsheet::before { top: 0; left: 0; }
+.broadsheet::after { bottom: 0; left: 0; transform: scaleY(-1); }
+
+/* All children of broadsheet sit above the decorative wash */
+.broadsheet > * { position: relative; z-index: 1; }
+
+/* impeccable: cap body line length 65-75ch */
+.col-prose {
+  max-width: 32ch;
+}
+.prose-block {
+  max-width: 70ch;
+}
+
+/* Halftone — subtle newspaper photo treatment. Light sepia + faint dot
+   pattern. Parent must be relative + overflow-hidden. */
+.halftone {
+  position: relative;
+}
+.halftone > img,
+.halftone > picture > img {
+  filter: sepia(0.12) saturate(1.02) contrast(0.97) brightness(0.98);
+}
+.halftone::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(15, 12, 8, 0.5) 0.5px, transparent 0.7px);
+  background-size: 3.5px 3.5px;
+  opacity: 0.08;
+  mix-blend-mode: multiply;
+}
+
+/* Front-page grid — story spans 2 rows; families fills the gap
+   below photo + destination. Stacks on mobile. */
+.fp-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "photo"
+    "story"
+    "dest"
+    "families";
+  gap: 1.5rem;
+}
+@media (min-width: 768px) {
+  .fp-grid {
+    grid-template-columns: 1.05fr 1.4fr 1fr;
+    grid-template-areas:
+      "story photo dest"
+      "story families families";
+    gap: 2rem;
+    align-items: start;
+  }
+}
+.fp-story { grid-area: story; }
+.fp-photo { grid-area: photo; }
+.fp-dest { grid-area: dest; }
+.fp-families { grid-area: families; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+a { color: inherit; text-decoration: none; }
+a[href], button { cursor: pointer; }
+a[href]:focus-visible, button:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* Page-turn shell scaffolding */
+.page-stage {
+  position: relative;
+  width: 100%;
+  min-height: 100svh;
+  overflow-x: hidden;
+  perspective: 2400px;
+  /* Match the desk so any momentary gap during a page-turn animation
+     or below the broadsheet shows cream, not browser-default dark. */
+  background-color: var(--color-desk);
+}
+.page-deck {
+  position: relative;
+  width: 100%;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
 }

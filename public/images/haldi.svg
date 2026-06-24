@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fde9b5"/>
+      <stop offset="55%" stop-color="#f4c95d"/>
+      <stop offset="100%" stop-color="#c08a2b"/>
+    </linearGradient>
+    <radialGradient id="pool" cx="0.4" cy="0.8" r="0.7">
+      <stop offset="0%" stop-color="#7fb6d0"/>
+      <stop offset="100%" stop-color="#3a7a98"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bg)"/>
+  <ellipse cx="320" cy="430" rx="320" ry="80" fill="url(#pool)"/>
+  <!-- palms -->
+  <g stroke="#6b4519" stroke-width="6" fill="none" stroke-linecap="round">
+    <path d="M650 500 Q 660 360 700 250"/>
+    <path d="M700 250 q -50 -20 -80 0"/>
+    <path d="M700 250 q -30 -40 -70 -40"/>
+    <path d="M700 250 q 30 -30 70 -10"/>
+    <path d="M700 250 q 60 -10 80 20"/>
+    <path d="M720 500 Q 720 380 760 280"/>
+    <path d="M760 280 q -30 -30 -60 -20"/>
+    <path d="M760 280 q 30 -20 60 -10"/>
+  </g>
+  <!-- drapes -->
+  <g fill="#f4c95d" opacity="0.7">
+    <path d="M100 0 L 130 200 L 70 200 Z"/>
+    <path d="M250 0 L 280 220 L 220 220 Z"/>
+    <path d="M400 0 L 430 240 L 370 240 Z"/>
+  </g>
+  <!-- marigold pile -->
+  <g fill="#e07a1a">
+    <circle cx="200" cy="380" r="50" opacity="0.85"/>
+    <circle cx="240" cy="370" r="36" opacity="0.85"/>
+    <circle cx="170" cy="400" r="30" opacity="0.85"/>
+    <circle cx="220" cy="408" r="34" opacity="0.85"/>
+  </g>
+  <text x="400" y="470" font-family="Georgia, serif" font-style="italic" font-size="18" fill="#3a2a05" text-anchor="middle" opacity="0.7">haldi — aquatica poolside</text>
+</svg>
