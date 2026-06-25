@@ -19,7 +19,14 @@ const playfair = Playfair_Display({
   display: "swap",
 });
 
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : "http://localhost:3000");
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: "The Wedding Times — Shefali & Raj",
   description:
     "Special Wedding Edition. Shefali & Raj are tying the knot in Goa, 1–2 February 2027. Kenilworth Resort & Spa.",
@@ -28,6 +35,13 @@ export const metadata: Metadata = {
     description:
       "Shefali & Raj — 1–2 February 2027 — Kenilworth Resort & Spa, Goa.",
     type: "website",
+    locale: "en_IN",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "The Wedding Times — Shefali & Raj",
+    description:
+      "Shefali & Raj — 1–2 February 2027 — Kenilworth Resort & Spa, Goa.",
   },
 };
 
@@ -35,7 +49,11 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${manrope.variable} ${playfair.variable}`}>
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      className={`${manrope.variable} ${playfair.variable}`}
+    >
       <body className="min-h-screen bg-desk text-body antialiased">
         {children}
       </body>

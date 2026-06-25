@@ -1,30 +1,37 @@
 import Image from "next/image";
 
+type Variant = "portrait" | "hero";
+
 type Props = {
   src: string;
   alt: string;
   caption?: string;
+  variant?: Variant;
 };
 
 /**
- * The frame is a natural 4:5 portrait. Any source image is shown via
- * `object-cover` so the photo is NEVER stretched — it crops gracefully
- * when the source aspect differs from the frame. The frame itself sits
- * at its natural height; the surrounding grid is top-aligned, so columns
- * may differ in height and that's fine.
+ * Two presentations:
+ *  - portrait (default): 4:5 frame, fills its container — fits inside a grid column.
+ *  - hero: 16:10 cinematic frame, centered and capped at ~880px — used as the
+ *    standalone focal point on the front page.
+ *
+ * `object-cover` keeps the source from stretching; it crops when the source
+ * aspect differs from the frame.
  */
-export function CouplePhoto({ src, alt, caption }: Props) {
+export function CouplePhoto({ src, alt, caption, variant = "portrait" }: Props) {
+  const isHero = variant === "hero";
+  const aspectRatio = isHero ? "16 / 10" : "4 / 5";
   return (
-    <figure className="w-full">
+    <figure className={isHero ? "w-full max-w-[880px] mx-auto" : "w-full"}>
       <div
         className="relative w-full border border-ink/20 bg-paper-deep overflow-hidden rounded-lg"
-        style={{ aspectRatio: "4 / 5" }}
+        style={{ aspectRatio }}
       >
         <Image
           src={src}
           alt={alt}
           fill
-          sizes="(max-width: 768px) 90vw, 40vw"
+          sizes={isHero ? "(max-width: 768px) 92vw, 880px" : "(max-width: 768px) 90vw, 40vw"}
           className="object-cover"
           priority
         />

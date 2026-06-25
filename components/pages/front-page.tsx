@@ -1,37 +1,126 @@
-import { Masthead } from "@/components/newspaper/masthead";
-import { HeadlineBlock } from "@/components/newspaper/headline-block";
-import { StoryColumn } from "@/components/newspaper/story-column";
-import { CouplePhoto } from "@/components/newspaper/couple-photo";
-import { DestinationCard } from "@/components/newspaper/destination-card";
-import { FamiliesBlock } from "@/components/newspaper/families-block";
-import { InvitedBanner } from "@/components/newspaper/invited-banner";
+import Image from "next/image";
+import { CalendarDays, Gem, Heart, MapPin } from "lucide-react";
+import { GaneshaMark } from "@/components/newspaper/ornaments/ganesha-mark";
+import { families, masthead, story } from "@/lib/content";
 
 export function FrontPage() {
   return (
-    <article className="broadsheet">
-      <Masthead />
-
-      <HeadlineBlock />
-
-      <section className="mt-8 md:mt-10 fp-grid">
-        <div className="fp-story">
-          <StoryColumn />
+    <article className="clone-sheet clone-front">
+      <header className="clone-front-masthead">
+        <div className="clone-topline">
+          <span>Special Wedding Edition</span>
+          <GaneshaMark className="text-copper" size={58} />
+          <span className="font-display italic text-copper">{masthead.hashtag}</span>
         </div>
-        <div className="fp-photo">
-          <CouplePhoto
-            src="/images/couple.svg"
-            alt="Shefali and Raj on the Goa shoreline"
+        <h1 className="clone-paper-title">The Wedding Times</h1>
+        <div className="clone-tagline">
+          {masthead.tagline.map((item) => (
+            <span key={item}>{item}</span>
+          ))}
+        </div>
+        <div className="clone-info-bar">
+          <span><MapPin size={18} fill="currentColor" /> Goa, India</span>
+          <span><Heart size={18} /> A celebration of love &amp; new beginnings</span>
+          <span><Gem size={18} /> Priceless</span>
+        </div>
+      </header>
+
+      <section className="clone-breaking">
+        <p>Breaking News</p>
+        <h2>Shefali &amp; Raj</h2>
+        <h3>To Tie The Knot In Goa</h3>
+      </section>
+
+      <section className="clone-front-grid">
+        <aside className="clone-story">
+          <p className="clone-section-label">The Story</p>
+          <h3>{story.deck}</h3>
+          {story.paragraphs.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
+          <p className="clone-signature">Shefali &amp; Raj</p>
+        </aside>
+
+        <figure className="clone-front-photo">
+          <Image
+            src="/images/clone-assets/front-couple.jpg"
+            alt="Shefali and Raj walking together on the beach"
+            width={458}
+            height={718}
+            priority
           />
-        </div>
-        <div className="fp-dest">
-          <DestinationCard />
-        </div>
-        <div className="fp-families">
-          <FamiliesBlock />
+        </figure>
+
+        <aside className="clone-destination">
+          <div className="clone-destination-title">
+            <span>Destination</span>
+            <span>Report</span>
+          </div>
+          <Image
+            src="/images/clone-assets/destination-sketch.jpg"
+            alt="Goa beach destination sketch"
+            width={224}
+            height={235}
+          />
+          <div className="clone-destination-rule" />
+          <p className="clone-section-label">Location</p>
+          <h3>Kenilworth Resort &amp; Spa, Goa</h3>
+          <p className="clone-section-label">Celebration Dates</p>
+          <DatePill day="Monday" date="1 February, 2027" />
+          <span className="clone-amp">&amp;</span>
+          <DatePill day="Tuesday" date="2 February, 2027" />
+        </aside>
+      </section>
+
+      <section className="clone-families">
+        <h3><Heart size={15} fill="currentColor" /> Meet The Families Behind The Celebration</h3>
+        <div className="clone-family-grid">
+          <FamilyBox title="Shefali's Family" members={families.shefali.members} />
+          <div className="clone-family-heart"><Heart size={22} fill="currentColor" /></div>
+          <FamilyBox title="Raj's Family" members={families.raj.members} columns />
         </div>
       </section>
 
-      <InvitedBanner />
+      <footer className="clone-invite-banner">
+        <Heart size={18} fill="currentColor" />
+        <div>
+          <strong>You Are Officially Invited</strong>
+          <span>Join us as we celebrate the greatest headline of our lives.</span>
+        </div>
+        <Heart size={18} fill="currentColor" />
+      </footer>
+      <p className="clone-footer-note">RSVP &amp; Details Inside</p>
     </article>
+  );
+}
+
+function DatePill({ day, date }: { day: string; date: string }) {
+  return (
+    <div className="clone-date-pill">
+      <CalendarDays size={18} />
+      <span>{day}</span>
+      <strong>{date}</strong>
+    </div>
+  );
+}
+
+function FamilyBox({
+  title,
+  members,
+  columns = false,
+}: {
+  title: string;
+  members: readonly string[];
+  columns?: boolean;
+}) {
+  return (
+    <div className="clone-family-box">
+      <h4>{title}</h4>
+      <ul className={columns ? "clone-two-col-list" : ""}>
+        {members.map((member) => (
+          <li key={member}>{member}</li>
+        ))}
+      </ul>
+    </div>
   );
 }

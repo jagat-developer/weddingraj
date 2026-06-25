@@ -17,7 +17,6 @@ import {
 } from "lucide-react";
 import { Heart as HeartFill } from "lucide-react";
 import { day2 } from "@/lib/content";
-import { SectionEyebrow } from "./section-eyebrow";
 
 const HIGHLIGHT_ICONS: Record<string, LucideIcon> = {
   calendar: Calendar,
@@ -69,7 +68,7 @@ export function TimelineHighlights() {
               className="grid grid-cols-[24px_1fr] gap-3 items-center"
             >
               <span className="text-burgundy">
-                {Icon && <Icon size={16} strokeWidth={1.6} />}
+                {Icon && <Icon size={16} strokeWidth={1.25} />}
               </span>
               <span className="font-sans text-[0.92rem] text-ink">
                 {h.text}
@@ -106,7 +105,7 @@ export function CoupleFacts() {
         {day2.factsSubtitle}
       </p>
 
-      <ul className="mt-3 border-t border-ink/20 pt-4 grid grid-cols-1 md:grid-cols-2 gap-4 flex-1">
+      <ul className="mt-3 border-t border-ink/20 pt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-4 flex-1">
         {day2.facts.map((f, i) => {
           const Icon = FACT_ICONS[f.icon];
           return (
@@ -115,7 +114,7 @@ export function CoupleFacts() {
               className="grid grid-cols-[20px_1fr] gap-3 items-start"
             >
               <span className="text-burgundy mt-1">
-                {Icon && <Icon size={16} strokeWidth={1.5} />}
+                {Icon && <Icon size={16} strokeWidth={1.25} />}
               </span>
               <span className="font-sans text-[0.84rem] leading-[1.55] text-ink">
                 {f.text}
@@ -132,7 +131,7 @@ export function Day2Headlines() {
   return (
     <section className="flex flex-col h-full">
       <header className="flex items-center gap-2 text-burgundy">
-        <Newspaper size={16} strokeWidth={1.6} />
+        <Newspaper size={16} strokeWidth={1.25} />
         <h3
           className="font-display font-bold text-ink"
           style={{
@@ -152,7 +151,7 @@ export function Day2Headlines() {
           >
             <Newspaper
               size={13}
-              strokeWidth={1.6}
+              strokeWidth={1.25}
               className="text-burgundy mt-1 flex-shrink-0"
             />
             {h}

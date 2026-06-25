@@ -28,13 +28,22 @@ export function NewspaperShell({ pages, initialIndex = 0 }: Props) {
   const reduce = useReducedMotion();
   const [index, setIndex] = useState(initialIndex);
   const [direction, setDirection] = useState(0);
-  const [muted, setMuted] = useState(false);
+  // Default to muted — sound is opt-in (premium editorial restraint).
+  const [muted, setMuted] = useState(true);
 
-  // Read mute preference from localStorage on mount
+  // Read mute preference from localStorage on mount (overrides the default if
+  // the reader has previously enabled sound).
   useEffect(() => {
+    let timeout: number | undefined;
     try {
-      if (localStorage.getItem(MUTE_KEY) === "1") setMuted(true);
+      const stored = localStorage.getItem(MUTE_KEY);
+      if (stored === "0") {
+        timeout = window.setTimeout(() => setMuted(false), 0);
+      }
     } catch {}
+    return () => {
+      if (timeout !== undefined) window.clearTimeout(timeout);
+    };
   }, []);
 
   const toggleMute = useCallback(() => {
@@ -97,19 +106,31 @@ export function NewspaperShell({ pages, initialIndex = 0 }: Props) {
   //   • Horizontal trackpad swipe at any scroll position
   //   • Vertical scroll-past-the-bottom advances to next page
   //   • Vertical scroll-past-the-top goes back to previous page
-  // An accumulator + threshold prevents the first wheel tick at the boundary
-  // from triggering — the reader must keep scrolling in the same direction.
+  //
+  // Key tunings (raised after testing — heavy scrolling was flipping pages
+  // because the same momentum that put the reader at the boundary was being
+  // counted as "intentional overscroll"):
+  //   - BOUNDARY_SETTLE  — the reader must already have been at the edge for
+  //     this long before wheel events start counting. Lets natural scroll
+  //     momentum die down first.
+  //   - OVERSCROLL_THRESHOLD — accumulated deltaY required after the settle.
+  //     Higher = more deliberate.
+  //   - HORIZONTAL_THRESHOLD — trackpad sideways-scroll sensitivity.
   const wheelCoolingRef = useRef(false);
   const overscrollAccumRef = useRef(0);
   const lastWheelTimeRef = useRef(0);
+  const boundarySinceRef = useRef<number | null>(null);
   useEffect(() => {
     const COOLDOWN = 1200;
-    const RESET_GAP = 220; // ms — accumulator resets if user pauses scrolling
-    const OVERSCROLL_THRESHOLD = 140; // accumulated deltaY at the boundary
+    const RESET_GAP = 160;
+    const OVERSCROLL_THRESHOLD = 220;
+    const BOUNDARY_SETTLE = 280; // ms at boundary before overscroll counts
+    const HORIZONTAL_THRESHOLD = 60;
 
     const trigger = (forward: boolean) => {
       wheelCoolingRef.current = true;
       overscrollAccumRef.current = 0;
+      boundarySinceRef.current = null;
       window.setTimeout(() => {
         wheelCoolingRef.current = false;
       }, COOLDOWN);
@@ -120,7 +141,10 @@ export function NewspaperShell({ pages, initialIndex = 0 }: Props) {
       if (wheelCoolingRef.current) return;
 
       // 1) Horizontal swipe — independent of scroll position.
-      if (Math.abs(e.deltaX) > 30 && Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+      if (
+        Math.abs(e.deltaX) > HORIZONTAL_THRESHOLD &&
+        Math.abs(e.deltaX) > Math.abs(e.deltaY) * 1.2
+      ) {
         trigger(e.deltaX > 0);
         return;
       }
@@ -136,17 +160,27 @@ export function NewspaperShell({ pages, initialIndex = 0 }: Props) {
 
       const el = document.scrollingElement || document.documentElement;
       const atBottom =
-        el.scrollTop + window.innerHeight >= el.scrollHeight - 4;
-      const atTop = el.scrollTop <= 4;
+        el.scrollTop + window.innerHeight >= el.scrollHeight - 6;
+      const atTop = el.scrollTop <= 6;
+      const atBoundary =
+        (atBottom && e.deltaY > 0) || (atTop && e.deltaY < 0);
 
-      if (e.deltaY > 0 && atBottom) {
-        overscrollAccumRef.current += e.deltaY;
-        if (overscrollAccumRef.current > OVERSCROLL_THRESHOLD) trigger(true);
-      } else if (e.deltaY < 0 && atTop) {
-        overscrollAccumRef.current += Math.abs(e.deltaY);
-        if (overscrollAccumRef.current > OVERSCROLL_THRESHOLD) trigger(false);
+      // Track when the reader first arrived at this boundary.
+      if (atBoundary) {
+        if (boundarySinceRef.current === null) boundarySinceRef.current = now;
       } else {
+        boundarySinceRef.current = null;
         overscrollAccumRef.current = 0;
+        return;
+      }
+
+      // Ignore scroll momentum during the settle window.
+      const timeAtBoundary = now - boundarySinceRef.current;
+      if (timeAtBoundary < BOUNDARY_SETTLE) return;
+
+      overscrollAccumRef.current += Math.abs(e.deltaY);
+      if (overscrollAccumRef.current > OVERSCROLL_THRESHOLD) {
+        trigger(e.deltaY > 0);
       }
     };
 
@@ -154,32 +188,28 @@ export function NewspaperShell({ pages, initialIndex = 0 }: Props) {
     return () => window.removeEventListener("wheel", onWheel);
   }, []);
 
+  // Premium editorial transition — translate + opacity only, no 3D rotation,
+  // no blur. Feels like a turning page, not a 3D card flip.
   const variants: Variants = reduce
     ? {
         enter: { opacity: 0 },
-        center: { opacity: 1, transition: { duration: 0.22 } },
-        exit: { opacity: 0, transition: { duration: 0.18 } },
+        center: { opacity: 1, transition: { duration: 0.2 } },
+        exit: { opacity: 0, transition: { duration: 0.16 } },
       }
     : {
         enter: (dir: number) => ({
-          x: dir > 0 ? "32%" : "-32%",
-          rotateY: dir > 0 ? -22 : 22,
+          x: dir > 0 ? "8%" : "-8%",
           opacity: 0,
-          filter: "blur(2px)",
         }),
         center: {
           x: 0,
-          rotateY: 0,
           opacity: 1,
-          filter: "blur(0px)",
-          transition: { duration: 0.82, ease: EASE },
+          transition: { duration: 0.52, ease: EASE },
         },
         exit: (dir: number) => ({
-          x: dir > 0 ? "-32%" : "32%",
-          rotateY: dir > 0 ? 22 : -22,
+          x: dir > 0 ? "-8%" : "8%",
           opacity: 0,
-          filter: "blur(2px)",
-          transition: { duration: 0.82, ease: EASE },
+          transition: { duration: 0.42, ease: EASE },
         }),
       };
 
@@ -205,9 +235,6 @@ export function NewspaperShell({ pages, initialIndex = 0 }: Props) {
             } else if (info.offset.x > SWIPE || info.velocity.x > 380) {
               goTo(index - 1);
             }
-          }}
-          style={{
-            transformOrigin: direction >= 0 ? "left center" : "right center",
           }}
           whileTap={{ cursor: "grabbing" }}
         >
@@ -244,7 +271,7 @@ function PageControls({
 }) {
   return (
     <div
-      className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-3 py-2 rounded-full bg-paper/90 backdrop-blur-sm border border-ink/15 shadow-sm"
+      className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-4 px-5 py-3 rounded-full bg-paper/90 backdrop-blur-sm border border-ink/15 shadow-sm sm:bottom-auto sm:left-auto sm:right-3 sm:top-1/2 sm:translate-x-0 sm:-translate-y-1/2 sm:flex-col sm:px-3 sm:py-4"
       role="navigation"
       aria-label="Newspaper pages"
     >
@@ -259,10 +286,10 @@ function PageControls({
           transitionTimingFunction: "var(--ease-out-emil)",
         }}
       >
-        <ChevronLeft size={18} strokeWidth={1.75} />
+        <ChevronLeft size={22} strokeWidth={1.75} />
       </button>
 
-      <div className="flex items-center gap-1.5">
+      <div className="flex items-center gap-2 sm:flex-col">
         {pages.map((p, i) => (
           <button
             key={p.path}
@@ -273,8 +300,8 @@ function PageControls({
             className="group p-1"
           >
             <span
-              className={`block h-1.5 rounded-full transition-all ${
-                i === index ? "w-7 bg-burgundy" : "w-1.5 bg-ink/30 group-hover:bg-ink/55"
+              className={`block h-2 rounded-full transition-all ${
+                i === index ? "w-9 bg-burgundy" : "w-2 bg-ink/30 group-hover:bg-ink/55"
               }`}
               style={{
                 transitionDuration: "var(--dur-base)",
@@ -285,7 +312,7 @@ function PageControls({
         ))}
       </div>
 
-      <span className="hidden sm:inline font-display italic text-ink-soft text-xs">
+      <span className="sr-only" aria-live="polite">
         {pages[index].label}
       </span>
 
@@ -300,10 +327,10 @@ function PageControls({
           transitionTimingFunction: "var(--ease-out-emil)",
         }}
       >
-        <ChevronRight size={18} strokeWidth={1.75} />
+        <ChevronRight size={22} strokeWidth={1.75} />
       </button>
 
-      <span className="hidden sm:block w-px h-4 bg-ink/15" aria-hidden />
+      <span className="hidden sm:block h-px w-5 bg-ink/15" aria-hidden />
 
       <button
         type="button"
@@ -318,9 +345,9 @@ function PageControls({
         title={muted ? "Sound off" : "Sound on"}
       >
         {muted ? (
-          <VolumeX size={16} strokeWidth={1.75} />
+          <VolumeX size={20} strokeWidth={1.75} />
         ) : (
-          <Volume2 size={16} strokeWidth={1.75} />
+          <Volume2 size={20} strokeWidth={1.75} />
         )}
       </button>
     </div>

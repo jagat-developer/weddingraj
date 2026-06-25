@@ -1,88 +1,166 @@
 import Image from "next/image";
-import { PageHeader } from "@/components/newspaper/page-header";
-import { JourneySteps } from "@/components/newspaper/journey-steps";
 import {
-  TimelineHighlights,
-  CoupleFacts,
-  Day2Headlines,
-} from "@/components/newspaper/day-2-modules";
-import { LaurelLeft } from "@/components/newspaper/ornaments/laurel-left";
-import { LaurelRight } from "@/components/newspaper/ornaments/laurel-right";
-import { HeartDivider } from "@/components/newspaper/ornaments/heart-divider";
+  CalendarDays,
+  Camera,
+  Car,
+  Clock,
+  Coffee,
+  Globe2,
+  Heart,
+  MapPin,
+  Music2,
+  Newspaper,
+  Shirt,
+  Users,
+  UtensilsCrossed,
+  Waves,
+  type LucideIcon,
+} from "lucide-react";
 import { day2 } from "@/lib/content";
+import { CloneIssueHeader, EditionHero, Ribbon } from "./day-1-page";
 
 export function Day2Page() {
   return (
-    <article className="broadsheet">
-      <PageHeader pageNumber={3} />
+    <article className="clone-sheet clone-day2">
+      <CloneIssueHeader page="3" />
+      <EditionHero day="2" deck={day2.deck} />
+      <Ribbon>{day2.journeyTitle}</Ribbon>
 
-      {/* Edition title */}
-      <section className="mt-6 md:mt-8 text-center">
-        <div className="flex items-center justify-center gap-4 md:gap-8">
-          <LaurelLeft className="text-burgundy" size={60} />
-          <h1
-            className="font-display font-black text-ink leading-[0.95]"
-            style={{
-              fontSize: "clamp(2.3rem, 7.5vw, 5rem)",
-              letterSpacing: "-0.005em",
-            }}
-          >
-            <span className="text-ink">DAY </span>
-            <span className="text-burgundy">2</span>
-            <span className="text-ink"> EDITION</span>
-          </h1>
-          <LaurelRight className="text-burgundy" size={60} />
-        </div>
-        <p
-          className="mt-2 font-display italic text-copper"
-          style={{ fontSize: "clamp(1rem, 2vw, 1.35rem)" }}
-        >
-          {day2.deck}
-        </p>
+      <section className="clone-journey-columns">
+        {day2.journey.map((step, index) => (
+          <JourneyColumn key={step.step} step={step} index={index} />
+        ))}
       </section>
 
-      <JourneySteps />
+      <Image
+        src="/images/clone-assets/day2-couple-wide.jpg"
+        alt="Shefali and Raj at the Goa shoreline"
+        width={980}
+        height={202}
+        className="clone-wide-photo"
+      />
 
-      {/* Hero photo */}
-      <section className="mt-10">
-        <div className="relative w-full overflow-hidden border border-ink/20 rounded-lg" style={{ aspectRatio: "16 / 9" }}>
-          <Image
-            src="/images/couple.svg"
-            alt="Raj and Shefali on the Goan shoreline"
-            fill
-            sizes="(max-width: 768px) 90vw, 1100px"
-            className="object-cover"
-          />
-          <span className="absolute bottom-3 left-4 font-display italic text-paper/85 text-xs md:text-sm">
-            {day2.photoCaption}
-          </span>
-        </div>
-      </section>
-
-      {/* Lower triptych */}
-      <section
-        className="mt-10 grid gap-8 md:gap-10"
-        style={{
-          gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-          alignItems: "stretch",
-        }}
-      >
-        <TimelineHighlights />
+      <section className="clone-day2-modules">
+        <Day2Highlights />
         <CoupleFacts />
         <Day2Headlines />
       </section>
 
-      <footer className="mt-10">
-        <div className="flex justify-center text-burgundy/70">
-          <HeartDivider width={260} />
-        </div>
-        <p className="mt-3 text-center font-display italic text-ink-soft">
-          {day2.footer}
-        </p>
-        <p className="mt-1 text-center font-display font-bold text-ink text-lg">
-          03
-        </p>
-      </footer>
+      <footer className="clone-page-number">♥ &nbsp; 3 &nbsp; ♥</footer>
+    </article>
+  );
+}
+
+const JOURNEY_IMAGES: Record<string, string> = {
+  flame: "/images/clone-assets/icon-grah-shanti.jpg",
+  sparkles: "/images/clone-assets/icon-chooda.jpg",
+  music: "/images/clone-assets/icon-baaraat.jpg",
+  crown: "/images/clone-assets/icon-wedding.jpg",
+  disc: "/images/clone-assets/icon-party.jpg",
+};
+
+function JourneyColumn({
+  step,
+  index,
+}: {
+  step: (typeof day2.journey)[number];
+  index: number;
+}) {
+  return (
+    <article className="clone-journey-card">
+      <span className="clone-step-number">{step.step}</span>
+      {index < day2.journey.length - 1 && <span className="clone-step-arrow">········›</span>}
+      <Image
+        src={JOURNEY_IMAGES[step.icon]}
+        alt=""
+        width={146}
+        height={136}
+        className="clone-journey-icon"
+      />
+      <h2>{step.title}</h2>
+      <p className="clone-time"><Clock size={16} /> {step.time}</p>
+      <InfoTiny icon={MapPin} label="Location:" value={step.location} />
+      <InfoTiny icon={Shirt} label="Dress Code:" value={step.outfit} />
+      <div className="clone-dotted-rule" />
+      <p>{step.description}</p>
+    </article>
+  );
+}
+
+function InfoTiny({
+  icon: Icon,
+  label,
+  value,
+}: {
+  icon: LucideIcon;
+  label: string;
+  value: string;
+}) {
+  return (
+    <div className="clone-info-tiny">
+      <Icon size={16} />
+      <div><strong>{label}</strong><span>{value}</span></div>
+    </div>
+  );
+}
+
+function Day2Highlights() {
+  const icons: Record<string, LucideIcon> = {
+    calendar: CalendarDays,
+    users: Users,
+    heart: Heart,
+    prayer: Heart,
+    camera: Camera,
+  };
+  return (
+    <article className="clone-day2-panel">
+      <h3>{day2.highlightsTitle}</h3>
+      <ul>
+        {day2.highlights.map((item) => {
+          const Icon = icons[item.icon];
+          return <li key={item.text}><Icon size={23} /> <span>{item.text}</span></li>;
+        })}
+      </ul>
+      <em>{day2.highlightsClose}</em>
+    </article>
+  );
+}
+
+function CoupleFacts() {
+  const icons: Record<string, LucideIcon> = {
+    waves: Waves,
+    car: Car,
+    coffee: Coffee,
+    music: Music2,
+    utensils: UtensilsCrossed,
+    pizza: Heart,
+    dance: Users,
+    globe: Globe2,
+  };
+  return (
+    <article className="clone-day2-panel clone-facts-panel">
+      <h3>♥ {day2.factsTitle} ♥</h3>
+      <p>{day2.factsSubtitle}</p>
+      <div>
+        {day2.facts.map((fact) => {
+          const Icon = icons[fact.icon];
+          return <span key={fact.text}><Icon size={20} /> {fact.text}</span>;
+        })}
+      </div>
+    </article>
+  );
+}
+
+function Day2Headlines() {
+  return (
+    <article className="clone-day2-panel">
+      <h3>{day2.headlinesTitle}</h3>
+      <ul>
+        {day2.headlines.map((headline) => (
+          <li key={headline}><Newspaper size={22} /> <span>{headline}</span></li>
+        ))}
+      </ul>
+      <em>{day2.headlinesClose}</em>
     </article>
   );
 }

@@ -5,7 +5,7 @@ import { families } from "@/lib/content";
 
 export function FamiliesBlock() {
   return (
-    <section className="h-full bg-paper-warm border border-ink/15 rounded-lg px-5 py-6 md:px-7 md:py-7 relative overflow-hidden">
+    <section className="card-lift h-full bg-paper-warm border border-ink/15 rounded-lg px-5 py-6 md:px-7 md:py-7 relative overflow-hidden">
       <LaurelLeft
         className="text-burgundy/30 absolute -left-3 -top-3 hidden md:block"
         size={60}
@@ -70,21 +70,12 @@ function FamilyCard({
     <div className="bg-paper/85 border border-ink/12 rounded-md px-4 py-4 md:px-5 md:py-5">
       <p className="text-center md:text-left eyebrow text-burgundy">{label}</p>
       <ul
-        className={`mt-3 font-sans text-[0.92rem] text-ink leading-[1.7] ${
+        className={`mt-3 font-sans text-[0.92rem] text-ink leading-[1.85] ${
           twoCols ? "md:columns-2 md:gap-6" : ""
         }`}
       >
         {members.map((m) => (
-          <li
-            key={m}
-            className="flex items-center gap-2 break-inside-avoid"
-          >
-            <Heart
-              size={9}
-              fill="currentColor"
-              strokeWidth={0}
-              className="text-burgundy flex-shrink-0"
-            />
+          <li key={m} className="break-inside-avoid">
             {m}
           </li>
         ))}

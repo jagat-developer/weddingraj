@@ -8,13 +8,10 @@ export function StoryColumn() {
       <SectionEyebrow tone="ink">{story.kicker}</SectionEyebrow>
 
       <p
-        className="mt-3 font-display text-ink leading-tight"
+        className="mt-3 font-display italic text-copper leading-tight"
         style={{ fontSize: "clamp(1.55rem, 2.5vw, 1.95rem)" }}
       >
-        It all started{" "}
-        <em className="font-display italic text-copper">
-          {story.deck.replace("It all started ", "")}
-        </em>
+        {story.deck}
       </p>
 
       <div className="mt-4 col-prose font-serif text-[0.98rem] leading-[1.65] text-justify hyphens-auto space-y-3 text-body">

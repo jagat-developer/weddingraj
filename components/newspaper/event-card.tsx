@@ -15,7 +15,7 @@ type Props = {
 export function EventCard({ variant, data, image, imageAlt }: Props) {
   const isEvening = variant === "evening";
   const ornament = isEvening ? (
-    <Sparkles size={12} strokeWidth={1.6} />
+    <Sparkles size={12} strokeWidth={1.25} />
   ) : (
     <span aria-hidden className="text-[11px] leading-none">
       ❦
@@ -51,17 +51,17 @@ export function EventCard({ variant, data, image, imageAlt }: Props) {
 
         <ul className="space-y-3 font-serif text-ink">
           <Row
-            icon={<MapPin size={16} strokeWidth={1.6} />}
+            icon={<MapPin size={16} strokeWidth={1.25} />}
             label="Location"
             value={data.location}
           />
           <Row
-            icon={<Clock size={16} strokeWidth={1.6} />}
+            icon={<Clock size={16} strokeWidth={1.25} />}
             label="Time"
             value={data.time}
           />
           <Row
-            icon={<Shirt size={16} strokeWidth={1.6} />}
+            icon={<Shirt size={16} strokeWidth={1.25} />}
             label="Dress Code"
             value={data.dress}
           />

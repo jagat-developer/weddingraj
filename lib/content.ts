@@ -8,8 +8,6 @@ export const masthead = {
   priceLabel: "Priceless",
 };
 
-export const couple = { names: ["Raj", "Shefali"] as const };
-
 export const headline = {
   kicker: "Breaking News",
   primary: "Shefali & Raj",
@@ -36,7 +34,6 @@ export const dates = [
 export const story = {
   kicker: "The Story",
   deck: "It all started with a friendship.",
-  signature: "Raj & Shefali",
   paragraphs: [
     "For two years since 2021, we were part of the same circle of friends—spending weekends together, dancing at clubs, chasing concerts, and creating memories on countless nights out. Somewhere between the laughter, the adventures, and the ordinary moments, a bond was quietly growing.",
     "Then came 2023, when we traveled together to Tomorrowland—Raj's dream festival. Surrounded by music, lights, and magic, something changed. We didn't realize it at the time, but that trip would become the beginning of our story.",
@@ -91,25 +88,6 @@ export type EventCardData = {
   expect: string;
 };
 
-export const itinerary = {
-  heading: "The Two-Day Programme",
-  deck: "What to expect across the celebration.",
-  events: [
-    {
-      title: "Haldi",
-      when: "In the Afternoon",
-      attire: "Yellow · Ethnic Wear",
-      location: "Aquatica, Poolside (Outdoor)",
-    },
-    {
-      title: "Sangeet",
-      when: "In the Evening",
-      attire: "Sparkling · Indo-Western",
-      location: "Pavilion (Indoor)",
-    },
-  ],
-} as const;
-
 export const day1 = {
   title: "Day 1 Edition",
   deck: "Haldi & Sangeet Celebration Guide",
@@ -144,62 +122,19 @@ export const day1 = {
       { time: "12:00 AM", icon: "disc", label: "Dance Floor" },
     ] as const,
   },
-  // The Wedding Chronicle — playful editorial modules
-  chronicle: {
-    title: "The Wedding Chronicle",
-    subtitle: "Special Goa Edition · 2027",
-    breaking: "Raj & Shefali Take Over Goa",
-  },
-  weatherDesk: {
-    title: "Goa Weather Desk",
-    alerts: [
-      {
-        period: "Afternoon",
-        icon: "sun",
-        title: "Haldi Storm Warning",
-        copy: "Heavy turmeric showers expected. Guests advised not to wear white.",
-      },
-      {
-        period: "Evening",
-        icon: "music",
-        title: "Sangeet Alert",
-        copy: "Dance floor activity expected to reach dangerous levels. High probability of Bhangra–Garba crossover.",
-      },
-    ],
-  },
-  loveMarket: {
-    title: "Love Market Report",
-    subtitle: "End of Day Movers",
-    rows: [
-      { label: "Love", change: "+500%", dir: "up" },
-      { label: "Patience", change: "+25%", dir: "up" },
-      { label: "Dance Energy", change: "+1000%", dir: "up" },
-      { label: "Sleep", change: "−95%", dir: "down" },
-      { label: "Single Friends", change: "−1", dir: "down" },
-    ] as const,
-    footer: "Analyst recommendation: invest heavily in memories.",
-  },
-  horoscope: {
-    title: "Horoscope",
-    audience: "All Guests",
-    doIntro: "Today is an excellent day for:",
-    doList: ["Dancing", "Eating", "Taking photos"],
-    avoidIntro: "And probably avoid:",
-    avoidList: ["Leaving early", "Saying \"just one drink\""],
-  },
 };
 
 // — Day 2: Wedding Day —
 export const day2 = {
   title: "Day 2 Edition",
-  deck: "The Day Filled With Love, Rituals & Forever",
+  deck: "The Day Filled With Moments Worth Reliving",
   journeyTitle: "Today's Journey",
   journey: [
     {
       step: 1,
       title: "Grah Shanti Pooja",
-      subtitle: "For Raj's side of family only",
       icon: "flame",
+      time: "07:00 AM",
       location: "Regency 2 Hall (Indoor)",
       outfit: "Ethnic Wear",
       description:
@@ -208,49 +143,51 @@ export const day2 = {
     {
       step: 2,
       title: "Chooda Ceremony",
-      subtitle: "For Shefali's side of family only",
       icon: "sparkles",
-      location: "Regency 2 Hall (Indoor)",
+      time: "09:00 AM",
+      location: "Held Privately surrounded by family and laughter",
       outfit: "Ethnic Wear",
       description:
-        "A cherished Punjabi tradition filled with blessings, laughter and family love. Surrounded by those closest to her, Shefali begins this special chapter with rituals passed down through generations.",
+        "An intimate ceremony celebrating the bond between generations and journey from daughter to bride.",
     },
     {
       step: 3,
-      title: "Baraat",
+      title: "Baaraat",
       icon: "music",
+      time: "11:00 AM",
       location: "Chess Board (Outdoor)",
-      outfit: "Traditional wear · any shades except black",
+      outfit: "Traditional Wear (Any shades of color)",
       description:
-        "Drums, dance and unforgettable energy as Raj makes his grand entrance surrounded by love, family and friends. The celebration moves forward.",
+        "Drums, dance and unforgettable energy as Raj makes his grand entrance surrounded by family and friends. The celebration moves forward!",
     },
     {
       step: 4,
       title: "Wedding Ceremony",
       icon: "crown",
+      time: "03:00 PM",
       location: "Sea Mist (Beach Lawn, Outdoor)",
-      outfit: "Traditional wear · any shades except black",
+      outfit: "Traditional Wear (Any shades of color)",
       description:
-        "Two families, two hearts and countless blessings come together as we say Forever & Always.",
+        "Two families, two hearts and countless blessings come together as we say “Forever & Always”.",
     },
     {
       step: 5,
       title: "After-Party",
       icon: "disc",
+      time: "11:00 PM",
       location: "Pavilion (Indoor)",
       outfit: "Night Club Wear",
       description:
-        "Let the celebrations continue under the stars (and lights) with music, dance and memories that will last a lifetime.",
+        "The last night before everyone parts ways. An indoor celebration filled with music, dance and unforgettable memories to close this beautiful chapter.",
     },
   ] as const,
-  highlightsTitle: "Wedding Timeline Highlights",
+  highlightsTitle: "Second Day Highlights",
   highlights: [
     { icon: "calendar", text: "5 Beautiful Events" },
     { icon: "users", text: "2 Families" },
     { icon: "heart", text: "1 Unforgettable Day" },
     { icon: "prayer", text: "Countless Blessings" },
     { icon: "camera", text: "Memories In The Making" },
-    { icon: "infinity", text: "A Lifetime Together" },
   ] as const,
   highlightsClose: "One day. Infinite memories. A lifetime to cherish.",
   factsTitle: "Couple Facts & Figures",
@@ -282,11 +219,11 @@ export const day2 = {
     },
     {
       icon: "dance",
-      text: "One loves the dance floor. The other also loves the dance floor. This explains a lot.",
+      text: "One loves the dance floor. The other loves playing music. This explains a lot.",
     },
     {
       icon: "globe",
-      text: "Opposite backgrounds, different personalities, same destination. After years of friendship and one life-changing trip, the pair officially upgraded from best friends to forever.",
+      text: "Opposite backgrounds. Different personalities. Same destination. After years of friendship, countless adventures, and one life-changing trip, from best friends to forever.",
     },
   ] as const,
   headlinesTitle: "Today's Headlines",
@@ -294,8 +231,8 @@ export const day2 = {
     "Big day ahead as love takes center stage",
     "Families come together for rituals and blessings",
     "Raj's baraat set to light up the Goan streets",
-    "Two hearts, one promise, a lifetime together",
-    "After-party predictions: epic nights, unforgettable memories",
+    "Countdown to Mrs. begins",
+    "After-Party Predictions: No Rules, No Schedules",
   ] as const,
   headlinesClose: "Stay tuned for a day to remember forever.",
   footer: "The End… Or Just The Beginning?",
@@ -330,7 +267,7 @@ export const rsvp = {
       ["G", "H", "J", "K", "L", "Z", "X", "C", "V", "B", "N"],
       ["Q", "W", "E", "D", "D", "I", "N", "G", "O", "P", "A"],
       ["S", "K", "C", "F", "A", "L", "I", "K", "L", "Z", "X"],
-      ["L", "O", "V", "E", "T", "Y", "S", "H", "E", "F", "A"],
+      ["L", "O", "V", "E", "S", "H", "E", "F", "A", "L", "I"],
       ["Q", "A", "Z", "X", "C", "V", "B", "N", "M", "Q", "L"],
       ["F", "O", "R", "E", "V", "E", "R", "T", "Y", "U", "I"],
       ["M", "N", "B", "V", "C", "X", "Z", "A", "Q", "W", "E"],

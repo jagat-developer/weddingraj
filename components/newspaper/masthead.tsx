@@ -6,13 +6,16 @@ import { masthead } from "@/lib/content";
 export function Masthead() {
   return (
     <header className="pt-6 md:pt-9">
-      {/* top strip */}
-      <div className="flex items-center justify-between gap-3 text-ink flex-wrap">
-        <span className="eyebrow text-[0.62rem] md:text-[0.72rem] order-1">
+      {/* top strip — on mobile, Ganesha stacks above the edition + hashtag row */}
+      <div className="flex justify-center md:hidden">
+        <GaneshaMark className="text-copper" size={84} />
+      </div>
+      <div className="mt-3 md:mt-0 flex items-center justify-between gap-3 text-ink">
+        <span className="eyebrow text-[0.62rem] md:text-[0.72rem]">
           {masthead.edition}
         </span>
-        <GaneshaMark className="text-copper order-2 mx-auto md:mx-0" size={54} />
-        <span className="font-display italic text-copper text-[0.78rem] md:text-base tracking-wide order-3">
+        <GaneshaMark className="text-copper hidden md:block" size={96} />
+        <span className="font-display italic text-copper text-[0.78rem] md:text-base tracking-wide">
           {masthead.hashtag}
         </span>
       </div>
@@ -47,17 +50,17 @@ export function Masthead() {
       {/* info bar: Goa | celebration | Priceless */}
       <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-6 text-ink text-sm font-sans">
         <div className="flex items-center gap-2 justify-center md:justify-start">
-          <MapPin size={14} className="text-copper" strokeWidth={1.75} />
+          <MapPin size={14} className="text-copper" strokeWidth={1.25} />
           <span className="uppercase tracking-[0.18em]">
             {masthead.locationLabel}
           </span>
         </div>
         <div className="flex items-center gap-2 justify-center font-display italic">
-          <Heart size={13} className="text-copper" strokeWidth={1.75} />
+          <Heart size={13} className="text-copper" strokeWidth={1.25} />
           <span>{masthead.centerLabel}</span>
         </div>
         <div className="flex items-center gap-2 justify-center md:justify-end">
-          <Gem size={13} className="text-copper" strokeWidth={1.75} />
+          <Gem size={13} className="text-copper" strokeWidth={1.25} />
           <span className="uppercase tracking-[0.18em]">
             {masthead.priceLabel}
           </span>

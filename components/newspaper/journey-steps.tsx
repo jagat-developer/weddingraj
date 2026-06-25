@@ -6,9 +6,9 @@ import {
   Disc3,
   MapPin,
   Shirt,
+  Clock,
   type LucideIcon,
 } from "lucide-react";
-import { SectionEyebrow } from "./section-eyebrow";
 import { Flourish } from "./ornaments/flourish";
 import { day2 } from "@/lib/content";
 
@@ -23,49 +23,42 @@ const ICONS: Record<string, LucideIcon> = {
 export function JourneySteps() {
   return (
     <section className="mt-8 md:mt-10">
-      <div className="flex items-center justify-center gap-3 text-burgundy">
-        <Flourish width={48} />
-        <span className="bg-burgundy text-paper px-5 py-1.5 text-[0.74rem] tracking-[0.32em] uppercase font-sans">
+      <div className="flex items-center justify-center gap-4 text-ink">
+        <Flourish width={56} className="text-ink/40" />
+        <span className="text-[0.7rem] tracking-[0.34em] uppercase font-sans font-medium">
           {day2.journeyTitle}
         </span>
-        <Flourish width={48} className="-scale-x-100" />
+        <Flourish width={56} className="text-ink/40 -scale-x-100" />
       </div>
 
-      <ol className="mt-7 grid grid-cols-1 md:grid-cols-5 gap-6 md:gap-3 items-start">
-        {(day2.journey as readonly (typeof day2.journey)[number][]).map((step, i) => {
+      <ol className="mt-7 grid grid-cols-2 md:grid-cols-6 gap-x-3 gap-y-7 md:gap-x-4 md:gap-y-10 items-start md:[&>li]:col-span-2 md:[&>li:nth-child(4)]:col-start-2">
+        {(day2.journey as readonly (typeof day2.journey)[number][]).map((step) => {
           const Icon = ICONS[step.icon];
-          const subtitle = "subtitle" in step ? step.subtitle : undefined;
+          const subtitle = "subtitle" in step ? (step as { subtitle?: string }).subtitle : undefined;
+          const time = "time" in step ? (step as { time?: string }).time : undefined;
           return (
             <li
               key={step.step}
               className="relative flex flex-col text-center px-2"
             >
-              {/* number bubble */}
-              <div className="mx-auto w-9 h-9 rounded-full bg-burgundy text-paper flex items-center justify-center font-display font-bold text-[0.95rem]">
+              {/* number — outline disc, editorial */}
+              <div className="mx-auto w-8 h-8 rounded-full border border-ink/35 bg-paper text-ink flex items-center justify-center font-display font-medium text-[0.88rem]">
                 {step.step}
               </div>
 
-              {/* dotted connector to next item — desktop only */}
-              {i < day2.journey.length - 1 && (
-                <span
-                  className="hidden md:block absolute top-[1.1rem] left-[calc(50%+1.6rem)] right-[calc(-50%+1.6rem)] border-t border-dotted border-ink/30"
-                  aria-hidden
-                />
-              )}
-
               {Icon && (
                 <Icon
-                  size={48}
-                  strokeWidth={1.3}
-                  className="text-burgundy mx-auto mt-5"
+                  size={28}
+                  strokeWidth={1.1}
+                  className="text-ink-soft mx-auto mt-5"
                 />
               )}
 
               <h3
-                className="mt-3 font-display font-bold text-burgundy leading-[1.1]"
+                className="mt-3 font-display font-semibold text-ink leading-[1.15]"
                 style={{
-                  fontSize: "clamp(1.05rem, 1.6vw, 1.2rem)",
-                  letterSpacing: "0.02em",
+                  fontSize: "clamp(1rem, 1.5vw, 1.12rem)",
+                  letterSpacing: "0.04em",
                 }}
               >
                 {step.title.toUpperCase()}
@@ -77,14 +70,21 @@ export function JourneySteps() {
                 </p>
               )}
 
+              {time && (
+                <p className="mt-3 flex items-center justify-center gap-1.5 font-display font-semibold text-burgundy text-[0.95rem]">
+                  <Clock size={13} strokeWidth={1.4} />
+                  {time}
+                </p>
+              )}
+
               <div className="mt-4 border-t border-ink/15 pt-3 space-y-2.5 text-left">
                 <Row
-                  icon={<MapPin size={13} strokeWidth={1.6} />}
+                  icon={<MapPin size={13} strokeWidth={1.25} />}
                   label="Location"
                   value={step.location}
                 />
                 <Row
-                  icon={<Shirt size={13} strokeWidth={1.6} />}
+                  icon={<Shirt size={13} strokeWidth={1.25} />}
                   label="Outfit"
                   value={step.outfit}
                 />

@@ -35,7 +35,12 @@ export function GaneshaMark({ size = 44, className }: Props) {
       width={size}
       height={size}
       className={className}
-      style={{ objectFit: "contain", display: "block" }}
+      style={{
+        objectFit: "contain",
+        display: "block",
+        mixBlendMode: "darken",
+        filter: "contrast(1.08) brightness(1.04)",
+      }}
     />
   );
 }

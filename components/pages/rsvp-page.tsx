@@ -1,84 +1,147 @@
-import { PageHeader } from "@/components/newspaper/page-header";
-import { LaurelLeft } from "@/components/newspaper/ornaments/laurel-left";
-import { LaurelRight } from "@/components/newspaper/ornaments/laurel-right";
-import { HeartDivider } from "@/components/newspaper/ornaments/heart-divider";
 import {
-  RsvpCard,
-  WordSearchPuzzle,
-  TravelInfo,
-  ClassifiedAds,
-} from "@/components/newspaper/rsvp-modules";
+  Gift,
+  Heart,
+  IdCard,
+  MapPin,
+  Megaphone,
+  Plane,
+  Search,
+  Shirt,
+  Smartphone,
+  Sun,
+  Tag,
+  TrainFront,
+  Users,
+  type LucideIcon,
+} from "lucide-react";
+import { InteractiveWordSearch } from "@/components/newspaper/interactive-word-search";
+import { RsvpForm } from "@/components/newspaper/rsvp-form";
 import { rsvp } from "@/lib/content";
+import { CloneIssueHeader, Ribbon } from "./day-1-page";
 
 export function RsvpPage() {
   return (
-    <article className="broadsheet">
-      <PageHeader pageNumber={4} />
-
-      <section className="mt-6 md:mt-8 text-center">
-        <div className="flex items-center justify-center gap-4 md:gap-6">
-          <LaurelLeft className="text-burgundy" size={56} />
-          <h1
-            className="font-display font-black text-ink leading-[0.96]"
-            style={{
-              fontSize: "clamp(1.95rem, 6vw, 4rem)",
-              letterSpacing: "-0.005em",
-            }}
-          >
-            RSVP <span className="text-burgundy">&</span> GUEST INFORMATION
-          </h1>
-          <LaurelRight className="text-burgundy" size={56} />
-        </div>
-        <p
-          className="mt-2 font-display italic text-copper"
-          style={{ fontSize: "clamp(1rem, 2vw, 1.3rem)" }}
-        >
-          {rsvp.deck}
-        </p>
+    <article className="clone-sheet clone-rsvp">
+      <CloneIssueHeader page="3" />
+      <section className="clone-rsvp-title">
+        <span>❧</span>
+        <h1>RSVP <b>&amp;</b> Guest Information</h1>
+        <span className="right">❧</span>
+        <p>{rsvp.deck}</p>
       </section>
 
-      <section className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
-        <RsvpCard />
-        <WordSearchPuzzle />
+      <section className="clone-rsvp-grid">
+        <article className="clone-rsvp-card">
+          <Ribbon>RSVP</Ribbon>
+          <RsvpForm intro={rsvp.invite.intro} instruction={rsvp.invite.instruction} />
+        </article>
+        <WordSearch />
       </section>
 
-      <section className="mt-6 grid grid-cols-1 md:grid-cols-[1.4fr_1fr] gap-6 items-stretch">
+      <section className="clone-rsvp-lower">
         <TravelInfo />
-        <ClassifiedAds />
+        <Classifieds />
       </section>
 
-      <section className="mt-10 text-center">
-        <p
-          className="font-display italic text-ink mx-auto prose-block"
-          style={{ fontSize: "clamp(1.1rem, 1.8vw, 1.35rem)" }}
-        >
-          <span className="text-copper text-2xl leading-none align-[-0.1em] mr-1">
-            &ldquo;
-          </span>
-          {rsvp.closing.quote}
-          <span className="text-copper text-2xl leading-none align-[-0.1em] ml-1">
-            &rdquo;
-          </span>
-        </p>
-      </section>
-
-      <footer className="mt-8">
-        <div className="flex justify-center text-burgundy/70">
-          <HeartDivider width={260} />
-        </div>
-        <p className="mt-3 text-center font-display italic text-ink-soft">
-          {rsvp.closing.end}
-        </p>
-        <p
-          className="mt-2 text-center font-display font-bold text-ink"
-          style={{ fontSize: "clamp(1.4rem, 2vw, 1.65rem)", letterSpacing: "0.18em" }}
-        >
-          {rsvp.closing.signature.toUpperCase()}
-        </p>
-        <p className="mt-2 text-center font-display font-bold text-ink text-base">
-          04
-        </p>
+      <blockquote className="clone-rsvp-quote">
+        “ {rsvp.closing.quote} ”
+      </blockquote>
+      <footer className="clone-rsvp-footer">
+        <span>{rsvp.closing.end}</span>
+        <strong>{rsvp.closing.signature}</strong>
       </footer>
+    </article>
+  );
+}
+
+function WordSearch() {
+  return (
+    <article className="clone-rsvp-card">
+      <Ribbon>{rsvp.puzzle.label}</Ribbon>
+      <InteractiveWordSearch
+        grid={rsvp.puzzle.grid}
+        instruction={rsvp.puzzle.instruction}
+        words={rsvp.puzzle.words}
+      />
+    </article>
+  );
+}
+
+function TravelInfo() {
+  const noteIcons: Record<string, LucideIcon> = {
+    id: IdCard,
+    sun: Sun,
+    shirt: Shirt,
+    phone: Smartphone,
+    dance: Users,
+    heart: Heart,
+  };
+  return (
+    <article className="clone-rsvp-card clone-travel">
+      <Ribbon>{rsvp.travel.label}</Ribbon>
+      <div className="clone-travel-grid">
+        <div>
+          <TravelMode icon={Plane} title={rsvp.travel.flight.title} place={rsvp.travel.flight.airport} distance={rsvp.travel.flight.distance} />
+          <TravelMode icon={TrainFront} title={rsvp.travel.train.title} place={rsvp.travel.train.station} distance={rsvp.travel.train.distance} />
+        </div>
+        <div>
+          <h3>{rsvp.travel.notes.title}</h3>
+          <ul>
+            {rsvp.travel.notes.items.map((item) => {
+              const Icon = noteIcons[item.icon];
+              return <li key={item.text}><Icon size={18} /> {item.text}</li>;
+            })}
+          </ul>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function TravelMode({
+  icon: Icon,
+  title,
+  place,
+  distance,
+}: {
+  icon: LucideIcon;
+  title: string;
+  place: string;
+  distance: string;
+}) {
+  return (
+    <section className="clone-travel-mode">
+      <Icon size={30} />
+      <h3>{title}</h3>
+      <strong>{place}</strong>
+      <p><MapPin size={15} /> {distance}</p>
+    </section>
+  );
+}
+
+function Classifieds() {
+  const icons: Record<string, LucideIcon> = {
+    search: Search,
+    heart: Heart,
+    users: Users,
+    tag: Tag,
+    gift: Gift,
+    megaphone: Megaphone,
+  };
+  return (
+    <article className="clone-rsvp-card clone-classifieds">
+      <Ribbon>{rsvp.classifieds.label}</Ribbon>
+      <ul>
+        {rsvp.classifieds.items.map((item) => {
+          const Icon = icons[item.icon];
+          return (
+            <li key={item.tag}>
+              <Icon size={24} />
+              <span><strong>{item.tag}:</strong> {item.text}</span>
+            </li>
+          );
+        })}
+      </ul>
     </article>
   );
 }

@@ -10,14 +10,14 @@ export function PageHeader({ pageNumber }: Props) {
     <header className="pt-6 md:pt-8">
       <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-3 md:gap-4 text-ink">
         <div className="flex items-center gap-2 text-sm font-sans justify-center md:justify-start order-2 md:order-1">
-          <MapPin size={14} className="text-copper" strokeWidth={1.75} />
+          <MapPin size={14} className="text-copper" strokeWidth={1.25} />
           <span className="uppercase tracking-[0.16em]">
             {masthead.locationLabel}
           </span>
         </div>
         <div className="flex flex-col items-center text-center order-1 md:order-2">
           <div className="flex items-center gap-2">
-            <GaneshaMark className="text-copper" size={32} />
+            <GaneshaMark className="text-copper" size={56} />
             <h2
               className="font-display font-bold leading-none"
               style={{
