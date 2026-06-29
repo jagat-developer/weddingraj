@@ -22,7 +22,7 @@ import { CloneIssueHeader, Ribbon } from "./day-1-page";
 export function RsvpPage() {
   return (
     <article className="clone-sheet clone-rsvp">
-      <CloneIssueHeader page="3" />
+      <CloneIssueHeader page="4" />
       <section className="clone-rsvp-title">
         <span>❧</span>
         <h1>RSVP <b>&amp;</b> Guest Information</h1>
@@ -30,17 +30,17 @@ export function RsvpPage() {
         <p>{rsvp.deck}</p>
       </section>
 
-      <section className="clone-rsvp-grid">
-        <article className="clone-rsvp-card">
-          <Ribbon>RSVP</Ribbon>
-          <RsvpForm intro={rsvp.invite.intro} instruction={rsvp.invite.instruction} />
-        </article>
+      <section id="guest-details" className="clone-rsvp-grid scroll-mt-20">
         <WordSearch />
+        <Classifieds />
       </section>
 
-      <section className="clone-rsvp-lower">
+      <section className="clone-rsvp-full-row">
         <TravelInfo />
-        <Classifieds />
+      </section>
+
+      <section id="rsvp-form" className="clone-rsvp-form-bottom scroll-mt-20">
+        <RsvpCard />
       </section>
 
       <blockquote className="clone-rsvp-quote">
@@ -50,6 +50,15 @@ export function RsvpPage() {
         <span>{rsvp.closing.end}</span>
         <strong>{rsvp.closing.signature}</strong>
       </footer>
+    </article>
+  );
+}
+
+function RsvpCard() {
+  return (
+    <article className="clone-rsvp-card clone-rsvp-submit-card">
+      <Ribbon>RSVP</Ribbon>
+      <RsvpForm intro={rsvp.invite.intro} instruction={rsvp.invite.instruction} />
     </article>
   );
 }

@@ -6,16 +6,15 @@ import { masthead } from "@/lib/content";
 export function Masthead() {
   return (
     <header className="pt-6 md:pt-9">
-      {/* top strip — on mobile, Ganesha stacks above the edition + hashtag row */}
-      <div className="flex justify-center md:hidden">
-        <GaneshaMark className="text-copper" size={84} />
-      </div>
-      <div className="mt-3 md:mt-0 flex items-center justify-between gap-3 text-ink">
-        <span className="eyebrow text-[0.62rem] md:text-[0.72rem]">
+      {/* top strip — on phone/tablet, Ganesha, edition, and hashtag stack
+          vertically, all centered. On lg+, they sit in a single justified row. */}
+      <div className="flex flex-col items-center gap-2 text-ink lg:flex-row lg:items-center lg:justify-between lg:gap-3">
+        <GaneshaMark className="text-copper lg:hidden" size={84} />
+        <span className="eyebrow text-[0.62rem] lg:text-[0.72rem] text-center lg:text-left">
           {masthead.edition}
         </span>
-        <GaneshaMark className="text-copper hidden md:block" size={96} />
-        <span className="font-display italic text-copper text-[0.78rem] md:text-base tracking-wide">
+        <GaneshaMark className="text-copper hidden lg:block" size={96} />
+        <span className="font-display italic text-copper text-[0.9rem] lg:text-base tracking-wide text-center lg:text-right">
           {masthead.hashtag}
         </span>
       </div>

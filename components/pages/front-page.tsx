@@ -7,9 +7,11 @@ export function FrontPage() {
   return (
     <article className="clone-sheet clone-front">
       <header className="clone-front-masthead">
+        <div className="clone-mark" aria-hidden={false}>
+          <GaneshaMark className="text-copper" size={58} />
+        </div>
         <div className="clone-topline">
           <span>Special Wedding Edition</span>
-          <GaneshaMark className="text-copper" size={58} />
           <span className="font-display italic text-copper">{masthead.hashtag}</span>
         </div>
         <h1 className="clone-paper-title">The Wedding Times</h1>
@@ -60,7 +62,7 @@ export function FrontPage() {
             src="/images/clone-assets/destination-sketch.jpg"
             alt="Goa beach destination sketch"
             width={224}
-            height={235}
+            height={160}
           />
           <div className="clone-destination-rule" />
           <p className="clone-section-label">Location</p>

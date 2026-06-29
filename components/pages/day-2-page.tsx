@@ -46,17 +46,17 @@ export function Day2Page() {
         <Day2Headlines />
       </section>
 
-      <footer className="clone-page-number">♥ &nbsp; 3 &nbsp; ♥</footer>
+      <footer className="clone-page-number">♥ &nbsp; 03 &nbsp; ♥</footer>
     </article>
   );
 }
 
-const JOURNEY_IMAGES: Record<string, string> = {
-  flame: "/images/clone-assets/icon-grah-shanti.jpg",
-  sparkles: "/images/clone-assets/icon-chooda.jpg",
-  music: "/images/clone-assets/icon-baaraat.jpg",
-  crown: "/images/clone-assets/icon-wedding.jpg",
-  disc: "/images/clone-assets/icon-party.jpg",
+const JOURNEY_IMAGES: Record<string, { src: string; width: number; height: number }> = {
+  flame: { src: "/images/clone-assets/icon-grah-shanti.jpg", width: 220, height: 170 },
+  sparkles: { src: "/images/clone-assets/icon-chooda.jpg", width: 220, height: 170 },
+  music: { src: "/images/clone-assets/icon-baaraat.jpg", width: 220, height: 170 },
+  crown: { src: "/images/clone-assets/icon-wedding.jpg", width: 220, height: 170 },
+  disc: { src: "/images/clone-assets/icon-party.jpg", width: 220, height: 170 },
 };
 
 function JourneyColumn({
@@ -66,15 +66,16 @@ function JourneyColumn({
   step: (typeof day2.journey)[number];
   index: number;
 }) {
+  const img = JOURNEY_IMAGES[step.icon];
   return (
     <article className="clone-journey-card">
       <span className="clone-step-number">{step.step}</span>
       {index < day2.journey.length - 1 && <span className="clone-step-arrow">········›</span>}
       <Image
-        src={JOURNEY_IMAGES[step.icon]}
+        src={img.src}
         alt=""
-        width={146}
-        height={136}
+        width={img.width}
+        height={img.height}
         className="clone-journey-icon"
       />
       <h2>{step.title}</h2>

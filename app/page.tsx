@@ -1,4 +1,8 @@
-import { NewspaperShell, type ShellPage } from "@/components/shell";
+import {
+  NewspaperShell,
+  type ShellMenuItem,
+  type ShellPage,
+} from "@/components/shell";
 import { FrontPage } from "@/components/pages/front-page";
 import { Day1Page } from "@/components/pages/day-1-page";
 import { Day2Page } from "@/components/pages/day-2-page";
@@ -11,6 +15,14 @@ const pages: ShellPage[] = [
   { content: <RsvpPage />, path: "/rsvp", label: "RSVP & Guest Info" },
 ];
 
+const menu: ShellMenuItem[] = [
+  { label: "Home", pageIndex: 0 },
+  { label: "Day 1", pageIndex: 1 },
+  { label: "Day 2", pageIndex: 2 },
+  { label: "Guest Details", pageIndex: 3, anchor: "guest-details" },
+  { label: "RSVP", pageIndex: 3, anchor: "rsvp-form" },
+];
+
 export default function Home() {
-  return <NewspaperShell pages={pages} initialIndex={0} />;
+  return <NewspaperShell pages={pages} menu={menu} initialIndex={0} />;
 }

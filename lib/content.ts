@@ -145,10 +145,10 @@ export const day2 = {
       title: "Chooda Ceremony",
       icon: "sparkles",
       time: "09:00 AM",
-      location: "Held Privately surrounded by family and laughter",
+      location: "Held privately surrounded by family and laughter",
       outfit: "Ethnic Wear",
       description:
-        "An intimate ceremony celebrating the bond between generations and journey from daughter to bride.",
+        "An intimate ceremony celebrating the journey from daughter to bride. A cherished Punjabi tradition where the bride is adorned with her sacred choodha, symbolizing the beginning of a beautiful new chapter.",
     },
     {
       step: 3,
@@ -168,7 +168,7 @@ export const day2 = {
       location: "Sea Mist (Beach Lawn, Outdoor)",
       outfit: "Traditional Wear (Any shades of color)",
       description:
-        "Two families, two hearts and countless blessings come together as we say “Forever & Always”.",
+        "Two families, two hearts and countless blessings. Join us as we celebrate a union filled with traditions, laughter, blessings, and the promise of forever.",
     },
     {
       step: 5,
@@ -247,7 +247,7 @@ export const rsvp = {
   invite: {
     label: "RSVP",
     intro: "We can't wait to celebrate with you!",
-    instruction: "Kindly confirm your attendance by sharing the following on WhatsApp:",
+    instruction: "Kindly Confirm your attendance by sharing the following on WhatsApp By August 22, 2026:",
     fields: [
       { icon: "users", label: "Guest Count" },
       { icon: "user", label: "Name of Every Guest" },
@@ -294,10 +294,10 @@ export const rsvp = {
       items: [
         { icon: "id", text: "Carry a valid government-issued ID." },
         { icon: "sun", text: "Goa is warm and beautiful — stay hydrated and wear sunscreen." },
-        { icon: "shirt", text: "Follow the event dress codes listed throughout the newspaper." },
+        { icon: "shirt", text: "The dress guide throughout the newspaper is suggestive, please feel free to dress comfortably." },
         { icon: "phone", text: "Keep your phone charged for photos and event updates." },
         { icon: "dance", text: "Bring your best dance moves and your best energy!" },
-        { icon: "heart", text: "Most importantly, come ready to celebrate and make memories!" },
+        { icon: "heart", text: "Most importantly, shower the newly weds with your blessings." },
       ] as const,
     },
   },
@@ -305,11 +305,11 @@ export const rsvp = {
   classifieds: {
     label: "Classified Ads",
     items: [
-      { icon: "search", tag: "LOST", text: "Raj's bachelor status." },
+      { icon: "search", tag: "LOST", text: "Raj's heart." },
       { icon: "heart", tag: "FOUND", text: "Shefali's forever person." },
-      { icon: "users", tag: "WANTED", text: "150 guests with great dance moves." },
+      { icon: "users", tag: "WANTED", text: "Guests with great dance moves." },
       { icon: "tag", tag: "FOR SALE", text: "Last remaining excuses for not attending." },
-      { icon: "gift", tag: "REWARD", text: "Unlimited memories and good vibes." },
+      { icon: "gift", tag: "REWARD", text: "A crash course in Garba and Bhangra." },
       {
         icon: "megaphone",
         tag: "NOTICE",

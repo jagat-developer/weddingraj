@@ -6,7 +6,7 @@ import {
   useReducedMotion,
   type Variants,
 } from "framer-motion";
-import { ChevronLeft, ChevronRight, Volume2, VolumeX } from "lucide-react";
+import { ChevronLeft, ChevronRight, Menu, Volume2, VolumeX, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { playPaperFlip } from "@/lib/sound";
 
@@ -19,12 +19,19 @@ export type ShellPage = {
   label: string;
 };
 
+export type ShellMenuItem = {
+  label: string;
+  pageIndex: number;
+  anchor?: string;
+};
+
 type Props = {
   pages: ShellPage[];
+  menu?: ShellMenuItem[];
   initialIndex?: number;
 };
 
-export function NewspaperShell({ pages, initialIndex = 0 }: Props) {
+export function NewspaperShell({ pages, menu, initialIndex = 0 }: Props) {
   const reduce = useReducedMotion();
   const [index, setIndex] = useState(initialIndex);
   const [direction, setDirection] = useState(0);
@@ -57,17 +64,28 @@ export function NewspaperShell({ pages, initialIndex = 0 }: Props) {
   }, []);
 
   const goTo = useCallback(
-    (next: number) => {
-      if (next < 0 || next >= pages.length || next === index) return;
-      if (!muted) playPaperFlip();
-      setDirection(next > index ? 1 : -1);
-      setIndex(next);
+    (next: number, anchor?: string) => {
+      const samePage = next === index;
+      if (next < 0 || next >= pages.length) return;
+      if (!samePage) {
+        if (!muted) playPaperFlip();
+        setDirection(next > index ? 1 : -1);
+        setIndex(next);
+      }
       if (typeof window !== "undefined") {
         window.history.replaceState(null, "", pages[next].path);
-        // Reset scroll so the new page starts from the top (otherwise the
-        // browser keeps the previous numeric scrollTop, dropping the reader
-        // partway down the new page).
-        window.scrollTo(0, 0);
+        if (anchor) {
+          // Defer until the new page is in the DOM (after the page-turn
+          // animation). On same-page taps we can scroll immediately.
+          const delay = samePage ? 0 : 560;
+          window.setTimeout(() => {
+            const el = document.getElementById(anchor);
+            if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+            else window.scrollTo(0, 0);
+          }, delay);
+        } else {
+          window.scrollTo(0, 0);
+        }
       }
     },
     [index, pages, muted]
@@ -250,6 +268,12 @@ export function NewspaperShell({ pages, initialIndex = 0 }: Props) {
         muted={muted}
         onToggleMute={toggleMute}
       />
+
+      <MobileMenu
+        index={index}
+        items={menu ?? pages.map((p, i) => ({ label: p.label, pageIndex: i }))}
+        onSelect={(item) => goTo(item.pageIndex, item.anchor)}
+      />
     </div>
   );
 }
@@ -351,5 +375,132 @@ function PageControls({
         )}
       </button>
     </div>
+  );
+}
+
+function MobileMenu({
+  index,
+  items,
+  onSelect,
+}: {
+  index: number;
+  items: ShellMenuItem[];
+  onSelect: (item: ShellMenuItem) => void;
+}) {
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [open]);
+
+  return (
+    <>
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        aria-label="Open menu"
+        aria-expanded={open}
+        className="md:hidden fixed top-3 right-3 z-50 inline-flex items-center justify-center w-11 h-11 rounded-full bg-paper/95 backdrop-blur-sm border border-ink/15 shadow-sm text-ink active:scale-95 transition-transform"
+      >
+        <Menu size={22} strokeWidth={1.75} />
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            className="md:hidden fixed inset-0 z-[60] bg-paper text-ink"
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.24, ease: EASE }}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Newspaper menu"
+          >
+            <div className="flex flex-col h-full">
+              <div className="flex items-center justify-between px-5 pt-4 pb-3 border-b border-ink/15">
+                <span
+                  className="font-display italic text-copper text-base tracking-wide"
+                  aria-hidden
+                >
+                  #RajWaliShefali
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setOpen(false)}
+                  aria-label="Close menu"
+                  className="inline-flex items-center justify-center w-10 h-10 rounded-full text-ink active:scale-95 transition-transform"
+                >
+                  <X size={22} strokeWidth={1.75} />
+                </button>
+              </div>
+
+              <nav
+                className="flex-1 overflow-y-auto px-5 py-6"
+                aria-label="Sections"
+              >
+                <p className="eyebrow text-[0.62rem] text-ink-soft uppercase tracking-[0.28em] mb-4">
+                  The Wedding Times — Sections
+                </p>
+                <ul className="flex flex-col">
+                  {items.map((item) => {
+                    const active =
+                      item.pageIndex === index && !item.anchor;
+                    return (
+                      <li key={`${item.label}-${item.anchor ?? "page"}`}>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            onSelect(item);
+                            setOpen(false);
+                          }}
+                          aria-current={active}
+                          className="w-full flex items-baseline justify-between gap-4 py-4 border-b border-ink/10 text-left active:opacity-70 transition-opacity"
+                        >
+                          <span
+                            className={`font-display ${
+                              active ? "text-burgundy" : "text-ink"
+                            }`}
+                            style={{
+                              fontWeight: 800,
+                              fontSize: "1.45rem",
+                              letterSpacing: "-0.005em",
+                              lineHeight: 1.1,
+                            }}
+                          >
+                            {item.label}
+                          </span>
+                          <ChevronRight
+                            size={20}
+                            strokeWidth={1.5}
+                            className={active ? "text-burgundy" : "text-copper"}
+                          />
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </nav>
+
+              <footer className="px-5 pb-6 pt-3 border-t border-ink/10 text-center">
+                <p className="font-display italic text-copper text-sm">
+                  Shefali &amp; Raj — 1–2 February 2027
+                </p>
+              </footer>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

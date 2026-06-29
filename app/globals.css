@@ -166,6 +166,13 @@ p {
   height: auto;
 }
 
+.clone-mark {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.55rem;
+}
+
 .clone-topline,
 .clone-issue-header {
   display: grid;
@@ -180,7 +187,12 @@ p {
 }
 
 .clone-topline {
-  font-size: clamp(0.72rem, 1.2vw, 0.95rem);
+  grid-template-columns: 1fr 1fr;
+  font-size: clamp(0.62rem, 1vw, 0.8rem);
+}
+
+.clone-topline > :first-child {
+  justify-self: start;
 }
 
 .clone-topline > :last-child,
@@ -191,7 +203,7 @@ p {
 }
 
 .clone-paper-title {
-  margin-top: 1rem;
+  margin-top: 0.55rem;
   text-align: center;
   text-transform: uppercase;
   font-family: var(--font-display);
@@ -199,19 +211,20 @@ p {
   line-height: 0.9;
   letter-spacing: -0.045em;
   white-space: nowrap;
-  font-size: clamp(3.2rem, 7vw, 5.4rem);
+  font-size: clamp(2.4rem, 5.4vw, 4.2rem);
 }
 
 .clone-tagline {
-  margin-top: 0.9rem;
+  margin-top: 0.6rem;
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 0.8rem;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 0.7rem;
   color: #8f2c1c;
   text-transform: uppercase;
-  letter-spacing: 0.4em;
-  font: 700 clamp(0.62rem, 1vw, 0.78rem) var(--font-sans);
+  letter-spacing: 0.36em;
+  font: 700 clamp(0.56rem, 0.85vw, 0.7rem) var(--font-sans);
 }
 
 .clone-tagline span + span::before {
@@ -220,14 +233,14 @@ p {
 }
 
 .clone-info-bar {
-  margin-top: 1rem;
-  padding-block: 0.75rem;
+  margin-top: 0.75rem;
+  padding-block: 0.55rem;
   border-block: 2px solid rgba(7, 26, 57, 0.75);
   display: grid;
   grid-template-columns: 1fr 1.8fr 1fr;
   gap: 1rem;
   align-items: center;
-  font: 800 clamp(0.72rem, 1.1vw, 0.92rem) var(--font-sans);
+  font: 800 clamp(0.64rem, 0.9vw, 0.82rem) var(--font-sans);
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
@@ -249,7 +262,7 @@ p {
 
 .clone-breaking {
   text-align: center;
-  margin-top: 1.25rem;
+  margin-top: 1rem;
 }
 
 .clone-breaking p {
@@ -257,7 +270,7 @@ p {
   text-transform: uppercase;
   color: #8f2c1c;
   letter-spacing: 0.38em;
-  font: 800 1rem var(--font-sans);
+  font: 800 0.85rem var(--font-sans);
 }
 
 .clone-breaking h2,
@@ -271,20 +284,20 @@ p {
 }
 
 .clone-breaking h2 {
-  margin-top: 0.6rem;
-  font-size: clamp(4rem, 10vw, 7.2rem);
+  margin-top: 0.45rem;
+  font-size: clamp(3rem, 7.6vw, 5.6rem);
 }
 
 .clone-breaking h3 {
-  margin-top: 0.35rem;
+  margin-top: 0.3rem;
   color: #9c3a21;
   text-transform: uppercase;
-  letter-spacing: 0.38em;
-  font: 800 clamp(1.1rem, 2.6vw, 2rem) var(--font-display);
+  letter-spacing: 0.36em;
+  font: 800 clamp(0.95rem, 2.1vw, 1.6rem) var(--font-display);
 }
 
 .clone-front-grid {
-  margin-top: 1.15rem;
+  margin-top: 1.1rem;
   display: grid;
   grid-template-columns: 0.78fr 1.45fr 0.9fr;
   gap: 1.25rem;
@@ -513,42 +526,55 @@ p {
 
 .clone-issue-header {
   border-block: 2px solid rgba(7, 26, 57, 0.82);
-  padding-block: 0.55rem;
-  font-size: 0.82rem;
+  padding-block: 0.45rem;
+  font-size: 0.74rem;
 }
 
 .clone-issue-header > div {
   justify-self: center;
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: 1fr;
+  justify-items: center;
   align-items: center;
-  gap: 0.25rem 0.7rem;
+  gap: 0.1rem;
   text-align: center;
 }
 
 .clone-issue-header strong {
-  font: 900 clamp(1.8rem, 3.8vw, 2.8rem) var(--font-display);
+  font: 900 clamp(1.35rem, 2.8vw, 2.05rem) var(--font-display);
   text-transform: uppercase;
+  line-height: 1;
 }
 
 .clone-issue-header em {
-  grid-column: 2;
-  margin-top: -0.25rem;
+  margin-top: -0.1rem;
   color: #8f2c1c;
-  font: 900 0.9rem var(--font-sans);
+  font: 900 0.78rem var(--font-sans);
   font-style: normal;
   letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
+.clone-issue-ganesha {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 0.4rem;
+}
+
+.clone-issue-ganesha img,
+.clone-issue-ganesha svg {
+  width: clamp(54px, 6.8vw, 82px);
+  height: auto;
+}
+
 .clone-edition-hero {
   position: relative;
-  margin-top: 1.25rem;
+  margin-top: 1rem;
   text-align: center;
 }
 
 .clone-edition-hero h1 {
-  font-size: clamp(4.2rem, 10vw, 7.5rem);
+  font-size: clamp(3.2rem, 7.6vw, 5.6rem);
 }
 
 .clone-edition-hero h1 span,
@@ -558,9 +584,9 @@ p {
 
 .clone-edition-hero p,
 .clone-rsvp-title p {
-  margin-top: 0.45rem;
+  margin-top: 0.4rem;
   color: #9c3a21;
-  font: italic 700 clamp(1.3rem, 3.1vw, 2.2rem) var(--font-display);
+  font: italic 700 clamp(1.05rem, 2.4vw, 1.7rem) var(--font-display);
 }
 
 .clone-leaf {
@@ -586,7 +612,7 @@ p {
 }
 
 .clone-day1-events {
-  margin-top: 1.25rem;
+  margin-top: 1.1rem;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
@@ -602,14 +628,20 @@ p {
 }
 
 .clone-event-card {
+  display: flex;
+  flex-direction: column;
   padding: 0.95rem;
 }
 
 .clone-event-card h2 {
   margin: 0.8rem 0 0.8rem;
+  min-height: 2.65em;
+  display: grid;
+  place-items: center;
   text-align: center;
   text-transform: uppercase;
   font: 900 clamp(2.15rem, 4.2vw, 3.1rem) var(--font-display);
+  line-height: 1.06;
   word-spacing: 0.14em;
 }
 
@@ -660,21 +692,31 @@ p {
   font: 700 0.94rem/1.52 var(--font-sans);
 }
 
-.clone-event-card img {
-  display: block;
+.clone-event-image {
   width: 100%;
+  aspect-ratio: 464 / 322;
+  margin: auto 0 0;
+  overflow: hidden;
   border-radius: 14px;
 }
 
+.clone-event-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
 .clone-bottom-modules {
-  margin-top: 1rem;
+  margin-top: 1.1rem;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.75rem;
+  gap: 1rem;
 }
 
 .clone-mini-panel {
-  padding: 0.8rem 0.9rem;
+  padding: 0.85rem;
 }
 
 .clone-mini-panel h3,
@@ -767,17 +809,19 @@ p {
 }
 
 .clone-day2 .clone-ribbon {
-  margin-top: 0.9rem;
+  margin-top: 1.1rem;
 }
 
 .clone-journey-columns {
-  margin-top: 0.75rem;
+  margin-top: 1rem;
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
 .clone-journey-card {
   position: relative;
+  display: flex;
+  flex-direction: column;
   padding: 0.25rem 0.65rem 0.5rem;
   text-align: center;
   border-left: 1px solid rgba(7, 26, 57, 0.08);
@@ -807,12 +851,13 @@ p {
   z-index: 2;
 }
 
-.clone-journey-icon {
+img.clone-journey-icon {
   display: block;
-  width: 90%;
-  max-width: 132px;
-  height: 102px;
+  width: min(92%, 154px);
+  height: 118px;
   object-fit: contain;
+  object-position: center;
+  flex: 0 0 auto;
   margin: 0.5rem auto 0.35rem;
 }
 
@@ -840,8 +885,10 @@ p {
   grid-template-columns: 1rem 1fr;
   gap: 0.38rem;
   margin: 0.45rem 0;
+  min-height: 2.75rem;
   text-align: left;
   color: #071a39;
+  align-items: start;
 }
 
 .clone-info-tiny div {
@@ -864,68 +911,115 @@ p {
   font: 800 clamp(0.68rem, 1.05vw, 0.82rem)/1.45 var(--font-sans);
 }
 
+.clone-journey-card > .clone-dotted-rule {
+  margin-top: auto;
+}
+
 .clone-wide-photo {
   display: block;
   width: 100%;
-  margin-top: 0.85rem;
+  margin-top: 1.1rem;
   border-radius: 12px;
 }
 
 .clone-day2-modules {
-  margin-top: 0.85rem;
+  margin-top: 1.1rem;
   display: grid;
   grid-template-columns: 1fr 1.45fr 1fr;
-  gap: 0.75rem;
+  gap: 1rem;
+  align-items: stretch;
 }
 
 .clone-day2-panel {
-  padding: 0.8rem;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  padding: 1rem;
 }
 
 .clone-day2-panel h3 {
-  font-size: 1rem;
+  min-height: 2.35rem;
+  flex-wrap: wrap;
+  text-align: center;
+  white-space: nowrap;
+  font-size: clamp(0.94rem, 1.35vw, 1.08rem);
+  line-height: 1.08;
+}
+
+.clone-day2-panel ul {
+  margin-top: 0.65rem;
 }
 
 .clone-day2-panel li {
+  display: grid;
+  grid-template-columns: 1.85rem minmax(0, 1fr);
+  align-items: start;
+  gap: 0.65rem;
+  min-width: 0;
+  padding-block: 0.52rem;
   font-size: 0.72rem;
+  line-height: 1.3;
+}
+
+.clone-day2-panel li svg {
+  width: 1.45rem;
+  height: 1.45rem;
+  margin-top: 0.05rem;
+  flex: 0 0 auto;
+}
+
+.clone-day2-panel li span {
+  min-width: 0;
 }
 
 .clone-day2-panel em {
   display: block;
-  margin-top: 0.7rem;
+  margin-top: auto;
+  padding-top: 0.85rem;
   color: #9b1f19;
   text-align: center;
   font: italic 800 0.9rem var(--font-display);
+  line-height: 1.18;
 }
 
 .clone-facts-panel > p {
-  margin: 0.1rem 0 0.55rem;
+  margin: 0.05rem 0 0.7rem;
   text-align: center;
   color: #9b1f19;
   font: italic 800 0.75rem var(--font-display);
+  line-height: 1.15;
 }
 
 .clone-facts-panel > div {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.55rem;
+  gap: 0.75rem 0.9rem;
+  align-items: start;
 }
 
 .clone-facts-panel span {
   display: grid;
-  grid-template-columns: 1.4rem 1fr;
-  gap: 0.4rem;
+  grid-template-columns: 1.8rem minmax(0, 1fr);
+  align-items: start;
+  gap: 0.55rem;
+  min-width: 0;
   font: 800 0.62rem/1.3 var(--font-sans);
+}
+
+.clone-facts-panel span svg {
+  width: 1.35rem;
+  height: 1.35rem;
+  margin-top: 0.05rem;
 }
 
 .clone-rsvp-title {
   position: relative;
   text-align: center;
-  margin-top: 1.35rem;
+  margin-top: 1rem;
 }
 
 .clone-rsvp-title h1 {
-  font-size: clamp(3.1rem, 7.2vw, 5.1rem);
+  font-size: clamp(2.4rem, 5.6vw, 4rem);
 }
 
 .clone-rsvp-title > span {
@@ -937,19 +1031,31 @@ p {
 }
 
 .clone-rsvp-grid,
-.clone-rsvp-lower {
+.clone-rsvp-lower,
+.clone-rsvp-full-row,
+.clone-rsvp-form-bottom {
   display: grid;
   gap: 1rem;
 }
 
 .clone-rsvp-grid {
-  margin-top: 1.2rem;
+  margin-top: 1.1rem;
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .clone-rsvp-lower {
-  margin-top: 1rem;
+  margin-top: 1.1rem;
   grid-template-columns: 1.25fr 0.8fr;
+}
+
+.clone-rsvp-full-row,
+.clone-rsvp-form-bottom {
+  margin-top: 1.1rem;
+}
+
+.clone-rsvp-submit-card {
+  width: min(100%, 42rem);
+  margin-inline: auto;
 }
 
 .clone-rsvp-card {
@@ -1111,6 +1217,133 @@ p {
   outline: none;
 }
 
+.clone-puzzle-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+  background: rgba(18, 12, 10, 0.55);
+  backdrop-filter: blur(4px);
+  animation: clone-puzzle-fade 180ms ease-out;
+}
+
+.clone-puzzle-modal {
+  position: relative;
+  width: 100%;
+  max-width: 30rem;
+  padding: 2.25rem 1.75rem 1.75rem;
+  background: #fdf7ec;
+  border: 1px solid rgba(155, 31, 25, 0.35);
+  border-radius: 6px;
+  box-shadow:
+    0 24px 60px rgba(18, 12, 10, 0.35),
+    0 0 0 6px rgba(253, 247, 236, 0.5);
+  text-align: center;
+  animation: clone-puzzle-pop 220ms cubic-bezier(0.2, 0.8, 0.25, 1);
+}
+
+.clone-puzzle-modal::before,
+.clone-puzzle-modal::after {
+  content: "";
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  height: 1px;
+  background: rgba(155, 31, 25, 0.3);
+}
+
+.clone-puzzle-modal::before {
+  top: 0.6rem;
+}
+
+.clone-puzzle-modal::after {
+  bottom: 0.6rem;
+}
+
+.clone-puzzle-modal-close {
+  position: absolute;
+  top: 0.65rem;
+  right: 0.65rem;
+  display: inline-grid;
+  place-items: center;
+  width: 1.85rem;
+  height: 1.85rem;
+  border: 1px solid rgba(155, 31, 25, 0.4);
+  border-radius: 999px;
+  background: transparent;
+  color: #9b1f19;
+  cursor: pointer;
+  transition: background 160ms ease;
+}
+
+.clone-puzzle-modal-close:hover,
+.clone-puzzle-modal-close:focus-visible {
+  background: rgba(155, 31, 25, 0.12);
+  outline: none;
+}
+
+.clone-puzzle-modal-title {
+  margin: 0 0 0.85rem;
+  font: 900 1.35rem var(--font-serif, var(--font-sans));
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #9b1f19;
+}
+
+.clone-puzzle-modal-lead {
+  margin: 0 0 0.85rem;
+  font: 600 0.98rem/1.5 var(--font-sans);
+  color: #2a1a17;
+}
+
+.clone-puzzle-modal-body {
+  margin: 0 0 1.5rem;
+  font: 400 0.92rem/1.55 var(--font-sans);
+  color: #463129;
+}
+
+.clone-puzzle-modal-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 8rem;
+  padding: 0.55rem 1.4rem;
+  border: 1px solid #9b1f19;
+  border-radius: 4px;
+  background: #9b1f19;
+  color: #fdf7ec;
+  font: 900 0.72rem var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  transition: background 160ms ease, color 160ms ease;
+}
+
+.clone-puzzle-modal-button:hover,
+.clone-puzzle-modal-button:focus-visible {
+  background: #7d180e;
+  outline: none;
+}
+
+@keyframes clone-puzzle-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes clone-puzzle-pop {
+  from { opacity: 0; transform: scale(0.94) translateY(8px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .clone-puzzle-modal-overlay,
+  .clone-puzzle-modal {
+    animation: none;
+  }
+}
+
 .clone-travel-grid {
   display: grid;
   grid-template-columns: 0.9fr 1.1fr;
@@ -1196,6 +1429,14 @@ p {
 }
 
 @media (max-width: 900px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  .page-stage {
+    padding-bottom: 5.75rem;
+  }
+
   .clone-paper-title {
     white-space: normal;
   }
@@ -1223,23 +1464,384 @@ p {
     border-top: 1px solid rgba(7, 26, 57, 0.1);
   }
 
-  .clone-family-grid,
-  .clone-info-bar,
-  .clone-topline,
-  .clone-issue-header {
+  .clone-travel-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .clone-family-grid {
     grid-template-columns: 1fr;
     justify-items: center;
     text-align: center;
   }
 
-  .clone-info-bar span,
-  .clone-info-bar span:last-child {
+  /* Leave room above the page for the fixed mobile menu button so the
+     masthead's right-side hashtag doesn't sit under it. */
+  .clone-sheet {
+    width: min(100% - 1rem, 42rem);
+    padding: 3.25rem clamp(1rem, 5vw, 1.35rem) 1.35rem;
+    overflow: hidden;
+  }
+
+  .clone-paper-title {
+    font-size: clamp(2.7rem, 12.4vw, 3.5rem);
+    line-height: 0.88;
+    letter-spacing: -0.03em;
+  }
+
+  .clone-tagline {
     justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.65rem;
+    letter-spacing: 0.22em;
+    font-size: 0.58rem;
+    line-height: 1.3;
+  }
+
+  .clone-tagline span + span::before {
+    margin-right: 0.65rem;
+  }
+
+  .clone-breaking h2 {
+    font-size: clamp(3.05rem, 15vw, 4.25rem);
+    line-height: 0.88;
+  }
+
+  .clone-breaking h3 {
+    letter-spacing: 0.22em;
+    font-size: clamp(0.95rem, 4vw, 1.2rem);
+    line-height: 1.35;
+  }
+
+  .clone-story {
+    font-size: 0.76rem;
+    line-height: 1.34;
+  }
+
+  .clone-story h3 {
+    max-width: 9ch;
+    font-size: 1.42rem;
+  }
+
+  .clone-front-photo img,
+  .clone-event-card img,
+  .clone-wide-photo {
+    border-radius: 10px;
+  }
+
+  .clone-destination,
+  .clone-families,
+  .clone-event-card,
+  .clone-mini-panel,
+  .clone-day2-panel,
+  .clone-rsvp-card {
+    border-radius: 14px;
+  }
+
+  .clone-edition-hero {
+    margin-top: 1.15rem;
+  }
+
+  .clone-edition-hero h1 {
+    font-size: clamp(3.3rem, 16vw, 4.5rem);
+    line-height: 0.86;
+    letter-spacing: -0.025em;
+  }
+
+  .clone-edition-hero p,
+  .clone-rsvp-title p {
+    font-size: clamp(1.25rem, 5.4vw, 1.55rem);
+    line-height: 1.12;
+  }
+
+  .clone-rsvp-title h1 {
+    font-size: clamp(2.45rem, 11.8vw, 3.3rem);
+    line-height: 0.95;
+  }
+
+  .clone-ribbon {
+    min-width: min(12rem, 100%);
+    max-width: 100%;
+    padding-inline: 1.15rem;
+    font-size: clamp(0.96rem, 4.2vw, 1.08rem);
+    line-height: 1.18;
+    text-wrap: balance;
+  }
+
+  .clone-event-card {
+    padding: 1rem;
+  }
+
+  .clone-event-card h2 {
+    min-height: 0;
+    margin: 0.75rem 0;
+    font-size: clamp(2.35rem, 12vw, 3.15rem);
+    line-height: 1.02;
+    word-spacing: 0.04em;
+  }
+
+  .clone-event-card p {
+    max-width: 32ch;
+    font-size: 0.82rem;
+    line-height: 1.44;
+  }
+
+  .clone-info-row {
+    grid-template-columns: 1.8rem 1fr;
+    gap: 0.5rem;
+    margin: 0.58rem 0;
+  }
+
+  .clone-info-row span {
+    font-size: 0.96rem;
+  }
+
+  .clone-mini-panel {
+    padding: 1rem;
+  }
+
+  .clone-mini-panel h3,
+  .clone-day2-panel h3 {
+    font-size: 1rem;
+    line-height: 1.15;
+    text-align: center;
+    white-space: normal;
+  }
+
+  .clone-journey-columns {
+    margin-top: 0.8rem;
+    gap: 0;
+  }
+
+  .clone-journey-card {
+    padding: 0.72rem 0.65rem 0.8rem;
+  }
+
+  .clone-step-number {
+    width: 1.65rem;
+    height: 1.65rem;
+    font-size: 0.86rem;
+  }
+
+  img.clone-journey-icon {
+    width: min(62%, 104px);
+    height: 68px;
+    margin: 0.15rem auto 0.05rem;
+  }
+
+  .clone-journey-card h2 {
+    min-height: 0;
+    margin-top: 0.2rem;
+    font-size: clamp(1.05rem, 5vw, 1.32rem);
+    line-height: 1.02;
+  }
+
+  .clone-time {
+    margin: 0.35rem 0 0.3rem;
+    font-size: 0.9rem;
+  }
+
+  .clone-info-tiny {
+    min-height: 0;
+    width: min(100%, 21rem);
+    margin: 0.3rem auto;
+  }
+
+  .clone-info-tiny span {
+    font-size: 0.76rem;
+  }
+
+  .clone-journey-card > .clone-dotted-rule {
+    margin: 0.65rem 0;
+  }
+
+  .clone-journey-card > p:last-child {
+    font-size: 0.72rem;
+    line-height: 1.36;
+  }
+
+  .clone-day2-panel {
+    padding: 1rem;
+  }
+
+  .clone-day2-panel h3 {
+    min-height: 0;
+  }
+
+  .clone-facts-panel > div {
+    grid-template-columns: 1fr;
+  }
+
+  .clone-facts-panel span,
+  .clone-day2-panel li,
+  .clone-weather-list li,
+  .clone-headline-list li,
+  .clone-classifieds li,
+  .clone-travel li {
+    font-size: 0.78rem;
+    line-height: 1.35;
+  }
+
+  .clone-rsvp-card {
+    padding: 0.95rem;
+  }
+
+  .clone-rsvp-card h2 {
+    font-size: 1.02rem;
+    line-height: 1.18;
+  }
+
+  .clone-word-list {
+    gap: 0.15rem 0.45rem;
+    font-size: clamp(1.08rem, 5vw, 1.32rem);
+  }
+
+  .clone-rsvp-card .clone-word-cell {
+    font-size: clamp(0.7rem, 3.4vw, 0.94rem);
+  }
+
+  .clone-travel-grid {
+    gap: 0.7rem;
+  }
+
+  .clone-travel-mode {
+    grid-template-columns: 2.1rem 1fr;
+    margin-bottom: 0.8rem;
+  }
+
+  .clone-travel-mode h3,
+  .clone-travel h3 {
+    font-size: 1.02rem;
+    line-height: 1.12;
+  }
+
+  .clone-travel-mode strong {
+    font-size: 0.9rem;
+  }
+
+  .clone-travel-mode p {
+    font-size: 0.78rem;
+    line-height: 1.3;
+  }
+
+  .clone-rsvp-quote {
+    font-size: 1rem;
+    line-height: 1.35;
+  }
+
+  /* Mobile headers — keep horizontal/justified, just shrink so both
+     columns fit in a single row instead of stacking vertically. */
+  .clone-topline {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.55rem;
+    font-size: 0.56rem;
+    letter-spacing: 0.16em;
+  }
+  .clone-topline > :first-child {
+    justify-self: start;
+  }
+  .clone-topline > :last-child {
+    justify-self: end;
+    font-size: 0.72rem;
+  }
+  .clone-mark svg {
+    width: clamp(38px, 9vw, 52px) !important;
+    height: auto;
+  }
+
+  .clone-info-bar {
+    grid-template-columns: 1fr 1.5fr 1fr;
+    gap: 0.4rem;
+    padding-block: 0.45rem;
+    font-size: 0.54rem;
+    letter-spacing: 0.06em;
+  }
+  .clone-info-bar span {
+    gap: 0.3rem;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+  }
+  .clone-info-bar span:nth-child(2) {
+    white-space: normal;
+    text-align: center;
+    line-height: 1.15;
+  }
+  .clone-info-bar span svg {
+    flex-shrink: 0;
+    width: 12px;
+    height: 12px;
+  }
+
+  .clone-issue-header {
+    grid-template-columns: auto 1fr auto;
+    gap: 0.5rem;
+    padding-block: 0.4rem;
+    font-size: 0.56rem;
+    letter-spacing: 0.08em;
+  }
+  .clone-issue-header > :first-child {
+    justify-self: start;
+  }
+  .clone-issue-header > :last-child {
+    justify-self: end;
+    font-size: 0.7rem;
+  }
+  .clone-issue-header > div {
+    justify-self: center;
+    text-align: center;
+  }
+  .clone-issue-header strong {
+    font-size: clamp(0.95rem, 4.4vw, 1.35rem);
+    line-height: 1.05;
+  }
+  .clone-issue-header em {
+    font-size: 0.52rem;
+    letter-spacing: 0.14em;
+    margin-top: 0;
+  }
+  .clone-issue-header svg {
+    width: 13px;
+    height: 13px;
+  }
+  .clone-issue-ganesha svg {
+    width: clamp(42px, 10vw, 60px);
   }
 
   .clone-leaf,
   .clone-rsvp-title > span {
     display: none;
+  }
+}
+
+/* Extra-narrow phones — compress headers further so all three columns
+   still sit on one line. */
+@media (max-width: 420px) {
+  .clone-topline {
+    font-size: 0.5rem;
+    gap: 0.4rem;
+  }
+  .clone-topline > :last-child {
+    font-size: 0.62rem;
+  }
+  .clone-info-bar {
+    grid-template-columns: 1fr 1.2fr 1fr;
+    gap: 0.3rem;
+    font-size: 0.48rem;
+    letter-spacing: 0.04em;
+  }
+  .clone-info-bar span svg {
+    width: 11px;
+    height: 11px;
+  }
+  .clone-issue-header {
+    font-size: 0.5rem;
+    gap: 0.4rem;
+  }
+  .clone-issue-header > :last-child {
+    font-size: 0.6rem;
+  }
+  .clone-issue-header em {
+    font-size: 0.46rem;
+    letter-spacing: 0.12em;
   }
 }
 

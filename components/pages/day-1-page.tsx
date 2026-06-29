@@ -25,12 +25,16 @@ export function Day1Page() {
           data={day1.haldi}
           image="/images/clone-assets/haldi-scene.jpg"
           alt="Poolside Haldi setup with yellow drapes and marigolds"
+          imageWidth={459}
+          imageHeight={322}
         />
         <Day1EventCard
           label="Evening Edition"
           data={day1.sangeet}
           image="/images/clone-assets/sangeet-stage.jpg"
           alt="Sangeet stage with chandeliers and lights"
+          imageWidth={464}
+          imageHeight={322}
         />
       </section>
 
@@ -47,15 +51,19 @@ export function Day1Page() {
 
 function CloneIssueHeader({ page }: { page: string }) {
   return (
-    <header className="clone-issue-header">
-      <span><MapPin size={17} fill="currentColor" /> Goa, India</span>
-      <div>
-        <GaneshaMark className="text-copper" size={52} />
-        <strong>The Wedding Times</strong>
-        <em>Special Wedding Edition &bull; Page {page}</em>
+    <>
+      <div className="clone-issue-ganesha" aria-hidden={false}>
+        <GaneshaMark className="text-copper" size={96} />
       </div>
-      <span className="font-display italic text-copper">#RajWaliShefali</span>
-    </header>
+      <header className="clone-issue-header">
+        <span><MapPin size={17} fill="currentColor" /> Goa, India</span>
+        <div>
+          <strong>The Wedding Times</strong>
+          <em>Special Wedding Edition &bull; Page {page}</em>
+        </div>
+        <span className="font-display italic text-copper">#RajWaliShefali</span>
+      </header>
+    </>
   );
 }
 
@@ -75,11 +83,15 @@ function Day1EventCard({
   data,
   image,
   alt,
+  imageWidth,
+  imageHeight,
 }: {
   label: string;
   data: EventCardData;
   image: string;
   alt: string;
+  imageWidth: number;
+  imageHeight: number;
 }) {
   return (
     <article className="clone-event-card">
@@ -91,7 +103,9 @@ function Day1EventCard({
       <div className="clone-dotted-rule" />
       <h3>What To Expect:</h3>
       <p>{data.expect}</p>
-      <Image src={image} alt={alt} width={464} height={322} />
+      <figure className="clone-event-image">
+        <Image src={image} alt={alt} width={imageWidth} height={imageHeight} />
+      </figure>
     </article>
   );
 }

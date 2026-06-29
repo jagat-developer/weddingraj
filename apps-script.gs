@@ -2,7 +2,7 @@
  * Wedding Times — RSVP Webhook
  *
  * Paste this into the Apps Script editor attached to your Sheet
- * (https://docs.google.com/spreadsheets/d/1B8OfHYgWh6YD9mZ0SJmjA1Il_AaFS5-_aKV4KYX8ins/edit)
+ * (https://docs.google.com/spreadsheets/d/1ZnYef9orQoyjahVSj9TsqRbNsjf4neWbr8QaJ_REL7Q/edit)
  *
  * Setup (5 minutes):
  *   1. Open the Sheet

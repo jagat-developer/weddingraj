@@ -1,7 +1,7 @@
 "use client";
 
-import { Fragment, useMemo, useRef, useState } from "react";
-import { RotateCcw, Search } from "lucide-react";
+import { Fragment, useEffect, useMemo, useRef, useState } from "react";
+import { RotateCcw, Search, X } from "lucide-react";
 
 type Cell = {
   row: number;
@@ -55,6 +55,7 @@ export function InteractiveWordSearch({ instruction, words, grid }: Props) {
   const [status, setStatus] = useState(
     "Tap the first and last letters of each word.",
   );
+  const [showSolvedModal, setShowSolvedModal] = useState(false);
 
   const dragStartRef = useRef<Cell | null>(null);
   const didDragRef = useRef(false);
@@ -126,7 +127,20 @@ export function InteractiveWordSearch({ instruction, words, grid }: Props) {
         ? "Front-page scoop: every word has been found."
         : `${match} found. ${words.length - nextFoundCount} to go.`,
     );
+
+    if (nextFoundCount === words.length) {
+      setShowSolvedModal(true);
+    }
   };
+
+  useEffect(() => {
+    if (!showSolvedModal) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setShowSolvedModal(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [showSolvedModal]);
 
   const handleTap = (cell: Cell) => {
     if (!tapStart) {
@@ -252,6 +266,46 @@ export function InteractiveWordSearch({ instruction, words, grid }: Props) {
           Reset puzzle
         </button>
       </div>
+
+      {showSolvedModal && (
+        <div
+          className="clone-puzzle-modal-overlay"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="clone-puzzle-modal-title"
+          onClick={(event) => {
+            if (event.target === event.currentTarget) setShowSolvedModal(false);
+          }}
+        >
+          <div className="clone-puzzle-modal">
+            <button
+              type="button"
+              className="clone-puzzle-modal-close"
+              aria-label="Close"
+              onClick={() => setShowSolvedModal(false)}
+            >
+              <X size={18} />
+            </button>
+            <p className="clone-puzzle-modal-title" id="clone-puzzle-modal-title">
+              🎉 PUZZLE SOLVED! 🎉
+            </p>
+            <p className="clone-puzzle-modal-lead">
+              Well, well, well… look who&apos;s smarter than the average wedding guest! 🧩😏
+            </p>
+            <p className="clone-puzzle-modal-body">
+              You&apos;ve officially cracked the code, earned VIP bragging rights, and unlocked your
+              exclusive invitation.
+            </p>
+            <button
+              type="button"
+              className="clone-puzzle-modal-button"
+              onClick={() => setShowSolvedModal(false)}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 }
