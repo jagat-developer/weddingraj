@@ -71,13 +71,15 @@ function JourneyColumn({
     <article className="clone-journey-card">
       <span className="clone-step-number">{step.step}</span>
       {index < day2.journey.length - 1 && <span className="clone-step-arrow">········›</span>}
-      <Image
-        src={img.src}
-        alt=""
-        width={img.width}
-        height={img.height}
-        className="clone-journey-icon"
-      />
+      <span className="clone-journey-icon-frame" aria-hidden>
+        <Image
+          src={img.src}
+          alt=""
+          width={img.width}
+          height={img.height}
+          className="clone-journey-icon"
+        />
+      </span>
       <h2>{step.title}</h2>
       <p className="clone-time"><Clock size={16} /> {step.time}</p>
       <InfoTiny icon={MapPin} label="Location:" value={step.location} />
