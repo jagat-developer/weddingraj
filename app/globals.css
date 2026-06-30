@@ -361,6 +361,8 @@ p {
 }
 
 .clone-destination {
+  display: flex;
+  flex-direction: column;
   border: 1px solid rgba(122, 28, 28, 0.18);
   border-radius: 18px;
   padding: 1.2rem 1rem;
@@ -423,6 +425,11 @@ p {
 
 .clone-date-pill strong {
   font: 900 0.98rem var(--font-display);
+}
+
+.clone-date-group {
+  margin-top: auto;
+  padding-top: 0.6rem;
 }
 
 .clone-amp {
@@ -632,11 +639,30 @@ p {
 }
 
 .clone-leaf {
-  display: none;
+  position: absolute;
+  top: 0.62rem;
+  left: 0.4rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: #9b1f19;
+  font: 900 clamp(1.75rem, 3.4vw, 3.1rem)/1 var(--font-display);
+  transform: rotate(-12deg);
+  opacity: 0.95;
+  pointer-events: none;
+}
+
+.clone-leaf::after {
+  content: "";
+  width: clamp(2.3rem, 7vw, 5rem);
+  border-top: 1px solid rgba(155, 31, 25, 0.62);
 }
 
 .clone-leaf.right {
-  display: none;
+  right: 0.4rem;
+  left: auto;
+  flex-direction: row-reverse;
+  transform: rotate(12deg) scaleX(-1);
 }
 
 .clone-ribbon {
@@ -755,6 +781,7 @@ p {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
+  align-items: start;
 }
 
 .clone-mini-panel {
@@ -1020,7 +1047,7 @@ p {
   display: grid;
   grid-template-columns: 1fr 1.45fr 1fr;
   gap: 1rem;
-  align-items: stretch;
+  align-items: start;
 }
 
 .clone-day2-panel {
@@ -1134,11 +1161,13 @@ p {
 .clone-rsvp-grid {
   margin-top: 1.1rem;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
 }
 
 .clone-rsvp-lower {
   margin-top: 1.1rem;
   grid-template-columns: 1.25fr 0.8fr;
+  align-items: start;
 }
 
 .clone-rsvp-full-row,
@@ -1688,11 +1717,11 @@ p {
     text-align: center;
   }
 
-  /* Leave room above the page for the fixed mobile menu button so the
-     masthead's right-side hashtag doesn't sit under it. */
+  /* Leave room for the fixed mobile menu button without making the
+     masthead feel detached from the top of the paper. */
   .clone-sheet {
     width: min(100% - 1rem, 42rem);
-    padding: 3.25rem clamp(1rem, 5vw, 1.35rem) 1.35rem;
+    padding: 1.35rem clamp(1rem, 5vw, 1.35rem) 1.35rem;
     overflow: hidden;
   }
 
@@ -2034,7 +2063,16 @@ p {
     width: clamp(42px, 10vw, 60px);
   }
 
-  .clone-leaf,
+  .clone-leaf {
+    top: 0.65rem;
+    display: inline-flex !important;
+    font-size: clamp(1.8rem, 9vw, 2.65rem);
+  }
+
+  .clone-leaf::after {
+    width: clamp(1.25rem, 11vw, 2.8rem);
+  }
+
   .clone-rsvp-title > span {
     display: none;
   }

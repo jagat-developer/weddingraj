@@ -68,10 +68,12 @@ export function FrontPage() {
           <div className="clone-destination-rule" />
           <p className="clone-section-label">Location</p>
           <h3>Kenilworth Resort &amp; Spa, Goa</h3>
-          <p className="clone-section-label">Celebration Dates</p>
-          <DatePill day="Monday" date="1 February, 2027" />
-          <span className="clone-amp">&amp;</span>
-          <DatePill day="Tuesday" date="2 February, 2027" />
+          <div className="clone-date-group">
+            <p className="clone-section-label">Celebration Dates</p>
+            <DatePill day="Monday" date="1 February, 2027" />
+            <span className="clone-amp">&amp;</span>
+            <DatePill day="Tuesday" date="2 February, 2027" />
+          </div>
         </aside>
       </section>
 
