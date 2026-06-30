@@ -71,7 +71,7 @@ function EditionHero({ day, deck }: { day: string; deck: string }) {
   return (
     <section className="clone-edition-hero">
       <span className="clone-leaf" aria-hidden>❧</span>
-      <h1>Day <span>{day}</span> Edition</h1>
+      <h1>Day <span className="clone-edition-day-number">{day}</span> Edition</h1>
       <span className="clone-leaf right" aria-hidden>❧</span>
       <p>{deck}</p>
     </section>

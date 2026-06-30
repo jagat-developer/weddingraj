@@ -607,9 +607,16 @@ p {
 }
 
 .clone-edition-hero h1 span {
-  color: inherit;
   font: inherit;
   letter-spacing: inherit;
+}
+
+.clone-edition-hero h1 .clone-edition-day-number {
+  color: #9b1f19;
+  display: inline-block;
+  font-variant-numeric: lining-nums;
+  font-feature-settings: "lnum" 1, "kern" 1;
+  transform: translateY(-0.015em);
 }
 
 .clone-rsvp-title b {
