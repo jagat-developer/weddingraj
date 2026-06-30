@@ -77,9 +77,9 @@ export function FrontPage() {
 
       <section className="clone-families">
         <h3>
-          <Heart size={15} fill="currentColor" />
+          <span className="clone-family-title-heart" aria-hidden>♥</span>
           <span>Meet The Families Behind The Celebration</span>
-          <Heart size={15} fill="currentColor" />
+          <span className="clone-family-title-heart" aria-hidden>♥</span>
         </h3>
         <div className="clone-family-grid">
           <FamilyBox title="Shefali's Family" members={families.shefali.members} />

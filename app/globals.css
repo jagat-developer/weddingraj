@@ -456,9 +456,15 @@ p {
   font: 900 1rem var(--font-sans);
 }
 
+.clone-family-title-heart,
 .clone-families h3 svg {
   flex: 0 0 auto;
   color: #9b1f19;
+}
+
+.clone-family-title-heart {
+  font: 900 1.05rem/1 var(--font-display);
+  transform: translateY(-0.02em);
 }
 
 .clone-family-grid {
