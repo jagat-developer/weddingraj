@@ -148,7 +148,7 @@ export const day2 = {
       location: "Held privately surrounded by family and laughter",
       outfit: "Ethnic Wear",
       description:
-        "An intimate ceremony celebrating the journey from daughter to bride. A cherished Punjabi tradition where the bride is adorned with her sacred choodha, symbolizing the beginning of a beautiful new chapter.",
+        "A ceremony celebrating the journey from daughter to bride. A cherished Punjabi tradition where the bride is adorned with her sacred choodha, symbolizing the beginning of a beautiful new chapter.",
     },
     {
       step: 3,
@@ -178,7 +178,7 @@ export const day2 = {
       location: "Pavilion (Indoor)",
       outfit: "Night Club Wear",
       description:
-        "The last night before everyone parts ways. An indoor celebration filled with music, dance and unforgettable memories to close this beautiful chapter.",
+        "The last night before everyone part way. An indoor celebration filled with music, dance and unforgettable memories to close this beautiful chapter.",
     },
   ] as const,
   highlightsTitle: "Second Day Highlights",
@@ -247,7 +247,7 @@ export const rsvp = {
   invite: {
     label: "RSVP",
     intro: "We can't wait to celebrate with you!",
-    instruction: "Kindly Confirm your attendance by sharing the following on WhatsApp By August 22, 2026:",
+    instruction: "Kindly Confirm your attendance by sharing the following on WhatsApp By August 22, 2026. All event related updates will be communicated through WhatsApp.",
     fields: [
       { icon: "users", label: "Guest Count" },
       { icon: "user", label: "Name of Every Guest" },

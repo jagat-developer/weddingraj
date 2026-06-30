@@ -640,29 +640,21 @@ p {
 
 .clone-leaf {
   position: absolute;
-  top: 0.62rem;
-  left: 0.4rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
+  top: 0.35rem;
+  left: clamp(0.2rem, 1.2vw, 0.9rem);
+  display: block;
+  width: clamp(3.1rem, 7vw, 4.8rem);
+  height: auto;
   color: #9b1f19;
-  font: 900 clamp(1.75rem, 3.4vw, 3.1rem)/1 var(--font-display);
-  transform: rotate(-12deg);
-  opacity: 0.95;
+  transform: rotate(-8deg);
+  opacity: 0.9;
   pointer-events: none;
 }
 
-.clone-leaf::after {
-  content: "";
-  width: clamp(2.3rem, 7vw, 5rem);
-  border-top: 1px solid rgba(155, 31, 25, 0.62);
-}
-
 .clone-leaf.right {
-  right: 0.4rem;
+  right: clamp(0.2rem, 1.2vw, 0.9rem);
   left: auto;
-  flex-direction: row-reverse;
-  transform: rotate(12deg) scaleX(-1);
+  transform: rotate(8deg) scaleX(-1);
 }
 
 .clone-ribbon {
@@ -2064,13 +2056,9 @@ p {
   }
 
   .clone-leaf {
-    top: 0.65rem;
-    display: inline-flex !important;
-    font-size: clamp(1.8rem, 9vw, 2.65rem);
-  }
-
-  .clone-leaf::after {
-    width: clamp(1.25rem, 11vw, 2.8rem);
+    top: 0.45rem;
+    display: block !important;
+    width: clamp(2.45rem, 12vw, 3.2rem);
   }
 
   .clone-rsvp-title > span {
