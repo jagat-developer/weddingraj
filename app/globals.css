@@ -1128,6 +1128,32 @@ p {
   font-size: 1rem !important;
 }
 
+.clone-phone-row {
+  display: grid;
+  grid-template-columns: minmax(8.25rem, 0.42fr) minmax(0, 1fr);
+  gap: 0.75rem;
+  align-items: end;
+}
+
+.clone-country-select {
+  display: block;
+  width: 100%;
+  min-height: 2.25rem;
+  border: 0;
+  border-bottom: 1px solid rgb(7 26 57 / 25%);
+  border-radius: 0;
+  background: transparent;
+  color: #071a39;
+  font: 700 0.95rem var(--font-sans);
+  outline: none;
+  padding: 0.42rem 1.35rem 0.42rem 0;
+  transition: border-color var(--dur-base) var(--ease-out-emil);
+}
+
+.clone-country-select:focus {
+  border-bottom-color: #9b1f19;
+}
+
 .clone-rsvp-card button {
   border-radius: 0;
   margin-top: 1.25rem !important;
@@ -1739,6 +1765,16 @@ p {
 
   .clone-rsvp-card {
     padding: 0.95rem;
+  }
+
+  .clone-phone-row {
+    grid-template-columns: minmax(7.35rem, 0.45fr) minmax(0, 1fr);
+    gap: 0.55rem;
+  }
+
+  .clone-country-select {
+    font-size: 0.9rem;
+    padding-right: 0.75rem;
   }
 
   .clone-rsvp-card h2 {

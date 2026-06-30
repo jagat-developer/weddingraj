@@ -3,12 +3,31 @@
 import { useState } from "react";
 import { Hairline } from "./hairline";
 
-type Guest = { firstName: string; lastName: string; whatsapp: string };
+type Guest = {
+  firstName: string;
+  lastName: string;
+  countryCode: string;
+  whatsapp: string;
+};
 type Status = "idle" | "submitting" | "success" | "error";
 
 type Props = { intro: string; instruction: string };
 
 const MAX_GUESTS = 10;
+const DEFAULT_COUNTRY_CODE = "+1";
+const COUNTRY_CODES = [
+  { value: "+1", label: "US/Canada" },
+  { value: "+91", label: "India" },
+];
+
+const emptyGuest = (): Guest => ({
+  firstName: "",
+  lastName: "",
+  countryCode: DEFAULT_COUNTRY_CODE,
+  whatsapp: "",
+});
+
+const digitsOnly = (value: string) => value.replace(/\D/g, "");
 
 export function RsvpForm({ intro, instruction }: Props) {
   const [count, setCount] = useState(0);
@@ -22,8 +41,7 @@ export function RsvpForm({ intro, instruction }: Props) {
     setCount(safe);
     setGuests((prev) => {
       const next = [...prev];
-      while (next.length < safe)
-        next.push({ firstName: "", lastName: "", whatsapp: "" });
+      while (next.length < safe) next.push(emptyGuest());
       while (next.length > safe) next.pop();
       return next;
     });
@@ -41,7 +59,11 @@ export function RsvpForm({ intro, instruction }: Props) {
     count > 0 &&
     guests.length === count &&
     guests.every(
-      (g) => g.firstName.trim() && g.lastName.trim() && g.whatsapp.trim(),
+      (g) =>
+        g.firstName.trim() &&
+        g.lastName.trim() &&
+        g.countryCode.trim() &&
+        digitsOnly(g.whatsapp),
     );
 
   const submit = async (e: React.FormEvent) => {
@@ -50,10 +72,15 @@ export function RsvpForm({ intro, instruction }: Props) {
     setStatus("submitting");
     setError("");
     try {
+      const guestsWithDialCodes = guests.map((g) => ({
+        firstName: g.firstName,
+        lastName: g.lastName,
+        whatsapp: `${g.countryCode}${digitsOnly(g.whatsapp)}`,
+      }));
       const res = await fetch("/api/rsvp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ guests }),
+        body: JSON.stringify({ guests: guestsWithDialCodes }),
       });
       const result = await res.json();
       if (!res.ok || !result.ok)
@@ -142,13 +169,11 @@ export function RsvpForm({ intro, instruction }: Props) {
                   autoComplete="family-name"
                 />
               </div>
-              <Field
-                label="WhatsApp number"
-                value={g.whatsapp}
-                onChange={(v) => updateGuest(i, "whatsapp", v)}
-                type="tel"
-                autoComplete="tel"
-                className="mt-3"
+              <PhoneField
+                countryCode={g.countryCode}
+                number={g.whatsapp}
+                onCountryCodeChange={(v) => updateGuest(i, "countryCode", v)}
+                onNumberChange={(v) => updateGuest(i, "whatsapp", v)}
               />
             </li>
           ))}
@@ -183,6 +208,7 @@ function Field({
   onChange,
   type = "text",
   autoComplete,
+  inputMode,
   className = "",
 }: {
   label: string;
@@ -190,6 +216,7 @@ function Field({
   onChange: (v: string) => void;
   type?: string;
   autoComplete?: string;
+  inputMode?: React.HTMLAttributes<HTMLInputElement>["inputMode"];
   className?: string;
 }) {
   return (
@@ -198,6 +225,7 @@ function Field({
       <input
         type={type}
         autoComplete={autoComplete}
+        inputMode={inputMode}
         placeholder={label}
         value={value}
         onChange={(e) => onChange(e.target.value)}
@@ -208,5 +236,45 @@ function Field({
         }}
       />
     </label>
+  );
+}
+
+function PhoneField({
+  countryCode,
+  number,
+  onCountryCodeChange,
+  onNumberChange,
+}: {
+  countryCode: string;
+  number: string;
+  onCountryCodeChange: (v: string) => void;
+  onNumberChange: (v: string) => void;
+}) {
+  return (
+    <div className="clone-phone-row mt-3">
+      <label className="block">
+        <span className="sr-only">Country code</span>
+        <select
+          aria-label="Country code"
+          value={countryCode}
+          onChange={(e) => onCountryCodeChange(e.target.value)}
+          className="clone-country-select"
+        >
+          {COUNTRY_CODES.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.value} {option.label}
+            </option>
+          ))}
+        </select>
+      </label>
+      <Field
+        label="WhatsApp number"
+        value={number}
+        onChange={onNumberChange}
+        type="tel"
+        autoComplete="tel-national"
+        inputMode="tel"
+      />
+    </div>
   );
 }
