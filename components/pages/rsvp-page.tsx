@@ -30,12 +30,12 @@ export function RsvpPage() {
         <p>{rsvp.deck}</p>
       </section>
 
-      <section id="guest-details" className="clone-rsvp-grid scroll-mt-20">
+      <section className="clone-rsvp-grid">
         <WordSearch />
         <Classifieds />
       </section>
 
-      <section className="clone-rsvp-full-row">
+      <section id="guest-information" className="clone-rsvp-full-row scroll-mt-20">
         <TravelInfo />
       </section>
 

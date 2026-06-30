@@ -59,10 +59,11 @@ export function FrontPage() {
             <span>Report</span>
           </div>
           <Image
-            src="/images/clone-assets/destination-sketch.jpg"
-            alt="Goa beach destination sketch"
-            width={224}
-            height={160}
+            src="/images/clone-assets/destination-report-goa.png"
+            alt="Goa beach with palms and sun destination sketch"
+            width={336}
+            height={220}
+            className="clone-destination-illustration"
           />
           <div className="clone-destination-rule" />
           <p className="clone-section-label">Location</p>
@@ -75,7 +76,11 @@ export function FrontPage() {
       </section>
 
       <section className="clone-families">
-        <h3><Heart size={15} fill="currentColor" /> Meet The Families Behind The Celebration</h3>
+        <h3>
+          <Heart size={15} fill="currentColor" />
+          <span>Meet The Families Behind The Celebration</span>
+          <Heart size={15} fill="currentColor" />
+        </h3>
         <div className="clone-family-grid">
           <FamilyBox title="Shefali's Family" members={families.shefali.members} />
           <div className="clone-family-heart"><Heart size={22} fill="currentColor" /></div>

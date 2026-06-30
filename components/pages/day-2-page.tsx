@@ -52,11 +52,11 @@ export function Day2Page() {
 }
 
 const JOURNEY_IMAGES: Record<string, { src: string; width: number; height: number }> = {
-  flame: { src: "/images/clone-assets/icon-grah-shanti.jpg", width: 220, height: 170 },
-  sparkles: { src: "/images/clone-assets/icon-chooda.jpg", width: 220, height: 170 },
-  music: { src: "/images/clone-assets/icon-baaraat.jpg", width: 220, height: 170 },
-  crown: { src: "/images/clone-assets/icon-wedding.jpg", width: 220, height: 170 },
-  disc: { src: "/images/clone-assets/icon-party.jpg", width: 220, height: 170 },
+  flame: { src: "/images/clone-assets/icon-grah-shanti.png", width: 220, height: 170 },
+  sparkles: { src: "/images/clone-assets/icon-chooda.png", width: 220, height: 170 },
+  music: { src: "/images/clone-assets/icon-baaraat.png", width: 220, height: 170 },
+  crown: { src: "/images/clone-assets/icon-wedding.png", width: 220, height: 170 },
+  disc: { src: "/images/clone-assets/icon-party.png", width: 220, height: 170 },
 };
 
 function JourneyColumn({

@@ -166,11 +166,19 @@ p {
   height: auto;
 }
 
+.clone-front {
+  padding-top: clamp(0.8rem, 1.6vw, 1.35rem);
+}
+
 .clone-mark {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 0.55rem;
+}
+
+.clone-front .clone-mark {
+  margin-bottom: 0.25rem;
 }
 
 .clone-topline,
@@ -212,6 +220,10 @@ p {
   letter-spacing: -0.045em;
   white-space: nowrap;
   font-size: clamp(2.4rem, 5.4vw, 4.2rem);
+}
+
+.clone-front .clone-paper-title {
+  margin-top: 0.35rem;
 }
 
 .clone-tagline {
@@ -368,6 +380,12 @@ p {
   border-radius: 8px;
 }
 
+.clone-destination img.clone-destination-illustration {
+  width: min(100%, 15.5rem);
+  border-radius: 0;
+  mix-blend-mode: multiply;
+}
+
 .clone-destination-rule {
   margin: 1rem auto;
   width: 75%;
@@ -436,6 +454,11 @@ p {
   text-transform: uppercase;
   letter-spacing: 0.12em;
   font: 900 1rem var(--font-sans);
+}
+
+.clone-families h3 svg {
+  flex: 0 0 auto;
+  color: #9b1f19;
 }
 
 .clone-family-grid {
@@ -577,7 +600,12 @@ p {
   font-size: clamp(3.2rem, 7.6vw, 5.6rem);
 }
 
-.clone-edition-hero h1 span,
+.clone-edition-hero h1 span {
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+}
+
 .clone-rsvp-title b {
   color: #9b1f19;
 }
@@ -857,6 +885,9 @@ img.clone-journey-icon {
   height: 118px;
   object-fit: contain;
   object-position: center;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
   flex: 0 0 auto;
   margin: 0.5rem auto 0.35rem;
 }
@@ -1482,6 +1513,10 @@ img.clone-journey-icon {
     overflow: hidden;
   }
 
+  .clone-front {
+    padding-top: 1.35rem;
+  }
+
   .clone-paper-title {
     font-size: clamp(2.7rem, 12.4vw, 3.5rem);
     line-height: 0.88;
@@ -1818,6 +1853,9 @@ img.clone-journey-icon {
   .clone-topline {
     font-size: 0.5rem;
     gap: 0.4rem;
+  }
+  .clone-front {
+    padding-top: 1.05rem;
   }
   .clone-topline > :last-child {
     font-size: 0.62rem;
