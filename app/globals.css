@@ -967,6 +967,46 @@ p {
   margin-top: auto;
 }
 
+@media (min-width: 901px) {
+  .clone-journey-card {
+    display: grid;
+    grid-template-rows: 2rem 7.35rem 3.1rem 1.5rem 4.25rem 4.35rem 1.25rem auto;
+    align-items: start;
+  }
+
+  .clone-step-number {
+    justify-self: start;
+  }
+
+  .clone-journey-icon-frame {
+    align-self: start;
+    justify-self: center;
+  }
+
+  .clone-journey-card h2 {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .clone-time {
+    align-self: start;
+    margin: 0;
+  }
+
+  .clone-info-tiny {
+    align-self: start;
+    min-height: 0;
+    margin: 0;
+  }
+
+  .clone-journey-card > .clone-dotted-rule {
+    align-self: start;
+    width: 100%;
+    margin: 0.58rem 0 0;
+  }
+}
+
 .clone-wide-photo {
   display: block;
   width: 100%;
@@ -1150,11 +1190,106 @@ p {
   transition: border-color var(--dur-base) var(--ease-out-emil);
 }
 
+.clone-country-trigger {
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.clone-country-trigger::after {
+  content: "";
+  width: 0.55rem;
+  height: 0.55rem;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-0.14rem) rotate(45deg);
+  flex: 0 0 auto;
+}
+
 .clone-country-select:focus {
   border-bottom-color: #9b1f19;
 }
 
-.clone-rsvp-card button {
+.clone-country-popover {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+}
+
+.clone-country-backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgb(7 26 57 / 24%);
+  backdrop-filter: blur(2px);
+}
+
+.clone-country-dialog {
+  position: relative;
+  width: min(21rem, calc(100vw - 2rem));
+  border: 1px solid rgb(122 28 28 / 18%);
+  border-radius: 8px;
+  background: #fffdf8;
+  box-shadow: 0 1.2rem 3rem rgb(7 26 57 / 22%);
+  padding: 1rem;
+}
+
+.clone-country-dialog p {
+  margin: 0 0 0.75rem;
+  color: #9b1f19;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font: 900 0.8rem var(--font-sans);
+}
+
+.clone-country-options {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.clone-country-option {
+  display: grid;
+  grid-template-columns: 4.25rem 1fr;
+  align-items: center;
+  gap: 0.65rem;
+  width: 100%;
+  border: 1px solid rgb(7 26 57 / 12%);
+  border-radius: 8px;
+  background: transparent;
+  color: #071a39;
+  padding: 0.72rem 0.8rem;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background-color var(--dur-base) var(--ease-out-emil),
+    border-color var(--dur-base) var(--ease-out-emil);
+}
+
+.clone-country-option strong {
+  color: #9b1f19;
+  font: 900 1rem var(--font-display);
+}
+
+.clone-country-option span {
+  font: 800 0.9rem var(--font-sans);
+}
+
+.clone-country-option:hover,
+.clone-country-option:focus-visible,
+.clone-country-option[data-selected="true"] {
+  border-color: rgb(155 31 25 / 40%);
+  background: rgb(155 31 25 / 7%);
+  outline: none;
+}
+
+.clone-rsvp-card form > button[type="submit"] {
   border-radius: 0;
   margin-top: 1.25rem !important;
 }

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { Hairline } from "./hairline";
 
 type Guest = {
@@ -250,22 +251,82 @@ function PhoneField({
   onCountryCodeChange: (v: string) => void;
   onNumberChange: (v: string) => void;
 }) {
+  const [open, setOpen] = useState(false);
+  const selected =
+    COUNTRY_CODES.find((option) => option.value === countryCode) ??
+    COUNTRY_CODES[0];
+
+  useEffect(() => {
+    if (!open) return;
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+
+    document.addEventListener("keydown", closeOnEscape);
+    return () => document.removeEventListener("keydown", closeOnEscape);
+  }, [open]);
+
+  const countryCodeDialog =
+    open && typeof document !== "undefined"
+      ? createPortal(
+          <div className="clone-country-popover" role="presentation">
+            <button
+              type="button"
+              aria-label="Close country code selector"
+              className="clone-country-backdrop"
+              onClick={() => setOpen(false)}
+            />
+            <div
+              className="clone-country-dialog"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Choose country code"
+            >
+              <p>Country Code</p>
+              <div
+                className="clone-country-options"
+                role="listbox"
+                aria-label="Country code"
+              >
+                {COUNTRY_CODES.map((option) => (
+                  <button
+                    key={option.value}
+                    type="button"
+                    role="option"
+                    aria-selected={option.value === countryCode}
+                    data-selected={option.value === countryCode}
+                    className="clone-country-option"
+                    onClick={() => {
+                      onCountryCodeChange(option.value);
+                      setOpen(false);
+                    }}
+                  >
+                    <strong>{option.value}</strong>
+                    <span>{option.label}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>,
+          document.body,
+        )
+      : null;
+
   return (
     <div className="clone-phone-row mt-3">
       <label className="block">
         <span className="sr-only">Country code</span>
-        <select
+        <button
+          type="button"
           aria-label="Country code"
-          value={countryCode}
-          onChange={(e) => onCountryCodeChange(e.target.value)}
-          className="clone-country-select"
+          aria-haspopup="dialog"
+          aria-expanded={open}
+          className="clone-country-select clone-country-trigger"
+          onClick={() => setOpen(true)}
         >
-          {COUNTRY_CODES.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.value} {option.label}
-            </option>
-          ))}
-        </select>
+          <span>{selected.value} {selected.label}</span>
+        </button>
       </label>
       <Field
         label="WhatsApp number"
@@ -275,6 +336,8 @@ function PhoneField({
         autoComplete="tel-national"
         inputMode="tel"
       />
+
+      {countryCodeDialog}
     </div>
   );
 }
