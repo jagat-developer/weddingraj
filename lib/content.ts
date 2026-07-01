@@ -36,7 +36,7 @@ export const story = {
   deck: "It all started with a friendship.",
   paragraphs: [
     "For two years since 2021, we were part of the same circle of friends—spending weekends together, dancing at clubs, chasing concerts, and creating memories on countless nights out. Somewhere between the laughter, the adventures, and the ordinary moments, a bond was quietly growing.",
-    "Then came 2023, when we traveled together to Tomorrowland—Raj's dream festival. Surrounded by music, lights, and magic, something changed. We didn't realize it at the time, but that trip would become the beginning of our story.",
+    "Then came 2023, when we traveled together to Tomorrowland—Raj's dream festival. Surrounded by music, lights, and magic, something changed. We didn't realize it at the time, but that trip became the beginning of our story.",
     "When we returned home, everything felt a little different. The excitement of the trip was over, yet something still felt missing. It wasn't Tomorrowland we missed—it was each other.",
     "Coming from completely different backgrounds, we never imagined that life would lead us here. There were uncertainties, questions, and moments when the path ahead wasn't clear. But as it turns out, opposites really do attract. What made us different became what brought us closer, helping us grow, learn, and build something beautiful together.",
     "And now, after years of friendship, adventures, laughter, and love, we are beginning our greatest journey yet. We can't wait to celebrate the next chapter of our story with you.",
