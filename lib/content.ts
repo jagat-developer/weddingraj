@@ -178,7 +178,7 @@ export const day2 = {
       location: "Pavilion (Indoor)",
       outfit: "Night Club Wear",
       description:
-        "The last night before everyone part way. An indoor celebration filled with music, dance and unforgettable memories to close this beautiful chapter.",
+        "The last night before everyone part ways. An indoor celebration filled with music, dance and unforgettable memories to close this beautiful chapter.",
     },
   ] as const,
   highlightsTitle: "Second Day Highlights",
