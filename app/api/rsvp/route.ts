@@ -37,14 +37,17 @@ type Guest = {
   guestType?: string;
   firstName: string;
   lastName: string;
-  age: string;
+  age?: string;
   whatsapp?: string;
 };
-type CleanGuest = Required<Pick<Guest, "firstName" | "lastName" | "age">> & {
+type CleanGuest = {
   guestType: GuestType;
+  firstName: string;
+  lastName: string;
+  age: string;
   whatsapp: string;
 };
-type Payload = { adultCount?: number; childrenCount?: number; guests: Guest[] };
+type Payload = { guests: Guest[] };
 
 function makeGroupId() {
   // 8-char base36, ~2.8 trillion combos — plenty for a guest list
@@ -126,15 +129,21 @@ export async function POST(req: Request) {
   }
   for (const g of guests) {
     const guestType = normalizeGuestType(g?.guestType);
-    if (!g?.firstName?.trim() || !g?.lastName?.trim() || !g?.age?.trim()) {
+    if (!g?.firstName?.trim() || !g?.lastName?.trim()) {
       return NextResponse.json(
-        { ok: false, error: "Each guest needs first name, last name and age" },
+        { ok: false, error: "Each guest needs first name and last name" },
         { status: 400 },
       );
     }
     if (guestType === "Adult" && !g?.whatsapp?.trim()) {
       return NextResponse.json(
         { ok: false, error: "Each adult guest needs a WhatsApp number" },
+        { status: 400 },
+      );
+    }
+    if (guestType === "Child" && !g?.age?.trim()) {
+      return NextResponse.json(
+        { ok: false, error: "Each child guest needs an age" },
         { status: 400 },
       );
     }
@@ -148,7 +157,7 @@ export async function POST(req: Request) {
     guestType: normalizeGuestType(g.guestType),
     firstName: g.firstName.trim(),
     lastName: g.lastName.trim(),
-    age: g.age.trim(),
+    age: normalizeGuestType(g.guestType) === "Child" ? g.age?.trim() ?? "" : "",
     whatsapp: g.whatsapp?.trim() ?? "",
   }));
   const adultCount = cleanedGuests.filter((g) => g.guestType === "Adult").length;

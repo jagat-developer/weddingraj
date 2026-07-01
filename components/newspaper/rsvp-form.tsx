@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import { Hairline } from "./hairline";
 
 type Guest = {
+  guestType: GuestKind;
   firstName: string;
   lastName: string;
   age: string;
@@ -24,6 +25,7 @@ const COUNTRY_CODES = [
 ];
 
 const emptyGuest = (): Guest => ({
+  guestType: "adult",
   firstName: "",
   lastName: "",
   age: "",
@@ -34,10 +36,8 @@ const emptyGuest = (): Guest => ({
 const digitsOnly = (value: string) => value.replace(/\D/g, "");
 
 export function RsvpForm({ intro, instruction, assistance }: Props) {
-  const [adultCount, setAdultCount] = useState(0);
-  const [childrenCount, setChildrenCount] = useState(0);
-  const [adultGuests, setAdultGuests] = useState<Guest[]>([]);
-  const [childGuests, setChildGuests] = useState<Guest[]>([]);
+  const [count, setCount] = useState(0);
+  const [guests, setGuests] = useState<Guest[]>([]);
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
 
@@ -48,47 +48,41 @@ export function RsvpForm({ intro, instruction, assistance }: Props) {
     return next;
   };
 
-  const updateCount = (kind: GuestKind, raw: string) => {
+  const updateCount = (raw: string) => {
     const parsed = parseInt(raw, 10);
     const safe = isNaN(parsed) ? 0 : Math.max(0, Math.min(MAX_GUESTS, parsed));
-    if (kind === "adult") {
-      setAdultCount(safe);
-      setAdultGuests((prev) => resizeGuestList(prev, safe));
-    } else {
-      setChildrenCount(safe);
-      setChildGuests((prev) => resizeGuestList(prev, safe));
-    }
+    setCount(safe);
+    setGuests((prev) => resizeGuestList(prev, safe));
   };
 
-  const updateGuest = (
-    kind: GuestKind,
-    i: number,
-    field: keyof Guest,
-    value: string,
-  ) => {
-    const setter = kind === "adult" ? setAdultGuests : setChildGuests;
-    setter((prev) => {
+  const updateGuest = (i: number, field: keyof Guest, value: string) => {
+    setGuests((prev) => {
       const next = [...prev];
-      next[i] = { ...next[i], [field]: value };
+      const updated = { ...next[i], [field]: value };
+
+      if (field === "guestType") {
+        if (value === "adult") updated.age = "";
+        if (value === "child") {
+          updated.whatsapp = "";
+          updated.countryCode = DEFAULT_COUNTRY_CODE;
+        }
+      }
+
+      next[i] = updated;
       return next;
     });
   };
 
-  const totalCount = adultCount + childrenCount;
   const valid =
-    totalCount > 0 &&
-    adultGuests.length === adultCount &&
-    childGuests.length === childrenCount &&
-    adultGuests.every(
+    count > 0 &&
+    guests.length === count &&
+    guests.every(
       (g) =>
         g.firstName.trim() &&
         g.lastName.trim() &&
-        digitsOnly(g.age) &&
-        g.countryCode.trim() &&
-        digitsOnly(g.whatsapp),
-    ) &&
-    childGuests.every(
-      (g) => g.firstName.trim() && g.lastName.trim() && digitsOnly(g.age),
+        (g.guestType === "adult"
+          ? g.countryCode.trim() && digitsOnly(g.whatsapp)
+          : digitsOnly(g.age)),
     );
 
   const submit = async (e: React.FormEvent) => {
@@ -97,28 +91,20 @@ export function RsvpForm({ intro, instruction, assistance }: Props) {
     setStatus("submitting");
     setError("");
     try {
-      const adultGuestsWithDialCodes = adultGuests.map((g) => ({
-        guestType: "Adult",
+      const formattedGuests = guests.map((g) => ({
+        guestType: g.guestType === "adult" ? "Adult" : "Child",
         firstName: g.firstName,
         lastName: g.lastName,
-        age: digitsOnly(g.age),
-        whatsapp: `${g.countryCode}${digitsOnly(g.whatsapp)}`,
-      }));
-      const childGuestsWithoutPhone = childGuests.map((g) => ({
-        guestType: "Child",
-        firstName: g.firstName,
-        lastName: g.lastName,
-        age: digitsOnly(g.age),
-        whatsapp: "",
+        age: g.guestType === "child" ? digitsOnly(g.age) : "",
+        whatsapp:
+          g.guestType === "adult"
+            ? `${g.countryCode}${digitsOnly(g.whatsapp)}`
+            : "",
       }));
       const res = await fetch("/api/rsvp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          adultCount,
-          childrenCount,
-          guests: [...adultGuestsWithDialCodes, ...childGuestsWithoutPhone],
-        }),
+        body: JSON.stringify({ guests: formattedGuests }),
       });
       const result = await res.json();
       if (!res.ok || !result.ok)
@@ -169,37 +155,58 @@ export function RsvpForm({ intro, instruction, assistance }: Props) {
         {assistance}
       </p>
 
-      <div className="clone-rsvp-count-grid mt-5">
-        <CountField
-          label="Number of Adult Joining"
-          value={adultCount}
-          onChange={(value) => updateCount("adult", value)}
-        />
-        <CountField
-          label="Number of Children Joining"
-          value={childrenCount}
-          onChange={(value) => updateCount("child", value)}
-        />
-      </div>
+      <CountField
+        label="Number of Guests Joining"
+        value={count}
+        onChange={updateCount}
+      />
 
-      {adultGuests.length > 0 && (
-        <GuestSection
-          title="Adult Guest Details"
-          labelPrefix="Adult"
-          guests={adultGuests}
-          showPhone
-          onGuestChange={(i, field, value) => updateGuest("adult", i, field, value)}
-        />
-      )}
-
-      {childGuests.length > 0 && (
-        <GuestSection
-          title="Children Guest Details"
-          labelPrefix="Child"
-          guests={childGuests}
-          showPhone={false}
-          onGuestChange={(i, field, value) => updateGuest("child", i, field, value)}
-        />
+      {guests.length > 0 && (
+        <ul className="mt-5 space-y-5">
+          {guests.map((g, i) => (
+            <li key={i}>
+              <p className="eyebrow text-burgundy text-[0.62rem]">
+                Guest {i + 1}
+              </p>
+              <GuestTypeField
+                value={g.guestType}
+                onChange={(v) => updateGuest(i, "guestType", v)}
+              />
+              <div className="clone-guest-fields mt-2">
+                <Field
+                  label="First name"
+                  value={g.firstName}
+                  onChange={(v) => updateGuest(i, "firstName", v)}
+                  autoComplete="given-name"
+                />
+                <Field
+                  label="Last name"
+                  value={g.lastName}
+                  onChange={(v) => updateGuest(i, "lastName", v)}
+                  autoComplete="family-name"
+                />
+              </div>
+              {g.guestType === "adult" ? (
+                <PhoneField
+                  countryCode={g.countryCode}
+                  number={g.whatsapp}
+                  onCountryCodeChange={(v) => updateGuest(i, "countryCode", v)}
+                  onNumberChange={(v) => updateGuest(i, "whatsapp", v)}
+                />
+              ) : (
+                <Field
+                  className="mt-3"
+                  label="Age"
+                  value={g.age}
+                  onChange={(v) => updateGuest(i, "age", digitsOnly(v).slice(0, 3))}
+                  type="number"
+                  inputMode="numeric"
+                  autoComplete="off"
+                />
+              )}
+            </li>
+          ))}
+        </ul>
       )}
 
       {status === "error" && (
@@ -213,7 +220,7 @@ export function RsvpForm({ intro, instruction, assistance }: Props) {
         disabled={!valid || status === "submitting"}
         className="mt-auto block w-full bg-ink text-paper px-5 py-3.5 font-sans uppercase tracking-[0.28em] text-[0.72rem] font-medium disabled:opacity-50 disabled:cursor-not-allowed enabled:hover:bg-burgundy transition-colors"
         style={{
-          marginTop: totalCount > 0 ? "1.75rem" : "auto",
+          marginTop: guests.length > 0 ? "1.75rem" : "auto",
           transitionDuration: "var(--dur-base)",
           transitionTimingFunction: "var(--ease-out-emil)",
         }}
@@ -234,7 +241,7 @@ function CountField({
   onChange: (v: string) => void;
 }) {
   return (
-    <label className="block">
+    <label className="mt-5 block">
       <span className="eyebrow text-ink text-[0.62rem]">{label}</span>
       <input
         type="number"
@@ -255,62 +262,34 @@ function CountField({
   );
 }
 
-function GuestSection({
-  title,
-  labelPrefix,
-  guests,
-  showPhone,
-  onGuestChange,
+function GuestTypeField({
+  value,
+  onChange,
 }: {
-  title: string;
-  labelPrefix: string;
-  guests: Guest[];
-  showPhone: boolean;
-  onGuestChange: (i: number, field: keyof Guest, value: string) => void;
+  value: GuestKind;
+  onChange: (v: GuestKind) => void;
 }) {
+  const options: { value: GuestKind; label: string }[] = [
+    { value: "adult", label: "Adult" },
+    { value: "child", label: "Children" },
+  ];
+
   return (
-    <section className="clone-guest-section">
-      <p className="clone-guest-section-title">{title}</p>
-      <ul className="space-y-5">
-        {guests.map((g, i) => (
-          <li key={`${labelPrefix}-${i}`}>
-            <p className="eyebrow text-burgundy text-[0.62rem]">
-              {labelPrefix} {i + 1}
-            </p>
-            <div className="clone-guest-fields mt-2">
-              <Field
-                label="First name"
-                value={g.firstName}
-                onChange={(v) => onGuestChange(i, "firstName", v)}
-                autoComplete="given-name"
-              />
-              <Field
-                label="Last name"
-                value={g.lastName}
-                onChange={(v) => onGuestChange(i, "lastName", v)}
-                autoComplete="family-name"
-              />
-              <Field
-                label="Age"
-                value={g.age}
-                onChange={(v) => onGuestChange(i, "age", digitsOnly(v).slice(0, 3))}
-                type="number"
-                inputMode="numeric"
-                autoComplete="off"
-              />
-            </div>
-            {showPhone && (
-              <PhoneField
-                countryCode={g.countryCode}
-                number={g.whatsapp}
-                onCountryCodeChange={(v) => onGuestChange(i, "countryCode", v)}
-                onNumberChange={(v) => onGuestChange(i, "whatsapp", v)}
-              />
-            )}
-          </li>
-        ))}
-      </ul>
-    </section>
+    <fieldset className="clone-guest-type-field">
+      <legend>Guest Type</legend>
+      {options.map((option) => (
+        <button
+          key={option.value}
+          type="button"
+          role="radio"
+          aria-checked={value === option.value}
+          data-selected={value === option.value}
+          onClick={() => onChange(option.value)}
+        >
+          {option.label}
+        </button>
+      ))}
+    </fieldset>
   );
 }
 
