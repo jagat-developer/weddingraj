@@ -23,14 +23,28 @@ const HEADERS = [
   "Timestamp",
   "GroupID",
   "TotalGuests",
+  "AdultCount",
+  "ChildrenCount",
+  "GuestType",
   "FirstName",
   "LastName",
   "WhatsApp",
   "Age",
 ];
 
-type Guest = { firstName: string; lastName: string; age: string; whatsapp: string };
-type Payload = { guests: Guest[] };
+type GuestType = "Adult" | "Child";
+type Guest = {
+  guestType?: string;
+  firstName: string;
+  lastName: string;
+  age: string;
+  whatsapp?: string;
+};
+type CleanGuest = Required<Pick<Guest, "firstName" | "lastName" | "age">> & {
+  guestType: GuestType;
+  whatsapp: string;
+};
+type Payload = { adultCount?: number; childrenCount?: number; guests: Guest[] };
 
 function makeGroupId() {
   // 8-char base36, ~2.8 trillion combos — plenty for a guest list
@@ -63,9 +77,11 @@ async function appendCsv(rows: string[][]) {
 type ForwardResult = { sent: boolean; status?: number; error?: string };
 
 async function forwardToSheet(payload: {
-  guests: Guest[];
+  guests: CleanGuest[];
   groupId: string;
   timestamp: string;
+  adultCount: number;
+  childrenCount: number;
 }): Promise<ForwardResult> {
   const url = process.env.RSVP_WEBHOOK_URL;
   if (!url) return { sent: false, error: "no webhook configured" };
@@ -84,6 +100,10 @@ async function forwardToSheet(payload: {
       error: err instanceof Error ? err.message : String(err),
     };
   }
+}
+
+function normalizeGuestType(value: string | undefined): GuestType {
+  return value?.toLowerCase() === "child" ? "Child" : "Adult";
 }
 
 export async function POST(req: Request) {
@@ -105,9 +125,16 @@ export async function POST(req: Request) {
     );
   }
   for (const g of guests) {
-    if (!g?.firstName?.trim() || !g?.lastName?.trim() || !g?.age?.trim() || !g?.whatsapp?.trim()) {
+    const guestType = normalizeGuestType(g?.guestType);
+    if (!g?.firstName?.trim() || !g?.lastName?.trim() || !g?.age?.trim()) {
       return NextResponse.json(
-        { ok: false, error: "Each guest needs first name, last name, age and WhatsApp" },
+        { ok: false, error: "Each guest needs first name, last name and age" },
+        { status: 400 },
+      );
+    }
+    if (guestType === "Adult" && !g?.whatsapp?.trim()) {
+      return NextResponse.json(
+        { ok: false, error: "Each adult guest needs a WhatsApp number" },
         { status: 400 },
       );
     }
@@ -117,17 +144,23 @@ export async function POST(req: Request) {
   const groupId = makeGroupId();
   const total = String(guests.length);
 
-  const cleanedGuests = guests.map((g) => ({
+  const cleanedGuests: CleanGuest[] = guests.map((g) => ({
+    guestType: normalizeGuestType(g.guestType),
     firstName: g.firstName.trim(),
     lastName: g.lastName.trim(),
     age: g.age.trim(),
-    whatsapp: g.whatsapp.trim(),
+    whatsapp: g.whatsapp?.trim() ?? "",
   }));
+  const adultCount = cleanedGuests.filter((g) => g.guestType === "Adult").length;
+  const childrenCount = cleanedGuests.filter((g) => g.guestType === "Child").length;
 
   const rows = cleanedGuests.map((g) => [
     timestamp,
     groupId,
     total,
+    String(adultCount),
+    String(childrenCount),
+    g.guestType,
     g.firstName,
     g.lastName,
     g.whatsapp,
@@ -148,6 +181,8 @@ export async function POST(req: Request) {
     guests: cleanedGuests,
     groupId,
     timestamp,
+    adultCount,
+    childrenCount,
   });
 
   return NextResponse.json({

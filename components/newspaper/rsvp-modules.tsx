@@ -44,6 +44,7 @@ export function RsvpCard() {
       <RsvpForm
         intro={rsvp.invite.intro}
         instruction={rsvp.invite.instruction}
+        assistance={rsvp.invite.assistance}
       />
     </article>
   );

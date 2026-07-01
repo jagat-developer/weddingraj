@@ -248,6 +248,7 @@ export const rsvp = {
     label: "RSVP",
     intro: "We can't wait to celebrate with you!",
     instruction: "Kindly Confirm your attendance by sharing the following on WhatsApp By August 22, 2026. All event related updates will be communicated through WhatsApp.",
+    assistance: "If you require any further assistance, please reach out to our RSVP team on WhatsApp at: +919167282521",
     fields: [
       { icon: "users", label: "Guest Count" },
       { icon: "user", label: "Name of Every Guest" },

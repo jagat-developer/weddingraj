@@ -58,7 +58,11 @@ function RsvpCard() {
   return (
     <article className="clone-rsvp-card clone-rsvp-submit-card">
       <Ribbon>RSVP</Ribbon>
-      <RsvpForm intro={rsvp.invite.intro} instruction={rsvp.invite.instruction} />
+      <RsvpForm
+        intro={rsvp.invite.intro}
+        instruction={rsvp.invite.instruction}
+        assistance={rsvp.invite.assistance}
+      />
     </article>
   );
 }

@@ -31,6 +31,9 @@ const HEADERS = [
   "Timestamp",
   "GroupID",
   "TotalGuests",
+  "AdultCount",
+  "ChildrenCount",
+  "GuestType",
   "FirstName",
   "LastName",
   "WhatsApp",
@@ -61,6 +64,12 @@ function doPost(e) {
     const groupId = body.groupId || Utilities.getUuid().slice(0, 8);
     const guests = Array.isArray(body.guests) ? body.guests : [];
     const total = guests.length;
+    const adultCount = guests.filter(function (g) {
+      return String(g.guestType || "Adult").toLowerCase() !== "child";
+    }).length;
+    const childrenCount = guests.filter(function (g) {
+      return String(g.guestType || "").toLowerCase() === "child";
+    }).length;
 
     if (!total) {
       return ContentService.createTextOutput(
@@ -73,6 +82,9 @@ function doPost(e) {
         timestamp,
         groupId,
         total,
+        adultCount,
+        childrenCount,
+        String(g.guestType || "Adult").trim(),
         String(g.firstName || "").trim(),
         String(g.lastName || "").trim(),
         String(g.whatsapp || "").trim(),
