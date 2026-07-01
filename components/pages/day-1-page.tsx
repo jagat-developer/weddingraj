@@ -71,9 +71,11 @@ function CloneIssueHeader({ page }: { page: string }) {
 function EditionHero({ day, deck }: { day: string; deck: string }) {
   return (
     <section className="clone-edition-hero">
-      <LaurelLeft className="clone-leaf" size={72} />
-      <h1>Day <span className="clone-edition-day-number">{day}</span> Edition</h1>
-      <LaurelLeft className="clone-leaf right" size={72} />
+      <div className="clone-edition-title-wrap">
+        <LaurelLeft className="clone-leaf" size={72} />
+        <h1>Day <span className="clone-edition-day-number">{day}</span> Edition</h1>
+        <LaurelLeft className="clone-leaf right" size={72} />
+      </div>
       <p>{deck}</p>
     </section>
   );

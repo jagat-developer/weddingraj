@@ -610,6 +610,10 @@ p {
   text-align: center;
 }
 
+.clone-edition-title-wrap {
+  position: relative;
+}
+
 .clone-edition-hero h1 {
   font-size: clamp(3.2rem, 7.6vw, 5.6rem);
 }
@@ -640,13 +644,13 @@ p {
 
 .clone-leaf {
   position: absolute;
-  top: 0.35rem;
+  top: 50%;
   left: clamp(0.2rem, 1.2vw, 0.9rem);
   display: block;
-  width: clamp(3.1rem, 7vw, 4.8rem);
+  width: clamp(2.75rem, 6vw, 4.1rem);
   height: auto;
   color: #9b1f19;
-  transform: rotate(-8deg);
+  transform: translateY(-50%) rotate(-8deg);
   opacity: 0.9;
   pointer-events: none;
 }
@@ -654,7 +658,7 @@ p {
 .clone-leaf.right {
   right: clamp(0.2rem, 1.2vw, 0.9rem);
   left: auto;
-  transform: rotate(8deg) scaleX(-1);
+  transform: translateY(-50%) rotate(8deg) scaleX(-1);
 }
 
 .clone-ribbon {
@@ -2056,9 +2060,9 @@ p {
   }
 
   .clone-leaf {
-    top: 0.45rem;
+    top: 50%;
     display: block !important;
-    width: clamp(2.45rem, 12vw, 3.2rem);
+    width: clamp(2.25rem, 10vw, 2.85rem);
   }
 
   .clone-rsvp-title > span {
