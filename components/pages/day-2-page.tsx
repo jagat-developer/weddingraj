@@ -27,8 +27,8 @@ export function Day2Page() {
       <Ribbon>{day2.journeyTitle}</Ribbon>
 
       <section className="clone-journey-columns">
-        {day2.journey.map((step, index) => (
-          <JourneyColumn key={step.step} step={step} index={index} />
+        {day2.journey.map((step) => (
+          <JourneyColumn key={step.step} step={step} />
         ))}
       </section>
 
@@ -61,16 +61,13 @@ const JOURNEY_IMAGES: Record<string, { src: string; width: number; height: numbe
 
 function JourneyColumn({
   step,
-  index,
 }: {
   step: (typeof day2.journey)[number];
-  index: number;
 }) {
   const img = JOURNEY_IMAGES[step.icon];
   return (
     <article className="clone-journey-card">
       <span className="clone-step-number">{step.step}</span>
-      {index < day2.journey.length - 1 && <span className="clone-step-arrow">········›</span>}
       <span className="clone-journey-icon-frame" aria-hidden>
         <Image
           src={img.src}

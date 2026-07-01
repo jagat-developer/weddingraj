@@ -882,6 +882,7 @@ p {
 }
 
 .clone-journey-columns {
+  position: relative;
   margin-top: 1rem;
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -897,6 +898,7 @@ p {
 }
 
 .clone-step-number {
+  position: relative;
   display: inline-grid;
   place-items: center;
   width: 2rem;
@@ -905,30 +907,7 @@ p {
   background: #a20f19;
   color: #fffdf8;
   font: 900 1rem var(--font-display);
-}
-
-.clone-step-arrow {
-  position: absolute;
-  top: 1.25rem;
-  right: -1.95rem;
-  width: clamp(3.1rem, 5.2vw, 4.6rem);
-  height: 0;
-  border-top: 2px dotted #071a39;
-  color: #071a39;
-  font-size: 0;
-  line-height: 0;
-  transform: translateY(-50%);
   z-index: 2;
-}
-
-.clone-step-arrow::after {
-  content: "›";
-  position: absolute;
-  right: -0.36rem;
-  top: 50%;
-  font: 900 0.72rem var(--font-sans);
-  line-height: 1;
-  transform: translateY(-54%);
 }
 
 .clone-journey-icon-frame {
@@ -1011,14 +990,27 @@ p {
 }
 
 @media (min-width: 901px) {
+  .clone-journey-columns::before {
+    content: "";
+    position: absolute;
+    top: 1rem;
+    left: 10%;
+    right: 10%;
+    border-top: 2px dotted #071a39;
+    opacity: 0.9;
+    transform: translateY(-50%);
+    z-index: 0;
+  }
+
   .clone-journey-card {
     display: grid;
     grid-template-rows: 2rem 7.35rem 3.1rem 1.5rem 4.25rem 4.35rem 1.25rem auto;
     align-items: start;
+    z-index: 1;
   }
 
   .clone-step-number {
-    justify-self: start;
+    justify-self: center;
   }
 
   .clone-journey-icon-frame {
@@ -1784,10 +1776,6 @@ p {
   .clone-journey-columns {
     grid-template-columns: 1fr;
     gap: 1rem;
-  }
-
-  .clone-step-arrow {
-    display: none;
   }
 
   .clone-journey-card {
