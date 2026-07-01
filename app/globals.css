@@ -777,7 +777,11 @@ p {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
-  align-items: start;
+  align-items: stretch;
+}
+
+.clone-bottom-modules > .clone-mini-panel {
+  height: 100%;
 }
 
 .clone-mini-panel {
