@@ -905,11 +905,26 @@ p {
 
 .clone-step-arrow {
   position: absolute;
-  top: 0.45rem;
-  right: -2.2rem;
+  top: 1.25rem;
+  right: -1.95rem;
+  width: clamp(3.1rem, 5.2vw, 4.6rem);
+  height: 0;
+  border-top: 2px dotted #071a39;
   color: #071a39;
-  letter-spacing: 0.1em;
+  font-size: 0;
+  line-height: 0;
+  transform: translateY(-50%);
   z-index: 2;
+}
+
+.clone-step-arrow::after {
+  content: "›";
+  position: absolute;
+  right: -0.36rem;
+  top: 50%;
+  font: 900 0.72rem var(--font-sans);
+  line-height: 1;
+  transform: translateY(-54%);
 }
 
 .clone-journey-icon-frame {
