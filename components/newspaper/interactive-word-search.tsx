@@ -219,8 +219,7 @@ export function InteractiveWordSearch({ instruction, words, grid }: Props) {
               Well, well, well… look who&apos;s smarter than the average wedding guest! 🧩😏
             </p>
             <p className="clone-puzzle-modal-body">
-              You&apos;ve officially cracked the code, earned VIP bragging rights, and unlocked your
-              exclusive invitation.
+              You&apos;ve officially cracked the code and earned VIP bragging rights.
             </p>
             <button
               type="button"
