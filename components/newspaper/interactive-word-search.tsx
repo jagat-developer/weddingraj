@@ -1,6 +1,7 @@
 "use client";
 
 import { Fragment, useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { RotateCcw, Search, X } from "lucide-react";
 
 type Cell = {
@@ -135,11 +136,16 @@ export function InteractiveWordSearch({ instruction, words, grid }: Props) {
 
   useEffect(() => {
     if (!showSolvedModal) return;
+    const previousOverflow = document.body.style.overflow;
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") setShowSolvedModal(false);
     };
+    document.body.style.overflow = "hidden";
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = previousOverflow;
+    };
   }, [showSolvedModal]);
 
   const handleTap = (cell: Cell) => {
@@ -168,6 +174,49 @@ export function InteractiveWordSearch({ instruction, words, grid }: Props) {
     setFoundCells(new Set());
     setStatus("Tap the first and last letters of each word.");
   };
+
+  const solvedModal = showSolvedModal && typeof document !== "undefined"
+    ? createPortal(
+        <div
+          className="clone-puzzle-modal-overlay"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="clone-puzzle-modal-title"
+          onClick={(event) => {
+            if (event.target === event.currentTarget) setShowSolvedModal(false);
+          }}
+        >
+          <div className="clone-puzzle-modal">
+            <button
+              type="button"
+              className="clone-puzzle-modal-close"
+              aria-label="Close"
+              onClick={() => setShowSolvedModal(false)}
+            >
+              <X size={18} />
+            </button>
+            <p className="clone-puzzle-modal-title" id="clone-puzzle-modal-title">
+              🎉 PUZZLE SOLVED! 🎉
+            </p>
+            <p className="clone-puzzle-modal-lead">
+              Well, well, well… look who&apos;s smarter than the average wedding guest! 🧩😏
+            </p>
+            <p className="clone-puzzle-modal-body">
+              You&apos;ve officially cracked the code, earned VIP bragging rights, and unlocked your
+              exclusive invitation.
+            </p>
+            <button
+              type="button"
+              className="clone-puzzle-modal-button"
+              onClick={() => setShowSolvedModal(false)}
+            >
+              Close
+            </button>
+          </div>
+        </div>,
+        document.body,
+      )
+    : null;
 
   return (
     <>
@@ -267,45 +316,7 @@ export function InteractiveWordSearch({ instruction, words, grid }: Props) {
         </button>
       </div>
 
-      {showSolvedModal && (
-        <div
-          className="clone-puzzle-modal-overlay"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="clone-puzzle-modal-title"
-          onClick={(event) => {
-            if (event.target === event.currentTarget) setShowSolvedModal(false);
-          }}
-        >
-          <div className="clone-puzzle-modal">
-            <button
-              type="button"
-              className="clone-puzzle-modal-close"
-              aria-label="Close"
-              onClick={() => setShowSolvedModal(false)}
-            >
-              <X size={18} />
-            </button>
-            <p className="clone-puzzle-modal-title" id="clone-puzzle-modal-title">
-              🎉 PUZZLE SOLVED! 🎉
-            </p>
-            <p className="clone-puzzle-modal-lead">
-              Well, well, well… look who&apos;s smarter than the average wedding guest! 🧩😏
-            </p>
-            <p className="clone-puzzle-modal-body">
-              You&apos;ve officially cracked the code, earned VIP bragging rights, and unlocked your
-              exclusive invitation.
-            </p>
-            <button
-              type="button"
-              className="clone-puzzle-modal-button"
-              onClick={() => setShowSolvedModal(false)}
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )}
+      {solvedModal}
     </>
   );
 }
