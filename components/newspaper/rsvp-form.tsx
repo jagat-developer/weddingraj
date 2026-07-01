@@ -7,6 +7,7 @@ import { Hairline } from "./hairline";
 type Guest = {
   firstName: string;
   lastName: string;
+  age: string;
   countryCode: string;
   whatsapp: string;
 };
@@ -24,6 +25,7 @@ const COUNTRY_CODES = [
 const emptyGuest = (): Guest => ({
   firstName: "",
   lastName: "",
+  age: "",
   countryCode: DEFAULT_COUNTRY_CODE,
   whatsapp: "",
 });
@@ -63,6 +65,7 @@ export function RsvpForm({ intro, instruction }: Props) {
       (g) =>
         g.firstName.trim() &&
         g.lastName.trim() &&
+        digitsOnly(g.age) &&
         g.countryCode.trim() &&
         digitsOnly(g.whatsapp),
     );
@@ -76,6 +79,7 @@ export function RsvpForm({ intro, instruction }: Props) {
       const guestsWithDialCodes = guests.map((g) => ({
         firstName: g.firstName,
         lastName: g.lastName,
+        age: digitsOnly(g.age),
         whatsapp: `${g.countryCode}${digitsOnly(g.whatsapp)}`,
       }));
       const res = await fetch("/api/rsvp", {
@@ -156,7 +160,7 @@ export function RsvpForm({ intro, instruction }: Props) {
               <p className="eyebrow text-burgundy text-[0.62rem]">
                 Guest {i + 1}
               </p>
-              <div className="mt-2 grid grid-cols-2 gap-3">
+              <div className="clone-guest-fields mt-2">
                 <Field
                   label="First name"
                   value={g.firstName}
@@ -168,6 +172,14 @@ export function RsvpForm({ intro, instruction }: Props) {
                   value={g.lastName}
                   onChange={(v) => updateGuest(i, "lastName", v)}
                   autoComplete="family-name"
+                />
+                <Field
+                  label="Age"
+                  value={g.age}
+                  onChange={(v) => updateGuest(i, "age", digitsOnly(v).slice(0, 3))}
+                  type="number"
+                  inputMode="numeric"
+                  autoComplete="off"
                 />
               </div>
               <PhoneField

@@ -1194,6 +1194,13 @@ p {
   font-size: 1rem !important;
 }
 
+.clone-guest-fields {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(4.5rem, 0.42fr);
+  gap: 0.75rem;
+  align-items: end;
+}
+
 .clone-phone-row {
   display: grid;
   grid-template-columns: minmax(8.25rem, 0.42fr) minmax(0, 1fr);
@@ -1930,6 +1937,11 @@ p {
 
   .clone-phone-row {
     grid-template-columns: minmax(7.35rem, 0.45fr) minmax(0, 1fr);
+    gap: 0.55rem;
+  }
+
+  .clone-guest-fields {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(4rem, 0.5fr);
     gap: 0.55rem;
   }
 

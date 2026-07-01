@@ -26,9 +26,10 @@ const HEADERS = [
   "FirstName",
   "LastName",
   "WhatsApp",
+  "Age",
 ];
 
-type Guest = { firstName: string; lastName: string; whatsapp: string };
+type Guest = { firstName: string; lastName: string; age: string; whatsapp: string };
 type Payload = { guests: Guest[] };
 
 function makeGroupId() {
@@ -104,9 +105,9 @@ export async function POST(req: Request) {
     );
   }
   for (const g of guests) {
-    if (!g?.firstName?.trim() || !g?.lastName?.trim() || !g?.whatsapp?.trim()) {
+    if (!g?.firstName?.trim() || !g?.lastName?.trim() || !g?.age?.trim() || !g?.whatsapp?.trim()) {
       return NextResponse.json(
-        { ok: false, error: "Each guest needs first name, last name and WhatsApp" },
+        { ok: false, error: "Each guest needs first name, last name, age and WhatsApp" },
         { status: 400 },
       );
     }
@@ -119,6 +120,7 @@ export async function POST(req: Request) {
   const cleanedGuests = guests.map((g) => ({
     firstName: g.firstName.trim(),
     lastName: g.lastName.trim(),
+    age: g.age.trim(),
     whatsapp: g.whatsapp.trim(),
   }));
 
@@ -129,6 +131,7 @@ export async function POST(req: Request) {
     g.firstName,
     g.lastName,
     g.whatsapp,
+    g.age,
   ]);
 
   // Best-effort local CSV

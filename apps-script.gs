@@ -34,18 +34,21 @@ const HEADERS = [
   "FirstName",
   "LastName",
   "WhatsApp",
+  "Age",
 ];
 
 function ensureHeaders_(sheet) {
   if (sheet.getLastRow() === 0) {
     sheet.appendRow(HEADERS);
-    sheet
-      .getRange(1, 1, 1, HEADERS.length)
-      .setFontWeight("bold")
-      .setBackground("#102844")
-      .setFontColor("#fbf6ec");
-    sheet.setFrozenRows(1);
+  } else {
+    sheet.getRange(1, 1, 1, HEADERS.length).setValues([HEADERS]);
   }
+  sheet
+    .getRange(1, 1, 1, HEADERS.length)
+    .setFontWeight("bold")
+    .setBackground("#102844")
+    .setFontColor("#fbf6ec");
+  sheet.setFrozenRows(1);
 }
 
 function doPost(e) {
@@ -73,6 +76,7 @@ function doPost(e) {
         String(g.firstName || "").trim(),
         String(g.lastName || "").trim(),
         String(g.whatsapp || "").trim(),
+        String(g.age || "").trim(),
       ]);
     });
 

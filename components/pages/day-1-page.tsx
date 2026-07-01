@@ -4,7 +4,6 @@ import {
   MapPin,
   Newspaper,
   Shirt,
-  Sparkles,
   Sun,
   TrendingDown,
   TrendingUp,
@@ -144,6 +143,12 @@ function WeatherForecast() {
     ["Music Level", "High"],
     ["Love Is In The Air", "100%"],
     ["Sunshine", "100%"],
+    ["Ocean Vibes", "Perfect"],
+    ["Mood Outlook", "Celebratory"],
+    ["Coconut Index", "Very High"],
+    ["SPF Advisory", "Don't Skip!"],
+    ["Hydration Reminder", "Drink Up!"],
+    ["Good Hair Day", "High Chance"],
     ["Chance Of Getting Enough Sleep", "0%"],
   ];
   return (
@@ -166,7 +171,7 @@ function StockExchange() {
     ["LAUGHTER", "Rising Rapidly", TrendingUp],
     ["DANCE MOVES", "Bull Market", TrendingUp],
     ["GOOD VIBES", "Record Highs", TrendingUp],
-    ["TEQUILA", "Limited Supply", Sparkles],
+    ["HAPPY TEARS", "Expected Spike", TrendingUp],
     ["SLEEP", "Falling Fast", TrendingDown],
   ] as const;
   return (
@@ -197,6 +202,11 @@ function TodayHeadlines() {
     "Secret family performances under investigation",
     "Experts predict an unforgettable evening",
     "Celebration levels expected to remain at record highs",
+    "Cameras unable to keep up with candid moments",
+    "DJ confirms volume will increase after sunset",
+    "Outfit compliments reach all-time high",
+    "Sunglasses become the accessory of the day",
+    "Calories temporarily declared irrelevant",
   ];
   return (
     <article className="clone-mini-panel">
