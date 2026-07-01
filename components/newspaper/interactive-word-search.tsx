@@ -58,6 +58,7 @@ export function InteractiveWordSearch({ instruction, words, grid }: Props) {
   );
   const [showSolvedModal, setShowSolvedModal] = useState(false);
 
+  const modalOverlayRef = useRef<HTMLDivElement | null>(null);
   const dragStartRef = useRef<Cell | null>(null);
   const didDragRef = useRef(false);
   const ignoreNextClickRef = useRef(false);
@@ -137,13 +138,28 @@ export function InteractiveWordSearch({ instruction, words, grid }: Props) {
   useEffect(() => {
     if (!showSolvedModal) return;
     const previousOverflow = document.body.style.overflow;
+    const updateVisibleViewport = () => {
+      const viewport = window.visualViewport;
+      const top = viewport?.offsetTop ?? 0;
+      const height = viewport?.height ?? window.innerHeight;
+
+      modalOverlayRef.current?.style.setProperty("--puzzle-vv-top", `${top}px`);
+      modalOverlayRef.current?.style.setProperty("--puzzle-vv-height", `${height}px`);
+    };
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") setShowSolvedModal(false);
     };
     document.body.style.overflow = "hidden";
+    updateVisibleViewport();
+    window.visualViewport?.addEventListener("resize", updateVisibleViewport);
+    window.visualViewport?.addEventListener("scroll", updateVisibleViewport);
+    window.addEventListener("resize", updateVisibleViewport);
     window.addEventListener("keydown", onKey);
     return () => {
       window.removeEventListener("keydown", onKey);
+      window.removeEventListener("resize", updateVisibleViewport);
+      window.visualViewport?.removeEventListener("resize", updateVisibleViewport);
+      window.visualViewport?.removeEventListener("scroll", updateVisibleViewport);
       document.body.style.overflow = previousOverflow;
     };
   }, [showSolvedModal]);
@@ -178,6 +194,7 @@ export function InteractiveWordSearch({ instruction, words, grid }: Props) {
   const solvedModal = showSolvedModal && typeof document !== "undefined"
     ? createPortal(
         <div
+          ref={modalOverlayRef}
           className="clone-puzzle-modal-overlay"
           role="dialog"
           aria-modal="true"
