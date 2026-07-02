@@ -1811,6 +1811,8 @@ p {
   height: auto;
   filter: contrast(1.08) saturate(1.05);
   mix-blend-mode: multiply;
+  transform: rotate(-8deg) translateY(-0.05rem) scale(0.96);
+  transform-origin: center;
 }
 
 .clone-rsvp-quote {
