@@ -45,7 +45,7 @@ export function FrontPage() {
 
         <figure className="clone-front-photo">
           <Image
-            src="/images/clone-assets/front-couple-engagement.jpg"
+            src="/images/clone-assets/front-couple-img-0909.jpg"
             alt="Shefali and Raj sitting together in tall grass"
             width={2048}
             height={1365}
