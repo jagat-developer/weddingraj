@@ -158,10 +158,10 @@ function Classifieds() {
       </ul>
       <figure className="clone-classifieds-sketch" aria-hidden>
         <Image
-          src="/images/clone-assets/destination-sketch-full.png"
+          src="/images/clone-assets/classified-stamp-clean.png"
           alt=""
-          width={832}
-          height={1216}
+          width={920}
+          height={920}
         />
       </figure>
     </article>
