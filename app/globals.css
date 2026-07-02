@@ -1299,6 +1299,17 @@ p {
   align-items: end;
 }
 
+.clone-adult-contact-fields {
+  display: grid;
+  grid-template-columns: minmax(4.4rem, 0.22fr) minmax(0, 1fr);
+  gap: 0.75rem;
+  align-items: end;
+}
+
+.clone-adult-phone-row {
+  margin-top: 0;
+}
+
 .clone-country-select {
   display: block;
   width: 100%;
@@ -2058,6 +2069,11 @@ p {
 
   .clone-phone-row {
     grid-template-columns: minmax(7.35rem, 0.45fr) minmax(0, 1fr);
+    gap: 0.55rem;
+  }
+
+  .clone-adult-contact-fields {
+    grid-template-columns: 1fr;
     gap: 0.55rem;
   }
 

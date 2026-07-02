@@ -135,15 +135,15 @@ export async function POST(req: Request) {
         { status: 400 },
       );
     }
-    if (guestType === "Adult" && !g?.whatsapp?.trim()) {
+    if (!g?.age?.trim()) {
       return NextResponse.json(
-        { ok: false, error: "Each adult guest needs a WhatsApp number" },
+        { ok: false, error: "Each guest needs an age" },
         { status: 400 },
       );
     }
-    if (guestType === "Child" && !g?.age?.trim()) {
+    if (guestType === "Adult" && !g?.whatsapp?.trim()) {
       return NextResponse.json(
-        { ok: false, error: "Each child guest needs an age" },
+        { ok: false, error: "Each adult guest needs a WhatsApp number" },
         { status: 400 },
       );
     }
@@ -157,7 +157,7 @@ export async function POST(req: Request) {
     guestType: normalizeGuestType(g.guestType),
     firstName: g.firstName.trim(),
     lastName: g.lastName.trim(),
-    age: normalizeGuestType(g.guestType) === "Child" ? g.age?.trim() ?? "" : "",
+    age: g.age?.trim() ?? "",
     whatsapp: g.whatsapp?.trim() ?? "",
   }));
   const adultCount = cleanedGuests.filter((g) => g.guestType === "Adult").length;
