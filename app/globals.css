@@ -861,6 +861,10 @@ p {
   color: #155c2f;
 }
 
+.clone-stock-table td[data-trend="down"] {
+  color: #9b1f19;
+}
+
 .clone-recommendation {
   display: block;
   margin-top: 0.55rem;

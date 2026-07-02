@@ -167,12 +167,12 @@ function WeatherForecast() {
 
 function StockExchange() {
   const rows = [
-    ["LOVE", "Strong Buy", TrendingUp],
-    ["LAUGHTER", "Rising Rapidly", TrendingUp],
-    ["DANCE MOVES", "Bull Market", TrendingUp],
-    ["GOOD VIBES", "Record Highs", TrendingUp],
-    ["HAPPY TEARS", "Expected Spike", TrendingUp],
-    ["SLEEP", "Falling Fast", TrendingDown],
+    ["LOVE", "Strong Buy", TrendingUp, "up"],
+    ["LAUGHTER", "Rising Rapidly", TrendingUp, "up"],
+    ["DANCE MOVES", "Bull Market", TrendingUp, "up"],
+    ["GOOD VIBES", "Record Highs", TrendingUp, "up"],
+    ["HAPPY TEARS", "Expected Spike", TrendingUp, "up"],
+    ["SLEEP", "Falling Fast", TrendingDown, "down"],
   ] as const;
   return (
     <article className="clone-mini-panel clone-stock-panel">
@@ -180,10 +180,10 @@ function StockExchange() {
       <p>Market Report</p>
       <table className="clone-stock-table">
         <tbody>
-          {rows.map(([symbol, trend, Icon]) => (
+          {rows.map(([symbol, trend, Icon, direction]) => (
             <tr key={symbol}>
               <th>{symbol}</th>
-              <td><Icon size={14} /> {trend}</td>
+              <td data-trend={direction}><Icon size={14} /> {trend}</td>
             </tr>
           ))}
         </tbody>
