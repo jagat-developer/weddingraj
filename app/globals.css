@@ -407,6 +407,19 @@ p {
   line-height: 1.08;
 }
 
+.clone-location-block {
+  flex: 1;
+  min-height: clamp(10rem, 17vw, 14rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: 0.8rem;
+}
+
+.clone-location-block h3 {
+  margin-bottom: 0;
+}
+
 .clone-date-pill {
   display: grid;
   grid-template-columns: auto 1fr;
@@ -434,7 +447,7 @@ p {
 }
 
 .clone-date-group {
-  margin-top: auto;
+  margin-top: 0;
   padding-top: 0.6rem;
 }
 
