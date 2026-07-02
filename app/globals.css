@@ -1197,7 +1197,7 @@ p {
 .clone-rsvp-grid {
   margin-top: 1.1rem;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-items: start;
+  align-items: stretch;
 }
 
 .clone-rsvp-lower {
@@ -1745,6 +1745,11 @@ p {
   font: 700 0.86rem/1.3 var(--font-display);
 }
 
+.clone-classifieds {
+  display: flex;
+  flex-direction: column;
+}
+
 .clone-classifieds li svg {
   color: #9b1f19;
   flex: 0 0 auto;
@@ -1752,6 +1757,20 @@ p {
 
 .clone-classifieds strong {
   color: #9b1f19;
+}
+
+.clone-classifieds-sketch {
+  width: min(82%, 18rem);
+  margin: auto auto 0;
+  padding-top: 1.1rem;
+  opacity: 0.52;
+}
+
+.clone-classifieds-sketch img {
+  display: block;
+  width: 100%;
+  height: auto;
+  mix-blend-mode: multiply;
 }
 
 .clone-rsvp-quote {

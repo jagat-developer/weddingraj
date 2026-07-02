@@ -1,3 +1,4 @@
+import Image from "next/image";
 import {
   Gift,
   Heart,
@@ -155,6 +156,14 @@ function Classifieds() {
           );
         })}
       </ul>
+      <figure className="clone-classifieds-sketch" aria-hidden>
+        <Image
+          src="/images/clone-assets/destination-sketch.jpg"
+          alt=""
+          width={448}
+          height={320}
+        />
+      </figure>
     </article>
   );
 }
