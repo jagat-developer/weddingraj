@@ -138,7 +138,7 @@ export const day2 = {
       location: "Regency 2 Hall (Indoor)",
       outfit: "Ethnic Wear",
       description:
-        "We begin the day with blessings and prayers, seeking peace, prosperity and happiness for the beautiful journey ahead.",
+        "We begin the day with blessings and prayers, seeking peace, prosperity and happiness for the beautiful journey ahead. (Exclusive to the Groom's Family)",
     },
     {
       step: 2,
