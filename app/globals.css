@@ -617,6 +617,11 @@ p {
 
 .clone-edition-title-wrap {
   position: relative;
+  min-height: clamp(4.9rem, 8.4vw, 6.5rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: clamp(3.35rem, 8vw, 5.25rem);
 }
 
 .clone-edition-hero h1 {
@@ -650,20 +655,20 @@ p {
 .clone-leaf {
   position: absolute;
   top: 50%;
-  left: clamp(0.2rem, 1.2vw, 0.9rem);
+  left: clamp(0.45rem, 1.7vw, 1.2rem);
   display: block;
-  width: clamp(2.7rem, 5.2vw, 3.8rem);
+  width: clamp(2.45rem, 4.6vw, 3.45rem);
   height: auto;
   color: #9b1f19;
-  transform: translateY(-50%) rotate(-8deg);
-  opacity: 0.9;
+  transform: translateY(-48%) rotate(-4deg);
+  opacity: 0.86;
   pointer-events: none;
 }
 
 .clone-leaf.right {
-  right: clamp(0.2rem, 1.2vw, 0.9rem);
+  right: clamp(0.45rem, 1.7vw, 1.2rem);
   left: auto;
-  transform: translateY(-50%) rotate(8deg) scaleX(-1);
+  transform: translateY(-48%) rotate(4deg) scaleX(-1);
 }
 
 .clone-ribbon {
@@ -2225,13 +2230,13 @@ p {
 
   .clone-leaf {
     top: 50%;
-    left: clamp(1.35rem, 5vw, 1.7rem);
+    left: clamp(0.45rem, 2.7vw, 0.9rem);
     display: block !important;
-    width: clamp(1.95rem, 7.6vw, 2.35rem);
+    width: clamp(2.05rem, 8.6vw, 2.65rem);
   }
 
   .clone-leaf.right {
-    right: clamp(2.55rem, 9vw, 3.35rem);
+    right: clamp(0.45rem, 2.7vw, 0.9rem);
   }
 
   .clone-rsvp-title > span {
