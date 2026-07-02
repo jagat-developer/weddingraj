@@ -148,7 +148,7 @@ export const day2 = {
       location: "Held privately surrounded by family and laughter",
       outfit: "Ethnic Wear",
       description:
-        "A ceremony celebrating the journey from daughter to bride. A cherished Punjabi tradition where the bride is adorned with her sacred choodha, symbolizing the beginning of a beautiful new chapter.",
+        "A ceremony celebrating the journey from daughter to bride. A cherished Punjabi tradition where the bride is adorned with her sacred choodha, symbolizing the beginning of a beautiful new chapter. (Exclusive to the Bride's Family)",
     },
     {
       step: 3,
