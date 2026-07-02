@@ -356,6 +356,9 @@ p {
 .clone-front-photo img {
   display: block;
   width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 56% center;
   border: 1px solid rgba(7, 26, 57, 0.18);
   border-radius: 18px;
 }
@@ -1914,6 +1917,11 @@ p {
   .clone-event-card img,
   .clone-wide-photo {
     border-radius: 10px;
+  }
+
+  .clone-front-photo img {
+    height: auto;
+    object-fit: contain;
   }
 
   .clone-destination,

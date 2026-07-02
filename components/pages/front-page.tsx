@@ -45,10 +45,10 @@ export function FrontPage() {
 
         <figure className="clone-front-photo">
           <Image
-            src="/images/clone-assets/front-couple.jpg"
-            alt="Shefali and Raj walking together on the beach"
-            width={458}
-            height={718}
+            src="/images/clone-assets/front-couple-engagement.jpg"
+            alt="Shefali and Raj sitting together in tall grass"
+            width={2048}
+            height={1365}
             priority
           />
         </figure>
