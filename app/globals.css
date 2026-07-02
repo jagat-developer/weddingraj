@@ -386,10 +386,11 @@ p {
 }
 
 .clone-destination img.clone-destination-illustration {
-  width: min(100%, 13.4rem);
-  max-height: clamp(14.5rem, 25vw, 20rem);
+  width: min(100%, 14.4rem);
+  max-height: clamp(7.2rem, 13vw, 9.8rem);
   object-fit: contain;
   border-radius: 0;
+  opacity: 0.82;
   mix-blend-mode: multiply;
 }
 
