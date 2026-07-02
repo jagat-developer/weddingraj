@@ -175,7 +175,7 @@ function StockExchange() {
     ["SLEEP", "Falling Fast", TrendingDown],
   ] as const;
   return (
-    <article className="clone-mini-panel">
+    <article className="clone-mini-panel clone-stock-panel">
       <h3><span className="clone-bank">▤</span> Wedding Stock Exchange</h3>
       <p>Market Report</p>
       <table className="clone-stock-table">

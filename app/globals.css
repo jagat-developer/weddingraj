@@ -877,6 +877,35 @@ p {
   color: #071a39;
 }
 
+@media (min-width: 901px) {
+  .clone-stock-panel {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .clone-stock-panel h3 {
+    position: relative;
+    padding-inline: 1.35rem;
+    text-align: center;
+  }
+
+  .clone-stock-panel h3 .clone-bank {
+    position: absolute;
+    left: 0.1rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .clone-stock-panel .clone-recommendation {
+    margin-top: auto;
+    padding-top: 1.05rem;
+  }
+
+  .clone-stock-panel em {
+    margin-bottom: 0.25rem;
+  }
+}
+
 .clone-day2 .clone-ribbon {
   margin-top: 1.1rem;
 }
