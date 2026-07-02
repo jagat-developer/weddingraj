@@ -13,39 +13,34 @@ export function LaurelLeft({ className, size = 80 }: Props) {
       aria-hidden="true"
     >
       <path
-        d="M24 160 C38 128 45 96 50 68 C54 45 62 25 75 10"
+        d="M38 160 C47 132 48 102 40 74 C34 50 24 29 15 11"
         stroke="currentColor"
-        strokeWidth="4.2"
+        strokeWidth="3"
         vectorEffect="non-scaling-stroke"
       />
       <g
-        fill="currentColor"
-        fillOpacity="0.42"
         stroke="currentColor"
-        strokeWidth="2.35"
+        strokeWidth="2.25"
         vectorEffect="non-scaling-stroke"
       >
-        <path d="M35 139 C16 132 11 113 25 101 C43 105 52 122 39 139 C38 140 36 140 35 139Z" />
-        <path d="M45 116 C62 98 85 96 92 111 C80 130 58 130 45 119Z" />
-        <path d="M44 93 C26 84 23 65 36 55 C54 61 61 78 48 95 C47 96 45 96 44 93Z" />
-        <path d="M56 72 C72 53 91 49 96 63 C87 81 66 86 56 75Z" />
-        <path d="M56 50 C45 33 50 14 66 9 C82 21 80 41 60 52 C59 53 57 52 56 50Z" />
-        <path d="M64 33 C74 14 90 10 96 22 C93 40 76 46 64 36Z" />
+        <path d="M39 137 C24 136 14 127 14 116 C29 114 41 122 43 136" />
+        <path d="M45 123 C59 111 75 109 83 119 C72 132 55 133 45 123" />
+        <path d="M43 107 C28 105 19 95 21 84 C36 84 46 93 47 106" />
+        <path d="M45 91 C58 78 74 76 82 85 C72 99 55 100 45 91" />
+        <path d="M38 77 C25 72 19 61 23 51 C37 54 45 65 42 78" />
+        <path d="M41 63 C51 49 66 44 75 52 C68 66 52 70 41 63" />
+        <path d="M31 49 C20 42 17 31 23 23 C35 30 40 42 34 51" />
+        <path d="M34 38 C42 24 55 18 63 24 C58 38 45 45 34 38" />
       </g>
-      <g stroke="currentColor" strokeWidth="2.45" opacity="0.82" vectorEffect="non-scaling-stroke">
-        <path d="M37 134 L26 116" />
-        <path d="M49 115 L76 109" />
-        <path d="M46 89 L37 69" />
-        <path d="M59 71 L82 61" />
-        <path d="M60 48 L65 20" />
-        <path d="M67 34 L88 22" />
-      </g>
-      <g stroke="#fffdf8" strokeWidth="2.7" opacity="0.62" vectorEffect="non-scaling-stroke">
-        <path d="M25 126 C22 121 21 116 24 112" />
-        <path d="M67 103 C73 101 78 101 82 104" />
-        <path d="M38 79 C34 75 33 70 35 66" />
-        <path d="M76 58 C81 56 85 56 88 59" />
-        <path d="M61 24 C63 18 67 15 71 14" />
+      <g stroke="currentColor" strokeWidth="1.55" opacity="0.72" vectorEffect="non-scaling-stroke">
+        <path d="M41 134 L23 120" />
+        <path d="M47 121 L74 119" />
+        <path d="M45 104 L28 89" />
+        <path d="M47 89 L73 85" />
+        <path d="M40 75 L27 56" />
+        <path d="M43 61 L66 53" />
+        <path d="M32 47 L24 28" />
+        <path d="M36 37 L57 25" />
       </g>
     </svg>
   );
