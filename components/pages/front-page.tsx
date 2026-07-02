@@ -61,8 +61,8 @@ export function FrontPage() {
           <Image
             src="/images/clone-assets/destination-sketch.jpg"
             alt="Goa beach destination sketch with palms and shoreline"
-            width={224}
-            height={160}
+            width={448}
+            height={320}
             className="clone-destination-illustration"
           />
           <div className="clone-destination-rule" />
