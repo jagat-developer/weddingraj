@@ -59,10 +59,10 @@ export function FrontPage() {
             <span>Report</span>
           </div>
           <Image
-            src="/images/clone-assets/destination-sketch.jpg"
+            src="/images/clone-assets/destination-sketch-full.png"
             alt="Goa beach destination sketch with palms and shoreline"
-            width={448}
-            height={320}
+            width={832}
+            height={1216}
             className="clone-destination-illustration"
           />
           <div className="clone-destination-rule" />
