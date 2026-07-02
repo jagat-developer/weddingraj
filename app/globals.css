@@ -1929,8 +1929,9 @@ p {
   }
 
   .clone-story h3 {
-    max-width: 9ch;
-    font-size: 1.42rem;
+    max-width: none;
+    font-size: clamp(1.35rem, 6.2vw, 1.7rem);
+    line-height: 1.05;
   }
 
   .clone-front-photo img,
