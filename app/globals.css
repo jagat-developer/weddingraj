@@ -647,7 +647,7 @@ p {
   top: 50%;
   left: clamp(0.2rem, 1.2vw, 0.9rem);
   display: block;
-  width: clamp(3.35rem, 6.8vw, 5rem);
+  width: clamp(2.7rem, 5.2vw, 3.8rem);
   height: auto;
   color: #9b1f19;
   transform: translateY(-50%) rotate(-8deg);
@@ -1924,7 +1924,7 @@ p {
   }
 
   .clone-edition-hero h1 {
-    font-size: clamp(3.3rem, 16vw, 4.5rem);
+    font-size: clamp(3rem, 14.3vw, 4rem);
     line-height: 0.86;
     letter-spacing: -0.025em;
   }
@@ -2210,24 +2210,17 @@ p {
 
   .clone-leaf {
     top: 50%;
-    left: clamp(0.55rem, 2.6vw, 0.9rem);
+    left: clamp(1.35rem, 5vw, 1.7rem);
     display: block !important;
-    width: clamp(2.15rem, 9vw, 2.65rem);
+    width: clamp(1.95rem, 7.6vw, 2.35rem);
   }
 
   .clone-leaf.right {
-    right: clamp(0.55rem, 2.6vw, 0.9rem);
+    right: clamp(2.55rem, 9vw, 3.35rem);
   }
 
   .clone-rsvp-title > span {
     display: none;
-  }
-}
-
-@media (max-width: 480px) {
-  .clone-leaf.right {
-    right: auto;
-    left: calc(100vw - 4.45rem);
   }
 }
 

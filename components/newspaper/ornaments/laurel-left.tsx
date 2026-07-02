@@ -3,9 +3,9 @@ type Props = { className?: string; size?: number };
 export function LaurelLeft({ className, size = 80 }: Props) {
   return (
     <svg
-      viewBox="0 0 220 220"
+      viewBox="0 0 92 174"
       width={size}
-      height={size}
+      height={Math.round(size * 1.9)}
       className={className}
       fill="none"
       strokeLinecap="round"
@@ -13,35 +13,30 @@ export function LaurelLeft({ className, size = 80 }: Props) {
       aria-hidden="true"
     >
       <path
-        d="M52 198 C82 152 104 108 126 42"
+        d="M45 158 C34 126 34 95 43 66 C50 43 61 26 70 12"
         stroke="currentColor"
-        strokeWidth="8"
+        strokeWidth="3.2"
+        vectorEffect="non-scaling-stroke"
       />
-      <g fill="currentColor" fillOpacity="0.54" stroke="currentColor" strokeWidth="2.25">
-        <path d="M124 75 C105 45 111 14 131 11 C145 9 153 22 151 40 C164 27 183 31 188 47 C195 70 165 91 128 88 C126 84 125 79 124 75Z" />
-        <path d="M93 124 C66 113 58 84 74 75 C87 68 98 79 99 97 C108 82 123 87 127 103 C132 125 107 138 94 131 C93 129 93 126 93 124Z" />
-        <path d="M114 113 C134 91 165 87 177 104 C188 120 165 136 141 134 C160 141 169 154 158 167 C143 184 114 157 108 136 C109 127 111 119 114 113Z" />
-        <path d="M66 176 C40 162 35 132 51 124 C65 117 75 132 74 151 C84 137 99 142 102 158 C106 179 82 193 68 183 C67 181 66 178 66 176Z" />
-        <path d="M90 162 C111 140 142 136 154 152 C165 168 142 183 119 181 C137 188 145 201 134 212 C119 227 91 201 85 182 C85 174 87 168 90 162Z" />
+      <g stroke="currentColor" strokeWidth="2.75" vectorEffect="non-scaling-stroke">
+        <path d="M42 132 C27 127 20 116 25 108 C39 107 49 116 47 130 C46 132 44 132 42 132Z" />
+        <path d="M48 118 C64 108 78 111 83 121 C74 132 58 131 48 121Z" />
+        <path d="M38 108 C24 102 18 91 24 84 C38 85 47 95 43 108Z" />
+        <path d="M48 92 C64 82 77 84 82 94 C73 105 58 105 48 96Z" />
+        <path d="M40 81 C27 74 23 63 30 57 C43 59 50 70 45 82Z" />
+        <path d="M53 65 C68 54 81 55 86 64 C79 75 63 77 53 69Z" />
+        <path d="M49 51 C38 42 36 30 44 26 C56 31 61 43 54 53Z" />
+        <path d="M64 34 C76 23 88 23 91 31 C84 42 72 45 64 37Z" />
       </g>
-      <g stroke="currentColor" strokeWidth="5" opacity="0.78">
-        <path d="M132 76 L143 43" />
-        <path d="M139 63 L165 40" />
-        <path d="M100 126 L76 101" />
-        <path d="M101 124 L106 99" />
-        <path d="M117 136 L158 108" />
-        <path d="M125 128 L160 128" />
-        <path d="M72 178 L59 151" />
-        <path d="M73 177 L83 151" />
-        <path d="M91 185 L133 160" />
-        <path d="M101 178 L133 178" />
-      </g>
-      <g stroke="#fffdf8" strokeWidth="5" opacity="0.5">
-        <path d="M127 27 C123 34 122 42 124 50" />
-        <path d="M70 101 C75 109 81 115 88 118" />
-        <path d="M151 101 C158 99 166 101 171 106" />
-        <path d="M51 151 C48 160 50 168 55 174" />
-        <path d="M119 197 C126 199 133 197 138 193" />
+      <g stroke="currentColor" strokeWidth="2" opacity="0.78" vectorEffect="non-scaling-stroke">
+        <path d="M46 130 L30 116" />
+        <path d="M50 119 L75 121" />
+        <path d="M42 106 L27 92" />
+        <path d="M50 94 L73 94" />
+        <path d="M44 79 L31 64" />
+        <path d="M55 66 L78 64" />
+        <path d="M53 50 L45 31" />
+        <path d="M66 35 L84 31" />
       </g>
     </svg>
   );
