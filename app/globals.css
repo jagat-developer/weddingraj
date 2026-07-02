@@ -301,7 +301,7 @@ p {
 }
 
 .clone-breaking h3 {
-  margin-top: 0.3rem;
+  margin-top: 0.55rem;
   color: #9c3a21;
   text-transform: uppercase;
   letter-spacing: 0.36em;
@@ -1918,6 +1918,7 @@ p {
   }
 
   .clone-breaking h3 {
+    margin-top: 0.65rem;
     letter-spacing: 0.22em;
     font-size: clamp(0.95rem, 4vw, 1.2rem);
     line-height: 1.35;
