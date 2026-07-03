@@ -33,10 +33,10 @@ export function Day2Page() {
       </section>
 
       <Image
-        src="/images/clone-assets/day2-couple-wide.jpg"
-        alt="Shefali and Raj at the Goa shoreline"
+        src="/images/clone-assets/day2-couple-landscape-2754.jpg"
+        alt="Shefali and Raj holding hands on the Goa shoreline"
         width={980}
-        height={202}
+        height={300}
         className="clone-wide-photo"
       />
 
