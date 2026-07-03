@@ -1790,19 +1790,23 @@ p {
 }
 
 .clone-classifieds-sketch {
-  width: min(76%, 15rem);
-  margin: auto auto 0;
-  padding-top: 1rem;
+  flex: 1 1 auto;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: clamp(12rem, 28vw, 18rem);
+  margin: 0;
+  padding: clamp(1.1rem, 3.2vw, 2rem) 0 clamp(0.35rem, 1.5vw, 1rem);
   opacity: 0.72;
 }
 
 .clone-classifieds-sketch img {
   display: block;
-  width: 100%;
+  width: min(82%, 16.75rem);
   height: auto;
   filter: contrast(1.08) saturate(1.05);
   mix-blend-mode: multiply;
-  transform: rotate(-8deg) translateY(-0.05rem) scale(0.96);
+  transform: rotate(-12deg) translateY(-0.05rem) scale(1);
   transform-origin: center;
 }
 
