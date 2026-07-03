@@ -66,10 +66,8 @@ export function FrontPage() {
             className="clone-destination-illustration"
           />
           <div className="clone-destination-rule" />
-          <div className="clone-location-block">
-            <p className="clone-section-label">Location</p>
-            <h3>Kenilworth Resort &amp; Spa, Goa</h3>
-          </div>
+          <p className="clone-section-label">Location</p>
+          <h3>Kenilworth Resort &amp; Spa, Goa</h3>
           <div className="clone-date-group">
             <p className="clone-section-label">Celebration Dates</p>
             <DatePill day="Monday" date="1 February, 2027" />
