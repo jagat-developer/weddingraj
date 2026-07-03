@@ -23,10 +23,10 @@ export function Day1Page() {
         <Day1EventCard
           label="Afternoon Edition"
           data={day1.haldi}
-          image="/images/clone-assets/haldi-scene.jpg"
-          alt="Poolside Haldi setup with yellow drapes and marigolds"
-          imageWidth={459}
-          imageHeight={322}
+          image="/images/clone-assets/haldi-couple-img-0703.jpg"
+          alt="Shefali and Raj walking together in Haldi outfits beside bamboo and a cart wheel"
+          imageWidth={2304}
+          imageHeight={1536}
         />
         <Day1EventCard
           label="Evening Edition"
