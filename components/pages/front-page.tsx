@@ -68,6 +68,13 @@ export function FrontPage() {
           <div className="clone-destination-rule" />
           <p className="clone-section-label">Location</p>
           <h3>Kenilworth Resort &amp; Spa, Goa</h3>
+          <Image
+            src="/images/clone-assets/destination-palm-wave-sketch.png"
+            alt="Palm tree, sun, and ocean wave sketch"
+            width={720}
+            height={849}
+            className="clone-destination-filler"
+          />
           <div className="clone-date-group">
             <p className="clone-section-label">Celebration Dates</p>
             <DatePill day="Monday" date="1 February, 2027" />

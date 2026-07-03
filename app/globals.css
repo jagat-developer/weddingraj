@@ -401,10 +401,20 @@ p {
 }
 
 .clone-destination h3 {
-  margin: 0.3rem auto 1rem;
+  margin: 0.3rem auto 0.7rem;
   text-transform: uppercase;
   font: 900 clamp(1.35rem, 2.2vw, 1.85rem) var(--font-sans);
   line-height: 1.08;
+}
+
+.clone-destination img.clone-destination-filler {
+  width: min(86%, 10.9rem);
+  max-height: clamp(7.75rem, 18vw, 11.8rem);
+  object-fit: contain;
+  margin: auto auto 0.85rem;
+  border-radius: 0;
+  opacity: 0.76;
+  mix-blend-mode: multiply;
 }
 
 .clone-date-pill {
