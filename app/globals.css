@@ -917,7 +917,7 @@ p {
   }
 
   .clone-stock-panel em {
-    margin-bottom: 0.25rem;
+    margin-bottom: clamp(0.75rem, 1.4vw, 1rem);
   }
 }
 
