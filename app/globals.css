@@ -408,8 +408,8 @@ p {
 }
 
 .clone-destination img.clone-destination-filler {
-  width: min(86%, 10.9rem);
-  max-height: clamp(7.75rem, 18vw, 11.8rem);
+  width: min(86%, 11.6rem);
+  max-height: clamp(7.75rem, 18vw, 12.2rem);
   object-fit: contain;
   margin: auto auto 0.85rem;
   border-radius: 0;
@@ -973,7 +973,7 @@ p {
   box-shadow: none;
   flex: 0 0 auto;
   margin: 0.5rem auto 0.35rem;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .clone-journey-icon-frame > img.clone-journey-icon {
@@ -985,7 +985,7 @@ p {
   border: 0;
   background: transparent;
   box-shadow: none;
-  transform: scale(1.06);
+  transform: none;
   transform-origin: center;
 }
 
@@ -1892,8 +1892,15 @@ p {
      masthead feel detached from the top of the paper. */
   .clone-sheet {
     width: min(100% - 1rem, 42rem);
+    max-width: calc(100vw - 1rem);
     padding: 1.35rem clamp(1rem, 5vw, 1.35rem) 1.35rem;
     overflow: hidden;
+  }
+
+  .clone-sheet *,
+  .clone-sheet *::before,
+  .clone-sheet *::after {
+    min-width: 0;
   }
 
   .clone-front {
@@ -1901,9 +1908,9 @@ p {
   }
 
   .clone-paper-title {
-    font-size: clamp(2.7rem, 12.4vw, 3.5rem);
-    line-height: 0.88;
-    letter-spacing: -0.03em;
+    font-size: clamp(2.15rem, 10.2vw, 3rem);
+    line-height: 0.92;
+    letter-spacing: -0.035em;
   }
 
   .clone-tagline {
@@ -1920,14 +1927,15 @@ p {
   }
 
   .clone-breaking h2 {
-    font-size: clamp(3.05rem, 15vw, 4.25rem);
-    line-height: 0.88;
+    font-size: clamp(2.75rem, 12.4vw, 3.85rem);
+    line-height: 0.92;
+    overflow-wrap: anywhere;
   }
 
   .clone-breaking h3 {
     margin-top: 0.65rem;
-    letter-spacing: 0.22em;
-    font-size: clamp(0.95rem, 4vw, 1.2rem);
+    letter-spacing: 0.16em;
+    font-size: clamp(0.78rem, 3.45vw, 1.05rem);
     line-height: 1.35;
   }
 
@@ -1953,6 +1961,11 @@ p {
     object-fit: contain;
   }
 
+  .clone-event-card img {
+    object-fit: contain;
+    background: rgba(255, 253, 248, 0.9);
+  }
+
   .clone-destination,
   .clone-families,
   .clone-event-card,
@@ -1967,20 +1980,23 @@ p {
   }
 
   .clone-edition-hero h1 {
-    font-size: clamp(3rem, 14.3vw, 4rem);
-    line-height: 0.86;
-    letter-spacing: -0.025em;
+    font-size: clamp(2.65rem, 12.1vw, 3.55rem);
+    line-height: 0.9;
+    letter-spacing: -0.03em;
   }
 
   .clone-edition-hero p,
   .clone-rsvp-title p {
-    font-size: clamp(1.25rem, 5.4vw, 1.55rem);
+    max-width: 100%;
+    font-size: clamp(1.05rem, 4.6vw, 1.4rem);
     line-height: 1.12;
+    text-wrap: balance;
   }
 
   .clone-rsvp-title h1 {
-    font-size: clamp(2.45rem, 11.8vw, 3.3rem);
+    font-size: clamp(2rem, 9.6vw, 2.85rem);
     line-height: 0.95;
+    overflow-wrap: anywhere;
   }
 
   .clone-ribbon {
@@ -2018,6 +2034,28 @@ p {
 
   .clone-info-row span {
     font-size: 0.96rem;
+  }
+
+  .clone-destination h3 {
+    max-width: 13ch;
+    font-size: clamp(1.18rem, 5.9vw, 1.55rem);
+    overflow-wrap: normal;
+  }
+
+  .clone-destination img.clone-destination-filler {
+    width: min(78%, 13rem);
+    max-height: 15rem;
+  }
+
+  .clone-stock-table {
+    table-layout: fixed;
+  }
+
+  .clone-stock-table th,
+  .clone-stock-table td {
+    padding: 0.28rem;
+    font-size: 0.68rem;
+    overflow-wrap: anywhere;
   }
 
   .clone-mini-panel {
@@ -2082,6 +2120,8 @@ p {
   .clone-journey-card > p:last-child {
     font-size: 0.72rem;
     line-height: 1.36;
+    overflow-wrap: anywhere;
+    text-wrap: pretty;
   }
 
   .clone-day2-panel {
@@ -2104,6 +2144,7 @@ p {
   .clone-travel li {
     font-size: 0.78rem;
     line-height: 1.35;
+    overflow-wrap: anywhere;
   }
 
   .clone-rsvp-card {
@@ -2270,6 +2311,40 @@ p {
 /* Extra-narrow phones — compress headers further so all three columns
    still sit on one line. */
 @media (max-width: 420px) {
+  .clone-sheet :where(h1, h2, h3, p, li, span, strong, em) {
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
+
+  .clone-paper-title {
+    font-size: clamp(1.85rem, 8.7vw, 2.35rem);
+    line-height: 0.96;
+  }
+
+  .clone-breaking h2 {
+    font-size: clamp(2.35rem, 10.8vw, 3.1rem);
+  }
+
+  .clone-breaking h3 {
+    letter-spacing: 0.1em;
+    font-size: clamp(0.68rem, 3.05vw, 0.92rem);
+  }
+
+  .clone-edition-hero h1 {
+    font-size: clamp(2.3rem, 10.8vw, 3.05rem);
+  }
+
+  .clone-edition-hero p,
+  .clone-rsvp-title p {
+    max-width: 18rem;
+    margin-inline: auto;
+    font-size: clamp(0.95rem, 4vw, 1.16rem);
+  }
+
+  .clone-rsvp-title h1 {
+    font-size: clamp(1.75rem, 8.8vw, 2.45rem);
+  }
+
   .clone-topline {
     font-size: 0.5rem;
     gap: 0.4rem;
@@ -2300,6 +2375,37 @@ p {
   .clone-issue-header em {
     font-size: 0.46rem;
     letter-spacing: 0.12em;
+  }
+
+  .clone-mini-panel h3,
+  .clone-day2-panel h3 {
+    font-size: 0.9rem;
+  }
+
+  .clone-weather-list li {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.45rem;
+  }
+
+  .clone-weather-list li strong {
+    text-align: right;
+  }
+
+  .clone-event-card p,
+  .clone-journey-card > p:last-child,
+  .clone-facts-panel span,
+  .clone-day2-panel li,
+  .clone-weather-list li,
+  .clone-headline-list li {
+    font-size: 0.68rem;
+    line-height: 1.32;
+    overflow-wrap: anywhere;
+  }
+
+  .clone-stock-table th,
+  .clone-stock-table td {
+    font-size: 0.62rem;
   }
 }
 
