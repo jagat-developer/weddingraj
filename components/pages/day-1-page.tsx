@@ -31,8 +31,8 @@ export function Day1Page() {
         <Day1EventCard
           label="Evening Edition"
           data={day1.sangeet}
-          image="/images/clone-assets/sangeet-stage.jpg"
-          alt="Sangeet stage with chandeliers and lights"
+          image="/images/clone-assets/sangeet-couple-tomorrowland.jpg"
+          alt="Shefali and Raj celebrating together at Tomorrowland"
           imageWidth={464}
           imageHeight={322}
         />
