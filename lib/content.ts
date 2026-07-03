@@ -248,7 +248,7 @@ export const rsvp = {
     label: "RSVP",
     intro: "We can't wait to celebrate with you!",
     instruction: "Kindly confirm your attendance by August 22, 2026 by completing the RSVP form below. Once your RSVP has been submitted, all event updates will be shared via WhatsApp.",
-    assistance: "Need assistance? Our RSVP team is happy to help with any questions regarding your RSVP, accommodation, or travel plans. Reach us on WhatsApp at +91 91672 82521.",
+    assistance: "Need assistance? Our RSVP team is happy to help with any questions regarding your RSVP, accommodation, or travel plans. Reach them on WhatsApp at +91 91672 82521.",
     fields: [
       { icon: "users", label: "Guest Count" },
       { icon: "user", label: "Name of Every Guest" },

@@ -61,9 +61,11 @@ export function RsvpForm({ intro, instruction, assistance }: Props) {
       const updated = { ...next[i], [field]: value };
 
       if (field === "guestType") {
-        if (value === "child") {
-          updated.whatsapp = "";
+        if (value === "adult") {
+          updated.age = "";
+        } else {
           updated.countryCode = DEFAULT_COUNTRY_CODE;
+          updated.whatsapp = "";
         }
       }
 
@@ -79,10 +81,9 @@ export function RsvpForm({ intro, instruction, assistance }: Props) {
       (g) =>
         g.firstName.trim() &&
         g.lastName.trim() &&
-        digitsOnly(g.age) &&
         (g.guestType === "adult"
           ? g.countryCode.trim() && digitsOnly(g.whatsapp)
-          : true),
+          : digitsOnly(g.age)),
     );
 
   const submit = async (e: React.FormEvent) => {
@@ -95,7 +96,7 @@ export function RsvpForm({ intro, instruction, assistance }: Props) {
         guestType: g.guestType === "adult" ? "Adult" : "Child",
         firstName: g.firstName,
         lastName: g.lastName,
-        age: digitsOnly(g.age),
+        age: g.guestType === "child" ? digitsOnly(g.age) : "",
         whatsapp:
           g.guestType === "adult"
             ? `${g.countryCode}${digitsOnly(g.whatsapp)}`
@@ -152,7 +153,7 @@ export function RsvpForm({ intro, instruction, assistance }: Props) {
       </p>
 
       <p className="clone-rsvp-assistance">
-        {assistance}
+        <AssistanceCopy text={assistance} />
       </p>
 
       <CountField
@@ -187,23 +188,12 @@ export function RsvpForm({ intro, instruction, assistance }: Props) {
                 />
               </div>
               {g.guestType === "adult" ? (
-                <div className="clone-adult-contact-fields mt-3">
-                  <Field
-                    label="Age"
-                    value={g.age}
-                    onChange={(v) => updateGuest(i, "age", digitsOnly(v).slice(0, 3))}
-                    type="number"
-                    inputMode="numeric"
-                    autoComplete="off"
-                  />
-                  <PhoneField
-                    className="clone-adult-phone-row"
-                    countryCode={g.countryCode}
-                    number={g.whatsapp}
-                    onCountryCodeChange={(v) => updateGuest(i, "countryCode", v)}
-                    onNumberChange={(v) => updateGuest(i, "whatsapp", v)}
-                  />
-                </div>
+                <PhoneField
+                  countryCode={g.countryCode}
+                  number={g.whatsapp}
+                  onCountryCodeChange={(v) => updateGuest(i, "countryCode", v)}
+                  onNumberChange={(v) => updateGuest(i, "whatsapp", v)}
+                />
               ) : (
                 <Field
                   className="mt-3"
@@ -270,6 +260,21 @@ function CountField({
         }}
       />
     </label>
+  );
+}
+
+function AssistanceCopy({ text }: { text: string }) {
+  const phone = "+91 91672 82521";
+  const [before, after] = text.split(phone);
+
+  if (after === undefined) return <>{text}</>;
+
+  return (
+    <>
+      {before}
+      <span className="clone-nowrap">{phone}</span>
+      {after}
+    </>
   );
 }
 

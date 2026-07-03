@@ -22,7 +22,7 @@
  *   9. Restart the dev server so the env loads (`npm run dev`)
  *
  * From now on, every RSVP submission appends one row per guest to your Sheet.
- * The Age column is populated for adults and children.
+ * The Age column is populated for children only.
  *
  * To redeploy after editing: Deploy → Manage deployments → pencil icon → New version.
  * The URL stays stable across versions.
@@ -79,17 +79,19 @@ function doPost(e) {
     }
 
     guests.forEach(function (g) {
-      const age = String(g.age || "").trim();
+      const guestType = String(g.guestType || "Adult").trim();
+      const isChild = guestType.toLowerCase() === "child";
+      const age = isChild ? String(g.age || "").trim() : "";
       sheet.appendRow([
         timestamp,
         groupId,
         total,
         adultCount,
         childrenCount,
-        String(g.guestType || "Adult").trim(),
+        guestType,
         String(g.firstName || "").trim(),
         String(g.lastName || "").trim(),
-        String(g.whatsapp || "").trim(),
+        isChild ? "" : String(g.whatsapp || "").trim(),
         age,
       ]);
     });
