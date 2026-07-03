@@ -912,8 +912,8 @@ p {
   }
 
   .clone-stock-panel .clone-recommendation {
-    margin-top: auto;
-    padding-top: 1.05rem;
+    margin-top: clamp(1rem, 2.6vw, 1.85rem);
+    padding-top: 0.35rem;
   }
 
   .clone-stock-panel em {
