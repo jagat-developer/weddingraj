@@ -71,19 +71,19 @@ function EditionHero({ day, deck }: { day: string; deck: string }) {
     <section className="clone-edition-hero">
       <div className="clone-edition-title-wrap">
         <Image
-          src="/images/clone-assets/title-leaf-red.svg"
+          src="/images/clone-assets/title-leaf-photo.png"
           alt=""
-          width={128}
-          height={224}
+          width={542}
+          height={874}
           className="clone-leaf"
           aria-hidden="true"
         />
         <h1>Day <span className="clone-edition-day-number">{day}</span> Edition</h1>
         <Image
-          src="/images/clone-assets/title-leaf-red.svg"
+          src="/images/clone-assets/title-leaf-photo.png"
           alt=""
-          width={128}
-          height={224}
+          width={542}
+          height={874}
           className="clone-leaf right"
           aria-hidden="true"
         />
