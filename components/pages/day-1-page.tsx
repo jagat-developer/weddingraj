@@ -10,7 +10,6 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { GaneshaMark } from "@/components/newspaper/ornaments/ganesha-mark";
-import { LaurelLeft } from "@/components/newspaper/ornaments/laurel-left";
 import { day1, type EventCardData } from "@/lib/content";
 
 export function Day1Page() {
@@ -71,9 +70,23 @@ function EditionHero({ day, deck }: { day: string; deck: string }) {
   return (
     <section className="clone-edition-hero">
       <div className="clone-edition-title-wrap">
-        <LaurelLeft className="clone-leaf" size={72} />
+        <Image
+          src="/images/clone-assets/title-leaf-red.svg"
+          alt=""
+          width={128}
+          height={224}
+          className="clone-leaf"
+          aria-hidden="true"
+        />
         <h1>Day <span className="clone-edition-day-number">{day}</span> Edition</h1>
-        <LaurelLeft className="clone-leaf right" size={72} />
+        <Image
+          src="/images/clone-assets/title-leaf-red.svg"
+          alt=""
+          width={128}
+          height={224}
+          className="clone-leaf right"
+          aria-hidden="true"
+        />
       </div>
       <p>{deck}</p>
     </section>

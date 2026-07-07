@@ -58,21 +58,13 @@ export function FrontPage() {
             <span>Destination</span>
             <span>Report</span>
           </div>
-          <Image
-            src="/images/clone-assets/destination-report-engraving.png"
-            alt="Goa beach engraving with palms and ocean waves"
-            width={618}
-            height={308}
-            className="clone-destination-illustration"
-          />
-          <div className="clone-destination-rule" />
           <p className="clone-section-label">Location</p>
           <h3>Kenilworth Resort &amp; Spa, Goa</h3>
           <Image
             src="/images/clone-assets/destination-palm-wave-sketch.png"
             alt="Palm tree, sun, and ocean wave sketch"
-            width={720}
-            height={849}
+            width={760}
+            height={868}
             className="clone-destination-filler"
           />
           <div className="clone-date-group">
