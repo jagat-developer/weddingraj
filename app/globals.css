@@ -442,7 +442,11 @@ p {
 }
 
 .clone-date-pill strong {
-  font: 900 clamp(1.1rem, 1.65vw, 1.28rem) var(--font-display);
+  font: 900 clamp(0.98rem, 1.35vw, 1.12rem) var(--font-sans);
+  letter-spacing: 0.02em;
+  line-height: 1.18;
+  font-variant-numeric: lining-nums tabular-nums;
+  font-feature-settings: "lnum" 1, "tnum" 1, "kern" 1;
 }
 
 .clone-date-group {
@@ -2063,7 +2067,7 @@ p {
   }
 
   .clone-date-pill strong {
-    font-size: clamp(1.18rem, 4.9vw, 1.48rem);
+    font-size: clamp(1rem, 4.2vw, 1.18rem);
   }
 
   .clone-stock-table {
