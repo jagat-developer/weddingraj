@@ -6,12 +6,24 @@ import {
   useReducedMotion,
   type Variants,
 } from "framer-motion";
-import { ChevronLeft, ChevronRight, Menu, Volume2, VolumeX, X } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Menu,
+  Music2,
+  Pause,
+  Volume2,
+  VolumeX,
+  X,
+} from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { playPaperFlip } from "@/lib/sound";
 
 const EASE = [0.23, 1, 0.32, 1] as const;
 const MUTE_KEY = "rajsurti-muted";
+const BACKGROUND_MUSIC_SRC = "/sounds/taj-mahal-scandinavianz.mp3";
+const MUSIC_CREDIT =
+  "Taj Mahal by Scandinavianz | https://soundcloud.com/scandinavianz | Royalty Free Music by https://www.free-stock-music.com | CC BY 3.0";
 
 export type ShellPage = {
   content: React.ReactNode;
@@ -37,6 +49,8 @@ export function NewspaperShell({ pages, menu, initialIndex = 0 }: Props) {
   const [direction, setDirection] = useState(0);
   // Default to muted — sound is opt-in (premium editorial restraint).
   const [muted, setMuted] = useState(true);
+  const [musicPlaying, setMusicPlaying] = useState(false);
+  const musicRef = useRef<HTMLAudioElement | null>(null);
 
   // Read mute preference from localStorage on mount (overrides the default if
   // the reader has previously enabled sound).
@@ -61,6 +75,39 @@ export function NewspaperShell({ pages, menu, initialIndex = 0 }: Props) {
       } catch {}
       return next;
     });
+  }, []);
+
+  useEffect(() => {
+    const audio = musicRef.current;
+    if (!audio) return;
+    audio.volume = 0.42;
+
+    const syncPlaying = () => setMusicPlaying(!audio.paused);
+    audio.addEventListener("play", syncPlaying);
+    audio.addEventListener("pause", syncPlaying);
+    return () => {
+      audio.removeEventListener("play", syncPlaying);
+      audio.removeEventListener("pause", syncPlaying);
+    };
+  }, []);
+
+  const toggleMusic = useCallback(async () => {
+    const audio = musicRef.current;
+    if (!audio) return;
+
+    if (!audio.paused) {
+      audio.pause();
+      setMusicPlaying(false);
+      return;
+    }
+
+    try {
+      audio.volume = 0.42;
+      await audio.play();
+      setMusicPlaying(true);
+    } catch {
+      setMusicPlaying(false);
+    }
   }, []);
 
   const goTo = useCallback(
@@ -233,6 +280,14 @@ export function NewspaperShell({ pages, menu, initialIndex = 0 }: Props) {
 
   return (
     <div className="page-stage">
+      <audio
+        ref={musicRef}
+        src={BACKGROUND_MUSIC_SRC}
+        loop
+        preload="none"
+      />
+      <p className="sr-only">Music credit: {MUSIC_CREDIT}</p>
+
       <AnimatePresence custom={direction} mode="wait" initial={false}>
         <motion.div
           key={index}
@@ -267,6 +322,8 @@ export function NewspaperShell({ pages, menu, initialIndex = 0 }: Props) {
         onGoto={goTo}
         muted={muted}
         onToggleMute={toggleMute}
+        musicPlaying={musicPlaying}
+        onToggleMusic={toggleMusic}
       />
 
       <MobileMenu
@@ -285,6 +342,8 @@ function PageControls({
   onGoto,
   muted,
   onToggleMute,
+  musicPlaying,
+  onToggleMusic,
 }: {
   index: number;
   total: number;
@@ -292,6 +351,8 @@ function PageControls({
   onGoto: (i: number) => void;
   muted: boolean;
   onToggleMute: () => void;
+  musicPlaying: boolean;
+  onToggleMusic: () => void;
 }) {
   return (
     <div
@@ -355,6 +416,25 @@ function PageControls({
       </button>
 
       <span className="hidden sm:block h-px w-5 bg-ink/15" aria-hidden />
+
+      <button
+        type="button"
+        onClick={onToggleMusic}
+        aria-label={musicPlaying ? "Pause background music" : "Play background music"}
+        aria-pressed={musicPlaying}
+        className="text-ink hover:text-burgundy transition-colors p-1"
+        style={{
+          transitionDuration: "var(--dur-base)",
+          transitionTimingFunction: "var(--ease-out-emil)",
+        }}
+        title={musicPlaying ? "Pause Taj Mahal" : "Play Taj Mahal"}
+      >
+        {musicPlaying ? (
+          <Pause size={20} strokeWidth={1.75} />
+        ) : (
+          <Music2 size={20} strokeWidth={1.75} />
+        )}
+      </button>
 
       <button
         type="button"
@@ -495,6 +575,9 @@ function MobileMenu({
               <footer className="px-5 pb-6 pt-3 border-t border-ink/10 text-center">
                 <p className="font-display italic text-copper text-sm">
                   Shefali &amp; Raj — 1–2 February 2027
+                </p>
+                <p className="mt-1 text-[0.58rem] leading-snug uppercase tracking-[0.16em] text-ink-soft/70">
+                  Music: Taj Mahal by Scandinavianz · CC BY 3.0
                 </p>
               </footer>
             </div>
