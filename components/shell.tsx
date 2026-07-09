@@ -12,15 +12,11 @@ import {
   Menu,
   Music2,
   Pause,
-  Volume2,
-  VolumeX,
   X,
 } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { playPaperFlip } from "@/lib/sound";
 
 const EASE = [0.23, 1, 0.32, 1] as const;
-const MUTE_KEY = "rajsurti-muted";
 const BACKGROUND_MUSIC_SRC = "/sounds/taaj-wedding-clip.mp3";
 const MUSIC_CREDIT = "Wedding music selected by Shefali and Raj.";
 
@@ -46,35 +42,8 @@ export function NewspaperShell({ pages, menu, initialIndex = 0 }: Props) {
   const reduce = useReducedMotion();
   const [index, setIndex] = useState(initialIndex);
   const [direction, setDirection] = useState(0);
-  // Default to muted — sound is opt-in (premium editorial restraint).
-  const [muted, setMuted] = useState(true);
   const [musicPlaying, setMusicPlaying] = useState(false);
   const musicRef = useRef<HTMLAudioElement | null>(null);
-
-  // Read mute preference from localStorage on mount (overrides the default if
-  // the reader has previously enabled sound).
-  useEffect(() => {
-    let timeout: number | undefined;
-    try {
-      const stored = localStorage.getItem(MUTE_KEY);
-      if (stored === "0") {
-        timeout = window.setTimeout(() => setMuted(false), 0);
-      }
-    } catch {}
-    return () => {
-      if (timeout !== undefined) window.clearTimeout(timeout);
-    };
-  }, []);
-
-  const toggleMute = useCallback(() => {
-    setMuted((m) => {
-      const next = !m;
-      try {
-        localStorage.setItem(MUTE_KEY, next ? "1" : "0");
-      } catch {}
-      return next;
-    });
-  }, []);
 
   useEffect(() => {
     const audio = musicRef.current;
@@ -114,7 +83,6 @@ export function NewspaperShell({ pages, menu, initialIndex = 0 }: Props) {
       const samePage = next === index;
       if (next < 0 || next >= pages.length) return;
       if (!samePage) {
-        if (!muted) playPaperFlip();
         setDirection(next > index ? 1 : -1);
         setIndex(next);
       }
@@ -134,7 +102,7 @@ export function NewspaperShell({ pages, menu, initialIndex = 0 }: Props) {
         }
       }
     },
-    [index, pages, muted]
+    [index, pages]
   );
 
   // Stable refs so wheel/keyboard handlers below register ONCE and always
@@ -319,8 +287,6 @@ export function NewspaperShell({ pages, menu, initialIndex = 0 }: Props) {
         total={pages.length}
         pages={pages}
         onGoto={goTo}
-        muted={muted}
-        onToggleMute={toggleMute}
         musicPlaying={musicPlaying}
         onToggleMusic={toggleMusic}
       />
@@ -339,8 +305,6 @@ function PageControls({
   total,
   pages,
   onGoto,
-  muted,
-  onToggleMute,
   musicPlaying,
   onToggleMusic,
 }: {
@@ -348,8 +312,6 @@ function PageControls({
   total: number;
   pages: ShellPage[];
   onGoto: (i: number) => void;
-  muted: boolean;
-  onToggleMute: () => void;
   musicPlaying: boolean;
   onToggleMusic: () => void;
 }) {
@@ -432,25 +394,6 @@ function PageControls({
           <Pause size={20} strokeWidth={1.75} />
         ) : (
           <Music2 size={20} strokeWidth={1.75} />
-        )}
-      </button>
-
-      <button
-        type="button"
-        onClick={onToggleMute}
-        aria-label={muted ? "Unmute page-turn sound" : "Mute page-turn sound"}
-        aria-pressed={muted}
-        className="text-ink hover:text-burgundy transition-colors p-1"
-        style={{
-          transitionDuration: "var(--dur-base)",
-          transitionTimingFunction: "var(--ease-out-emil)",
-        }}
-        title={muted ? "Sound off" : "Sound on"}
-      >
-        {muted ? (
-          <VolumeX size={20} strokeWidth={1.75} />
-        ) : (
-          <Volume2 size={20} strokeWidth={1.75} />
         )}
       </button>
     </div>
