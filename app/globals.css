@@ -1067,16 +1067,21 @@ p {
 }
 
 @media (min-width: 901px) {
-  .clone-journey-columns::before {
+  .clone-journey-card:not(:last-child)::after {
     content: "";
     position: absolute;
     top: 1rem;
-    left: 10%;
-    right: 10%;
-    border-top: 2px dotted #071a39;
+    left: calc(50% + 2.35rem);
+    right: calc(-50% + 2.35rem);
+    height: 2px;
+    background-image: radial-gradient(circle, rgba(7, 26, 57, 0.92) 1.35px, transparent 1.5px);
+    background-repeat: repeat-x;
+    background-size: 8px 2px;
+    background-position: left center;
     opacity: 0.9;
     transform: translateY(-50%);
     z-index: 0;
+    pointer-events: none;
   }
 
   .clone-journey-card {
