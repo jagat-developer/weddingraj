@@ -221,10 +221,6 @@ export const day2 = {
       icon: "dance",
       text: "One loves the dance floor. The other loves playing music. This explains a lot.",
     },
-    {
-      icon: "globe",
-      text: "Opposite backgrounds. Different personalities. Same destination. After years of friendship, countless adventures, and one life-changing trip, from best friends to forever.",
-    },
   ] as const,
   headlinesTitle: "Today's Headlines",
   headlines: [

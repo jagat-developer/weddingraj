@@ -5,7 +5,6 @@ import {
   Car,
   Clock,
   Coffee,
-  Globe2,
   Heart,
   MapPin,
   Music2,
@@ -36,7 +35,7 @@ export function Day2Page() {
         src="/images/clone-assets/day2-couple-landscape-2754.jpg"
         alt="Shefali and Raj holding hands on the Goa shoreline"
         width={980}
-        height={300}
+        height={340}
         className="clone-wide-photo"
       />
 
@@ -135,7 +134,6 @@ function CoupleFacts() {
     utensils: UtensilsCrossed,
     pizza: Heart,
     dance: Users,
-    globe: Globe2,
   };
   return (
     <article className="clone-day2-panel clone-facts-panel">
