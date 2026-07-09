@@ -810,6 +810,12 @@ p {
   transform-origin: 67% 24%;
 }
 
+.clone-event-image-sangeet img {
+  object-position: 50% 64%;
+  transform: scale(1.58);
+  transform-origin: 50% 64%;
+}
+
 .clone-bottom-modules {
   margin-top: 1.1rem;
   display: grid;
@@ -1988,6 +1994,13 @@ p {
     object-position: 67% 24%;
     transform: scale(1.26);
     transform-origin: 67% 24%;
+  }
+
+  .clone-event-image-sangeet img {
+    object-fit: cover;
+    object-position: 50% 64%;
+    transform: scale(1.58);
+    transform-origin: 50% 64%;
   }
 
   .clone-destination,

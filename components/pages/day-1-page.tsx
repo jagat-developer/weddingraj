@@ -35,6 +35,7 @@ export function Day1Page() {
           alt="Shefali and Raj celebrating together at Tomorrowland"
           imageWidth={464}
           imageHeight={322}
+          imageClassName="clone-event-image-sangeet"
         />
       </section>
 
