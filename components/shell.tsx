@@ -21,9 +21,8 @@ import { playPaperFlip } from "@/lib/sound";
 
 const EASE = [0.23, 1, 0.32, 1] as const;
 const MUTE_KEY = "rajsurti-muted";
-const BACKGROUND_MUSIC_SRC = "/sounds/taj-mahal-scandinavianz.mp3";
-const MUSIC_CREDIT =
-  "Taj Mahal by Scandinavianz | https://soundcloud.com/scandinavianz | Royalty Free Music by https://www.free-stock-music.com | CC BY 3.0";
+const BACKGROUND_MUSIC_SRC = "/sounds/taaj-wedding-clip.mp3";
+const MUSIC_CREDIT = "Wedding music selected by Shefali and Raj.";
 
 export type ShellPage = {
   content: React.ReactNode;
@@ -427,7 +426,7 @@ function PageControls({
           transitionDuration: "var(--dur-base)",
           transitionTimingFunction: "var(--ease-out-emil)",
         }}
-        title={musicPlaying ? "Pause Taj Mahal" : "Play Taj Mahal"}
+        title={musicPlaying ? "Pause wedding music" : "Play wedding music"}
       >
         {musicPlaying ? (
           <Pause size={20} strokeWidth={1.75} />
@@ -577,7 +576,7 @@ function MobileMenu({
                   Shefali &amp; Raj — 1–2 February 2027
                 </p>
                 <p className="mt-1 text-[0.58rem] leading-snug uppercase tracking-[0.16em] text-ink-soft/70">
-                  Music: Taj Mahal by Scandinavianz · CC BY 3.0
+                  Music selected by Shefali &amp; Raj
                 </p>
               </footer>
             </div>
