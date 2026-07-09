@@ -26,6 +26,7 @@ export function Day1Page() {
           alt="Shefali and Raj walking together in Haldi outfits beside bamboo and a cart wheel"
           imageWidth={2304}
           imageHeight={1536}
+          imageClassName="clone-event-image-haldi"
         />
         <Day1EventCard
           label="Evening Edition"
@@ -100,6 +101,7 @@ function Day1EventCard({
   alt,
   imageWidth,
   imageHeight,
+  imageClassName,
 }: {
   label: string;
   data: EventCardData;
@@ -107,6 +109,7 @@ function Day1EventCard({
   alt: string;
   imageWidth: number;
   imageHeight: number;
+  imageClassName?: string;
 }) {
   return (
     <article className="clone-event-card">
@@ -118,7 +121,7 @@ function Day1EventCard({
       <div className="clone-dotted-rule" />
       <h3>What To Expect:</h3>
       <p>{data.expect}</p>
-      <figure className="clone-event-image">
+      <figure className={`clone-event-image ${imageClassName ?? ""}`}>
         <Image src={image} alt={alt} width={imageWidth} height={imageHeight} />
       </figure>
     </article>

@@ -804,6 +804,12 @@ p {
   border-radius: inherit;
 }
 
+.clone-event-image-haldi img {
+  object-position: 67% 24%;
+  transform: scale(1.32);
+  transform-origin: 67% 24%;
+}
+
 .clone-bottom-modules {
   margin-top: 1.1rem;
   display: grid;
@@ -1975,6 +1981,13 @@ p {
   .clone-event-card img {
     object-fit: contain;
     background: rgba(255, 253, 248, 0.9);
+  }
+
+  .clone-event-image-haldi img {
+    object-fit: cover;
+    object-position: 67% 24%;
+    transform: scale(1.26);
+    transform-origin: 67% 24%;
   }
 
   .clone-destination,
