@@ -805,9 +805,9 @@ p {
 }
 
 .clone-event-image-haldi img {
-  object-position: 67% 24%;
-  transform: scale(1.32);
-  transform-origin: 67% 24%;
+  object-position: 68% 24%;
+  transform: scale(1.22);
+  transform-origin: 68% 14%;
 }
 
 .clone-event-image-sangeet img {
@@ -1997,9 +1997,9 @@ p {
 
   .clone-event-image-haldi img {
     object-fit: cover;
-    object-position: 67% 24%;
-    transform: scale(1.26);
-    transform-origin: 67% 24%;
+    object-position: 68% 24%;
+    transform: scale(1.18);
+    transform-origin: 68% 14%;
   }
 
   .clone-event-image-sangeet img {
