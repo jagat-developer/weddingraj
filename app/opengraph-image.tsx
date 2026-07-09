@@ -1,16 +1,17 @@
 import { ImageResponse } from "next/og";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
+import { shareImageAlt } from "@/lib/seo";
 
-export const alt = "The Wedding Times — Shefali & Raj · Goa · 1–2 February 2027";
+export const alt = shareImageAlt;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default async function Image() {
-  const ganeshaBytes = await readFile(
-    join(process.cwd(), "public", "images", "ganesha.jpg"),
+  const coupleBytes = await readFile(
+    join(process.cwd(), "public", "images", "clone-assets", "front-couple-img-0909.jpg"),
   );
-  const ganeshaSrc = `data:image/jpeg;base64,${ganeshaBytes.toString("base64")}`;
+  const coupleSrc = `data:image/jpeg;base64,${coupleBytes.toString("base64")}`;
 
   return new ImageResponse(
     (
@@ -19,127 +20,175 @@ export default async function Image() {
           width: "100%",
           height: "100%",
           display: "flex",
-          flexDirection: "column",
+          flexDirection: "row",
           background: "#fbf6ec",
-          padding: "60px 80px",
+          padding: "44px 52px",
           fontFamily: "Georgia, serif",
           color: "#102844",
           position: "relative",
+          gap: 36,
         }}
       >
-        {/* top hairlines */}
         <div
           style={{
+            width: 650,
+            height: "100%",
             display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            letterSpacing: "0.28em",
-            fontSize: 18,
-            textTransform: "uppercase",
-            color: "#28466b",
-          }}
-        >
-          <span>Goa, India</span>
-          <span style={{ color: "#b46637", fontStyle: "italic", letterSpacing: 1 }}>
-            #RajWaliShefali
-          </span>
-        </div>
-
-        <div
-          style={{
-            display: "flex",
+            flexDirection: "column",
             justifyContent: "center",
-            margin: "28px 0 18px",
           }}
         >
-          <img src={ganeshaSrc} width={120} height={120} alt="" />
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              paddingBottom: 14,
+              borderBottom: "2px solid #102844",
+              color: "#102844",
+              letterSpacing: "0.18em",
+              fontSize: 18,
+              textTransform: "uppercase",
+            }}
+          >
+            <span>Goa, India</span>
+            <span style={{ color: "#9b1f19", fontStyle: "italic", letterSpacing: 1 }}>
+              #RajWaliShefali
+            </span>
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              marginTop: 26,
+              color: "#9b1f19",
+              fontSize: 19,
+              fontWeight: 700,
+              letterSpacing: "0.38em",
+              textTransform: "uppercase",
+            }}
+          >
+            Special Wedding Edition
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              marginTop: 8,
+              fontSize: 66,
+              fontWeight: 900,
+              lineHeight: 0.92,
+              letterSpacing: "-0.02em",
+              textTransform: "uppercase",
+            }}
+          >
+            The Wedding Times
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              width: 160,
+              height: 4,
+              marginTop: 24,
+              background: "#9b1f19",
+            }}
+          />
+
+          <div
+            style={{
+              display: "flex",
+              marginTop: 28,
+              color: "#9b1f19",
+              fontSize: 20,
+              fontWeight: 800,
+              letterSpacing: "0.34em",
+              textTransform: "uppercase",
+            }}
+          >
+            Breaking News
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              marginTop: 8,
+              fontSize: 82,
+              fontWeight: 900,
+              lineHeight: 0.88,
+              letterSpacing: "-0.015em",
+            }}
+          >
+            Shefali &amp; Raj
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              marginTop: 16,
+              fontSize: 30,
+              letterSpacing: "0.28em",
+              textTransform: "uppercase",
+              color: "#9b1f19",
+            }}
+          >
+            To Tie The Knot In Goa
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              gap: 18,
+              marginTop: 34,
+            }}
+          >
+            {["1-2 February 2027", "Kenilworth Resort & Spa"].map((item) => (
+              <div
+                key={item}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  minWidth: 0,
+                  padding: "14px 18px",
+                  border: "2px solid rgba(155,31,25,0.28)",
+                  borderRadius: 16,
+                  color: "#102844",
+                  fontSize: 21,
+                  fontWeight: 800,
+                  textAlign: "center",
+                }}
+              >
+                {item}
+              </div>
+            ))}
+          </div>
         </div>
 
         <div
           style={{
             display: "flex",
-            justifyContent: "center",
-            fontWeight: 900,
-            fontSize: 96,
-            lineHeight: 0.95,
-            letterSpacing: "-0.02em",
-            textAlign: "center",
+            width: 410,
+            height: "100%",
+            borderRadius: 28,
+            overflow: "hidden",
+            border: "3px solid rgba(155,31,25,0.22)",
+            boxShadow: "0 24px 48px rgba(16, 40, 68, 0.14)",
           }}
         >
-          THE WEDDING TIMES
-        </div>
-
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            marginTop: 18,
-            fontSize: 22,
-            letterSpacing: "0.34em",
-            textTransform: "uppercase",
-            color: "#b46637",
-          }}
-        >
-          Love · Adventure · Celebration · Forever
-        </div>
-
-        {/* divider */}
-        <div
-          style={{
-            display: "flex",
-            height: 2,
-            background: "#102844",
-            opacity: 0.18,
-            margin: "32px 0",
-          }}
-        />
-
-        {/* headline */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            fontSize: 72,
-            fontWeight: 800,
-            letterSpacing: "0.01em",
-            textAlign: "center",
-          }}
-        >
-          Shefali &amp; Raj
-        </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            marginTop: 12,
-            fontSize: 28,
-            letterSpacing: "0.32em",
-            textTransform: "uppercase",
-            color: "#7a1c1c",
-          }}
-        >
-          To Tie The Knot In Goa
-        </div>
-
-        {/* footer info bar */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: 60,
-            left: 80,
-            right: 80,
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            paddingTop: 22,
-            borderTop: "1px solid rgba(16,40,68,0.18)",
-            fontSize: 22,
-            color: "#28466b",
-            fontStyle: "italic",
-          }}
-        >
-          <span>Kenilworth Resort &amp; Spa</span>
-          <span>1–2 February 2027</span>
+          <img
+            src={coupleSrc}
+            alt=""
+            width={410}
+            height={542}
+            style={{
+              width: 410,
+              height: 542,
+              objectFit: "cover",
+              objectPosition: "57% center",
+            }}
+          />
         </div>
       </div>
     ),

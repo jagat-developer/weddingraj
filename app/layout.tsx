@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Manrope, Playfair_Display } from "next/font/google";
+import { homeMetadata, siteUrl, weddingEventJsonLd } from "@/lib/seo";
 import "./globals.css";
 
 // Manrope — body, labels, captions. Variable, soothing sans.
@@ -19,29 +20,12 @@ const playfair = Playfair_Display({
   display: "swap",
 });
 
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ??
-  (process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : "http://localhost:3000");
-
 export const metadata: Metadata = {
+  ...homeMetadata,
   metadataBase: new URL(siteUrl),
-  title: "The Wedding Times — Shefali & Raj",
-  description:
-    "Special Wedding Edition. Shefali & Raj are tying the knot in Goa, 1–2 February 2027. Kenilworth Resort & Spa.",
-  openGraph: {
-    title: "The Wedding Times — Shefali & Raj",
-    description:
-      "Shefali & Raj — 1–2 February 2027 — Kenilworth Resort & Spa, Goa.",
-    type: "website",
-    locale: "en_IN",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "The Wedding Times — Shefali & Raj",
-    description:
-      "Shefali & Raj — 1–2 February 2027 — Kenilworth Resort & Spa, Goa.",
+  category: "wedding invitation",
+  formatDetection: {
+    telephone: false,
   },
 };
 
@@ -55,6 +39,10 @@ export default function RootLayout({
       className={`${manrope.variable} ${playfair.variable}`}
     >
       <body className="min-h-screen bg-desk text-body antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(weddingEventJsonLd) }}
+        />
         {children}
       </body>
     </html>
