@@ -22,7 +22,8 @@
  *   9. Restart the dev server so the env loads (`npm run dev`)
  *
  * From now on, every RSVP submission appends one row per guest to your Sheet.
- * The Age column is populated for children only.
+ * The sheet stores per-guest columns only, so there is no repeated TotalGuests
+ * value on every row. The Age column is populated for children only.
  *
  * To redeploy after editing: Deploy → Manage deployments → pencil icon → New version.
  * The URL stays stable across versions.
@@ -31,9 +32,6 @@
 const HEADERS = [
   "Timestamp",
   "GroupID",
-  "TotalGuests",
-  "AdultCount",
-  "ChildrenCount",
   "GuestType",
   "FirstName",
   "LastName",
@@ -41,10 +39,54 @@ const HEADERS = [
   "Age",
 ];
 
+const REMOVED_HEADERS = ["TotalGuests", "AdultCount", "ChildrenCount"];
+
+function getHeaders_(sheet) {
+  if (sheet.getLastRow() === 0 || sheet.getLastColumn() === 0) return [];
+  return sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+}
+
+function findHeaderIndex_(headers, header) {
+  const target = String(header).trim().toLowerCase();
+  for (let i = 0; i < headers.length; i++) {
+    if (String(headers[i]).trim().toLowerCase() === target) return i;
+  }
+  return -1;
+}
+
+function migrateHeaders_(sheet) {
+  if (sheet.getLastRow() === 0) return;
+
+  let headers = getHeaders_(sheet);
+  REMOVED_HEADERS.forEach(function (header) {
+    const index = findHeaderIndex_(headers, header);
+    if (index !== -1) {
+      sheet.deleteColumn(index + 1);
+      headers = getHeaders_(sheet);
+    }
+  });
+
+  headers = getHeaders_(sheet);
+  const hasGuestType = findHeaderIndex_(headers, "GuestType") !== -1;
+  const firstNameIndex = findHeaderIndex_(headers, "FirstName");
+  if (!hasGuestType && firstNameIndex !== -1) {
+    sheet.insertColumnBefore(firstNameIndex + 1);
+  }
+
+  headers = getHeaders_(sheet);
+  const hasAge = findHeaderIndex_(headers, "Age") !== -1;
+  if (!hasAge) {
+    sheet.insertColumnAfter(sheet.getLastColumn());
+  }
+}
+
 function ensureHeaders_(sheet) {
   if (sheet.getLastRow() === 0) {
     sheet.appendRow(HEADERS);
   } else {
+    migrateHeaders_(sheet);
+    const clearWidth = Math.max(sheet.getLastColumn(), HEADERS.length);
+    sheet.getRange(1, 1, 1, clearWidth).clearContent().clearFormat();
     sheet.getRange(1, 1, 1, HEADERS.length).setValues([HEADERS]);
   }
   sheet
@@ -65,12 +107,6 @@ function doPost(e) {
     const groupId = body.groupId || Utilities.getUuid().slice(0, 8);
     const guests = Array.isArray(body.guests) ? body.guests : [];
     const total = guests.length;
-    const adultCount = guests.filter(function (g) {
-      return String(g.guestType || "Adult").toLowerCase() !== "child";
-    }).length;
-    const childrenCount = guests.filter(function (g) {
-      return String(g.guestType || "").toLowerCase() === "child";
-    }).length;
 
     if (!total) {
       return ContentService.createTextOutput(
@@ -85,9 +121,6 @@ function doPost(e) {
       sheet.appendRow([
         timestamp,
         groupId,
-        total,
-        adultCount,
-        childrenCount,
         guestType,
         String(g.firstName || "").trim(),
         String(g.lastName || "").trim(),

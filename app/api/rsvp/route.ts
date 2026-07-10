@@ -22,9 +22,6 @@ const CSV_PATH = path.join(process.cwd(), "data", "rsvps.csv");
 const HEADERS = [
   "Timestamp",
   "GroupID",
-  "TotalGuests",
-  "AdultCount",
-  "ChildrenCount",
   "GuestType",
   "FirstName",
   "LastName",
@@ -83,8 +80,6 @@ async function forwardToSheet(payload: {
   guests: CleanGuest[];
   groupId: string;
   timestamp: string;
-  adultCount: number;
-  childrenCount: number;
 }): Promise<ForwardResult> {
   const url = process.env.RSVP_WEBHOOK_URL;
   if (!url) return { sent: false, error: "no webhook configured" };
@@ -151,7 +146,6 @@ export async function POST(req: Request) {
 
   const timestamp = new Date().toISOString();
   const groupId = makeGroupId();
-  const total = String(guests.length);
 
   const cleanedGuests: CleanGuest[] = guests.map((g) => {
     const guestType = normalizeGuestType(g.guestType);
@@ -164,15 +158,10 @@ export async function POST(req: Request) {
       whatsapp: guestType === "Adult" ? g.whatsapp?.trim() ?? "" : "",
     };
   });
-  const adultCount = cleanedGuests.filter((g) => g.guestType === "Adult").length;
-  const childrenCount = cleanedGuests.filter((g) => g.guestType === "Child").length;
 
   const rows = cleanedGuests.map((g) => [
     timestamp,
     groupId,
-    total,
-    String(adultCount),
-    String(childrenCount),
     g.guestType,
     g.firstName,
     g.lastName,
@@ -194,8 +183,6 @@ export async function POST(req: Request) {
     guests: cleanedGuests,
     groupId,
     timestamp,
-    adultCount,
-    childrenCount,
   });
 
   return NextResponse.json({
