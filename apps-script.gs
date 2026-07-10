@@ -25,6 +25,10 @@
  * The sheet stores per-guest columns only, so there is no repeated TotalGuests
  * value on every row. The Age column is populated for children only.
  *
+ * Quick check after redeploy:
+ *   Open the Web app URL in a browser. It will migrate the header row and
+ *   return JSON showing the active schema version and headers.
+ *
  * To redeploy after editing: Deploy → Manage deployments → pencil icon → New version.
  * The URL stays stable across versions.
  */
@@ -40,6 +44,7 @@ const HEADERS = [
 ];
 
 const REMOVED_HEADERS = ["TotalGuests", "AdultCount", "ChildrenCount"];
+const SCHEMA_VERSION = "2026-07-10-age-column";
 
 function getHeaders_(sheet) {
   if (sheet.getLastRow() === 0 || sheet.getLastColumn() === 0) return [];
@@ -139,8 +144,22 @@ function doPost(e) {
   }
 }
 
-// Optional: a GET endpoint that confirms the script is wired up.
-// After deploy, hit the Web app URL in a browser — you should see "ok".
+// Optional: a GET endpoint that confirms the script is wired up and migrates
+// the header row without appending a guest RSVP.
 function doGet() {
-  return ContentService.createTextOutput("RSVP webhook is live.");
+  try {
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
+    ensureHeaders_(sheet);
+    return ContentService.createTextOutput(
+      JSON.stringify({
+        ok: true,
+        version: SCHEMA_VERSION,
+        headers: getHeaders_(sheet).slice(0, HEADERS.length),
+      })
+    ).setMimeType(ContentService.MimeType.JSON);
+  } catch (err) {
+    return ContentService.createTextOutput(
+      JSON.stringify({ ok: false, error: String(err && err.message || err) })
+    ).setMimeType(ContentService.MimeType.JSON);
+  }
 }
