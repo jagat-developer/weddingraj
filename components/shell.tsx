@@ -43,7 +43,9 @@ export function NewspaperShell({ pages, menu, initialIndex = 0 }: Props) {
   const [index, setIndex] = useState(initialIndex);
   const [direction, setDirection] = useState(0);
   const [musicPlaying, setMusicPlaying] = useState(false);
+  const [musicAutoplayBlocked, setMusicAutoplayBlocked] = useState(false);
   const musicRef = useRef<HTMLAudioElement | null>(null);
+  const musicWantedRef = useRef(true);
 
   useEffect(() => {
     const audio = musicRef.current;
@@ -59,24 +61,77 @@ export function NewspaperShell({ pages, menu, initialIndex = 0 }: Props) {
     };
   }, []);
 
+  const playMusic = useCallback(async () => {
+    const audio = musicRef.current;
+    if (!audio) return false;
+
+    try {
+      audio.muted = false;
+      audio.volume = 0.42;
+      await audio.play();
+      setMusicPlaying(true);
+      setMusicAutoplayBlocked(false);
+      return true;
+    } catch {
+      setMusicPlaying(false);
+      setMusicAutoplayBlocked(true);
+      return false;
+    }
+  }, []);
+
+  useEffect(() => {
+    musicWantedRef.current = true;
+    queueMicrotask(() => {
+      void playMusic();
+    });
+
+    const retryOnGesture = () => {
+      if (!musicWantedRef.current) return;
+      void playMusic();
+    };
+
+    window.addEventListener("pointerdown", retryOnGesture, {
+      capture: true,
+      once: true,
+    });
+    window.addEventListener("keydown", retryOnGesture, {
+      capture: true,
+      once: true,
+    });
+    window.addEventListener("touchstart", retryOnGesture, {
+      capture: true,
+      once: true,
+      passive: true,
+    });
+
+    return () => {
+      window.removeEventListener("pointerdown", retryOnGesture, {
+        capture: true,
+      });
+      window.removeEventListener("keydown", retryOnGesture, {
+        capture: true,
+      });
+      window.removeEventListener("touchstart", retryOnGesture, {
+        capture: true,
+      });
+    };
+  }, [playMusic]);
+
   const toggleMusic = useCallback(async () => {
     const audio = musicRef.current;
     if (!audio) return;
 
     if (!audio.paused) {
+      musicWantedRef.current = false;
       audio.pause();
       setMusicPlaying(false);
+      setMusicAutoplayBlocked(false);
       return;
     }
 
-    try {
-      audio.volume = 0.42;
-      await audio.play();
-      setMusicPlaying(true);
-    } catch {
-      setMusicPlaying(false);
-    }
-  }, []);
+    musicWantedRef.current = true;
+    await playMusic();
+  }, [playMusic]);
 
   const goTo = useCallback(
     (next: number, anchor?: string) => {
@@ -251,7 +306,9 @@ export function NewspaperShell({ pages, menu, initialIndex = 0 }: Props) {
         ref={musicRef}
         src={BACKGROUND_MUSIC_SRC}
         loop
-        preload="none"
+        autoPlay
+        playsInline
+        preload="auto"
       />
       <p className="sr-only">Music credit: {MUSIC_CREDIT}</p>
 
@@ -288,6 +345,7 @@ export function NewspaperShell({ pages, menu, initialIndex = 0 }: Props) {
         pages={pages}
         onGoto={goTo}
         musicPlaying={musicPlaying}
+        musicAutoplayBlocked={musicAutoplayBlocked}
         onToggleMusic={toggleMusic}
       />
 
@@ -306,6 +364,7 @@ function PageControls({
   pages,
   onGoto,
   musicPlaying,
+  musicAutoplayBlocked,
   onToggleMusic,
 }: {
   index: number;
@@ -313,6 +372,7 @@ function PageControls({
   pages: ShellPage[];
   onGoto: (i: number) => void;
   musicPlaying: boolean;
+  musicAutoplayBlocked: boolean;
   onToggleMusic: () => void;
 }) {
   return (
@@ -381,9 +441,14 @@ function PageControls({
       <button
         type="button"
         onClick={onToggleMusic}
-        aria-label={musicPlaying ? "Pause background music" : "Play background music"}
+        aria-label={
+          musicPlaying
+            ? "Pause background music"
+            : "Play background music"
+        }
         aria-pressed={musicPlaying}
-        className="text-ink hover:text-burgundy transition-colors p-1"
+        data-attention={musicAutoplayBlocked ? "true" : undefined}
+        className="text-ink hover:text-burgundy transition-colors p-1 data-[attention=true]:text-burgundy data-[attention=true]:animate-pulse"
         style={{
           transitionDuration: "var(--dur-base)",
           transitionTimingFunction: "var(--ease-out-emil)",
