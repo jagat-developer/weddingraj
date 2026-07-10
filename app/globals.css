@@ -811,9 +811,9 @@ p {
 }
 
 .clone-event-image-sangeet img {
-  object-position: 50% 64%;
-  transform: scale(1.58);
-  transform-origin: 50% 64%;
+  object-position: center;
+  transform: none;
+  transform-origin: center;
 }
 
 .clone-bottom-modules {
@@ -2004,9 +2004,9 @@ p {
 
   .clone-event-image-sangeet img {
     object-fit: cover;
-    object-position: 50% 64%;
-    transform: scale(1.58);
-    transform-origin: 50% 64%;
+    object-position: center;
+    transform: none;
+    transform-origin: center;
   }
 
   .clone-destination,

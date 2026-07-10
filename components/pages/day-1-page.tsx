@@ -31,10 +31,10 @@ export function Day1Page() {
         <Day1EventCard
           label="Evening Edition"
           data={day1.sangeet}
-          image="/images/clone-assets/sangeet-couple-tomorrowland.jpg"
-          alt="Shefali and Raj celebrating together at Tomorrowland"
-          imageWidth={464}
-          imageHeight={322}
+          image="/images/clone-assets/sangeet-couple-stage-close.jpg"
+          alt="Shefali and Raj celebrating together in front of a festival stage"
+          imageWidth={1245}
+          imageHeight={864}
           imageClassName="clone-event-image-sangeet"
         />
       </section>
