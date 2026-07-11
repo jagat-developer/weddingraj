@@ -1,8 +1,9 @@
 /**
  * Wedding Times — RSVP Webhook
  *
- * Paste this into the Apps Script editor attached to your Sheet
- * (https://docs.google.com/spreadsheets/d/1ZnYef9orQoyjahVSj9TsqRbNsjf4neWbr8QaJ_REL7Q/edit)
+ * Paste this into the Apps Script editor for your RSVP Web App.
+ * It writes to the RajXShefali Sheet:
+ * https://docs.google.com/spreadsheets/d/1GGvgMoLNBGIJTHQGEvUr4EC5MhVFvo4S-e760z9HskM/edit
  *
  * Setup (5 minutes):
  *   1. Open the Sheet
@@ -33,6 +34,9 @@
  * The URL stays stable across versions.
  */
 
+const SPREADSHEET_ID = "1GGvgMoLNBGIJTHQGEvUr4EC5MhVFvo4S-e760z9HskM";
+const SHEET_NAME = "Sheet1";
+
 const HEADERS = [
   "Timestamp",
   "GroupID",
@@ -44,7 +48,12 @@ const HEADERS = [
 ];
 
 const REMOVED_HEADERS = ["TotalGuests", "AdultCount", "ChildrenCount"];
-const SCHEMA_VERSION = "2026-07-10-age-column";
+const SCHEMA_VERSION = "2026-07-10-age-column-explicit-sheet";
+
+function getSheet_() {
+  const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
+  return spreadsheet.getSheetByName(SHEET_NAME) || spreadsheet.getSheets()[0];
+}
 
 function getHeaders_(sheet) {
   if (sheet.getLastRow() === 0 || sheet.getLastColumn() === 0) return [];
@@ -100,12 +109,38 @@ function ensureHeaders_(sheet) {
     .setBackground("#102844")
     .setFontColor("#fbf6ec");
   sheet.setFrozenRows(1);
+  backfillGuestTypes_(sheet);
+}
+
+function backfillGuestTypes_(sheet) {
+  const lastRow = sheet.getLastRow();
+  if (lastRow <= 1) return;
+
+  const dataRange = sheet.getRange(2, 1, lastRow - 1, HEADERS.length);
+  const rows = dataRange.getValues();
+  let changed = false;
+
+  rows.forEach(function (row) {
+    const current = String(row[2] || "").trim().toLowerCase();
+    const hasValidType = current === "adult" || current === "child";
+    if (hasValidType) return;
+
+    const firstName = String(row[3] || "").trim();
+    const lastName = String(row[4] || "").trim();
+    if (!firstName && !lastName) return;
+
+    const whatsapp = String(row[5] || "").trim();
+    row[2] = whatsapp ? "Adult" : "Child";
+    changed = true;
+  });
+
+  if (changed) dataRange.setValues(rows);
 }
 
 function doPost(e) {
   try {
     const body = JSON.parse(e.postData.contents);
-    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
+    const sheet = getSheet_();
     ensureHeaders_(sheet);
 
     const timestamp = body.timestamp || new Date().toISOString();
@@ -148,12 +183,14 @@ function doPost(e) {
 // the header row without appending a guest RSVP.
 function doGet() {
   try {
-    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
+    const sheet = getSheet_();
     ensureHeaders_(sheet);
     return ContentService.createTextOutput(
       JSON.stringify({
         ok: true,
         version: SCHEMA_VERSION,
+        spreadsheetId: SPREADSHEET_ID,
+        sheetName: sheet.getName(),
         headers: getHeaders_(sheet).slice(0, HEADERS.length),
       })
     ).setMimeType(ContentService.MimeType.JSON);
