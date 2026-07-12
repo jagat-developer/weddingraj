@@ -1270,6 +1270,64 @@ p {
   margin-inline: auto;
 }
 
+.clone-rsvp-qr-card {
+  overflow: hidden;
+  text-align: center;
+}
+
+.clone-rsvp-qr-kicker {
+  max-width: 30rem;
+  margin: 1.2rem auto 0;
+  color: #071a39;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font: 900 0.72rem/1.45 var(--font-sans);
+}
+
+.clone-rsvp-qr-frame {
+  width: min(78%, 18.5rem);
+  margin: 1.2rem auto 0;
+  padding: 0.72rem;
+  border: 1px solid rgba(155, 31, 25, 0.26);
+  background:
+    linear-gradient(#fffdf8, #fffdf8) padding-box,
+    repeating-linear-gradient(
+      45deg,
+      rgba(155, 31, 25, 0.14) 0 2px,
+      transparent 2px 8px
+    ) border-box;
+}
+
+.clone-rsvp-qr-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  image-rendering: pixelated;
+}
+
+.clone-rsvp-qr-copy {
+  max-width: 34rem;
+  margin: 1rem auto 0;
+  color: #071a39;
+  font: 800 0.95rem/1.45 var(--font-sans);
+}
+
+.clone-rsvp-qr-url {
+  display: inline-block;
+  margin-top: 0.85rem;
+  color: #9b1f19;
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  font: 900 0.82rem/1.2 var(--font-sans);
+}
+
+.clone-rsvp-qr-help {
+  max-width: 34rem;
+  margin: 0.8rem auto 0;
+  color: #071a39;
+  font: italic 800 0.84rem/1.45 var(--font-display);
+}
+
 .clone-rsvp-card {
   padding: 1rem 1.15rem;
 }

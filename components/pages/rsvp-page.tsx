@@ -20,7 +20,13 @@ import { RsvpForm } from "@/components/newspaper/rsvp-form";
 import { rsvp } from "@/lib/content";
 import { CloneIssueHeader, Ribbon } from "./day-1-page";
 
-export function RsvpPage() {
+type RsvpPageMode = "form" | "qr";
+
+const RSVP_QR_URL = "https://weddingraj.vercel.app/qr-rsvp";
+const RSVP_QR_DISPLAY_URL = "weddingraj.vercel.app/qr-rsvp";
+const RSVP_HELP_NUMBER = "+91 91672 82521";
+
+export function RsvpPage({ mode = "form" }: { mode?: RsvpPageMode }) {
   return (
     <article className="clone-sheet clone-rsvp">
       <CloneIssueHeader page="4" />
@@ -41,7 +47,7 @@ export function RsvpPage() {
       </section>
 
       <section id="rsvp-form" className="clone-rsvp-form-bottom scroll-mt-20">
-        <RsvpCard />
+        <RsvpCard mode={mode} />
       </section>
 
       <blockquote className="clone-rsvp-quote">
@@ -55,7 +61,9 @@ export function RsvpPage() {
   );
 }
 
-function RsvpCard() {
+function RsvpCard({ mode }: { mode: RsvpPageMode }) {
+  if (mode === "qr") return <RsvpQrCard />;
+
   return (
     <article className="clone-rsvp-card clone-rsvp-submit-card">
       <Ribbon>RSVP</Ribbon>
@@ -64,6 +72,36 @@ function RsvpCard() {
         instruction={rsvp.invite.instruction}
         assistance={rsvp.invite.assistance}
       />
+    </article>
+  );
+}
+
+function RsvpQrCard() {
+  return (
+    <article className="clone-rsvp-card clone-rsvp-submit-card clone-rsvp-qr-card">
+      <Ribbon>Scan To RSVP</Ribbon>
+      <p className="clone-rsvp-qr-kicker">
+        Kindly confirm your attendance by August 22, 2026.
+      </p>
+      <figure className="clone-rsvp-qr-frame">
+        <Image
+          src="/images/clone-assets/rsvp-qr.svg"
+          alt={`QR code for ${RSVP_QR_URL}`}
+          width={640}
+          height={640}
+          priority
+        />
+      </figure>
+      <p className="clone-rsvp-qr-copy">
+        Open your phone camera and scan this code to complete the RSVP form.
+      </p>
+      <a className="clone-rsvp-qr-url" href={RSVP_QR_URL}>
+        {RSVP_QR_DISPLAY_URL}
+      </a>
+      <p className="clone-rsvp-qr-help">
+        Need assistance? Reach the RSVP team on WhatsApp at{" "}
+        <span className="clone-nowrap">{RSVP_HELP_NUMBER}</span>.
+      </p>
     </article>
   );
 }
