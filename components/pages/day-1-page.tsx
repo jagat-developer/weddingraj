@@ -79,6 +79,7 @@ function EditionHero({ day, deck }: { day: string; deck: string }) {
           height={874}
           className="clone-leaf"
           aria-hidden="true"
+          loading="eager"
         />
         <h1>Day <span className="clone-edition-day-number">{day}</span> Edition</h1>
         <Image
@@ -88,6 +89,7 @@ function EditionHero({ day, deck }: { day: string; deck: string }) {
           height={874}
           className="clone-leaf right"
           aria-hidden="true"
+          loading="eager"
         />
       </div>
       <p>{deck}</p>
@@ -123,7 +125,13 @@ function Day1EventCard({
       <h3>What To Expect:</h3>
       <p>{data.expect}</p>
       <figure className={`clone-event-image ${imageClassName ?? ""}`}>
-        <Image src={image} alt={alt} width={imageWidth} height={imageHeight} />
+        <Image
+          src={image}
+          alt={alt}
+          width={imageWidth}
+          height={imageHeight}
+          loading="eager"
+        />
       </figure>
     </article>
   );

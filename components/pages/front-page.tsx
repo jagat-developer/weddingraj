@@ -66,6 +66,7 @@ export function FrontPage() {
             width={760}
             height={868}
             className="clone-destination-filler"
+            loading="eager"
           />
           <div className="clone-date-group">
             <p className="clone-section-label">Celebration Dates</p>

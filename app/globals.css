@@ -2599,3 +2599,170 @@ a[href]:focus-visible, button:focus-visible {
   width: 100%;
   will-change: transform, opacity;
 }
+
+/* Dedicated print packet: front page, day 1, day 2, and QR RSVP. */
+.clone-print-stage {
+  padding-block: clamp(1rem, 3vw, 2.5rem);
+}
+
+.clone-print-packet {
+  display: grid;
+  gap: clamp(1.25rem, 3vw, 2.75rem);
+}
+
+.clone-print-packet .clone-sheet {
+  margin-block: 0;
+}
+
+@page {
+  size: 1024px 2240px;
+  margin: 0;
+}
+
+@media print {
+  html,
+  body {
+    width: 1024px;
+    min-width: 1024px;
+    margin: 0 !important;
+    background: #fffdf8 !important;
+  }
+
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page-stage,
+  .clone-print-stage,
+  .clone-print-packet {
+    display: block !important;
+    width: 1024px !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    background: #fffdf8 !important;
+  }
+
+  .clone-print-packet .clone-sheet,
+  .clone-print-stage > .clone-sheet {
+    width: 1024px !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 2.25rem !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    overflow: hidden !important;
+    break-after: page;
+    page-break-after: always;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .clone-front {
+    padding-top: 1.35rem !important;
+  }
+
+  .clone-front-grid {
+    grid-template-columns: 0.78fr 1.45fr 0.9fr !important;
+  }
+
+  .clone-day1-events {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .clone-bottom-modules,
+  .clone-day2-modules {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  .clone-day2-modules {
+    grid-template-columns: minmax(0, 1.06fr) minmax(0, 1.48fr) minmax(0, 1.06fr) !important;
+  }
+
+  .clone-rsvp-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .clone-rsvp-lower {
+    grid-template-columns: 1.25fr 0.8fr !important;
+  }
+
+  .clone-travel-grid {
+    grid-template-columns: 0.9fr 1.1fr !important;
+  }
+
+  .clone-family-grid {
+    grid-template-columns: 1fr auto 1.35fr !important;
+    justify-items: stretch !important;
+    text-align: left !important;
+  }
+
+  .clone-journey-columns {
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    gap: 0 !important;
+  }
+
+  .clone-journey-card {
+    display: grid !important;
+    grid-template-rows: 2rem 7.35rem 3.1rem 1.5rem 4.25rem 4.35rem 1.25rem auto !important;
+    border-top: 0 !important;
+  }
+
+  .clone-journey-card:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 1rem;
+    left: calc(50% + 2.35rem);
+    right: calc(-50% + 2.35rem);
+    height: 2px;
+    background-image: radial-gradient(circle, rgba(7, 26, 57, 0.92) 1.35px, transparent 1.5px);
+    background-repeat: repeat-x;
+    background-size: 8px 2px;
+    background-position: left center;
+    opacity: 0.9;
+    transform: translateY(-50%);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .clone-event-card img,
+  .clone-front-photo img,
+  .clone-wide-photo {
+    border-radius: 12px !important;
+  }
+
+  .clone-front-photo img,
+  .clone-event-card img {
+    height: 100% !important;
+    object-fit: cover !important;
+    background: transparent !important;
+  }
+
+  .clone-front-photo img {
+    object-position: 56% center !important;
+  }
+
+  .clone-event-image-haldi img {
+    object-position: 68% 24% !important;
+    transform: scale(1.22) !important;
+    transform-origin: 68% 14% !important;
+  }
+
+  .clone-event-image-sangeet img {
+    object-position: center !important;
+    transform: none !important;
+    transform-origin: center !important;
+  }
+
+  .clone-print-packet .clone-sheet:last-child,
+  .clone-print-stage > .clone-sheet:last-child {
+    break-after: auto;
+    page-break-after: auto;
+  }
+
+  .clone-sheet img {
+    print-color-adjust: exact;
+  }
+}

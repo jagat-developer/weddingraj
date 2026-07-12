@@ -200,6 +200,7 @@ function Classifieds() {
           alt=""
           width={920}
           height={920}
+          loading="eager"
         />
       </figure>
     </article>

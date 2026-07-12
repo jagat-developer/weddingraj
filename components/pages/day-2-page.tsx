@@ -37,6 +37,7 @@ export function Day2Page() {
         width={1600}
         height={1011}
         className="clone-wide-photo"
+        loading="eager"
       />
 
       <section className="clone-day2-modules">
@@ -74,6 +75,7 @@ function JourneyColumn({
           width={img.width}
           height={img.height}
           className="clone-journey-icon"
+          loading="eager"
         />
       </span>
       <h2>{step.title}</h2>
