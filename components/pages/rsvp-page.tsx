@@ -81,7 +81,7 @@ function RsvpQrCard() {
     <article className="clone-rsvp-card clone-rsvp-submit-card clone-rsvp-qr-card">
       <Ribbon>Scan To RSVP</Ribbon>
       <p className="clone-rsvp-qr-kicker">
-        Kindly confirm your attendance by August 22, 2026.
+        Kindly scan the code below to complete your RSVP.
       </p>
       <figure className="clone-rsvp-qr-frame">
         <Image
