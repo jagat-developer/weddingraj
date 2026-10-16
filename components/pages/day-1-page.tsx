@@ -131,6 +131,7 @@ function Day1EventCard({
           width={imageWidth}
           height={imageHeight}
           loading="eager"
+          unoptimized
         />
       </figure>
     </article>
